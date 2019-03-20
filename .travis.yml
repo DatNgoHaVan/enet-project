@@ -7,5 +7,4 @@ install:
 - cd enson-be
 - dotnet restore
 script:
-- cd enson-be
 - dotnet build
