@@ -12,8 +12,8 @@ class Login extends Component {
                         <div className="col-md-6 div">
                             <div style={{position:'absolute', top:'20%'}}>
                                 <div className="form-control" style={{height:'400px', borderStyle: 'inset', width:'450px'}}>
-                                    <h3 className='title' style={{textAlign:'center', marginTop:'4vh', fontSize:'40px'}}>ENSON</h3>
-                                    <h4 style={{textAlign:'center'}}>Login</h4>
+                                    <h3 className='title'>ENSON</h3>
+                                    <h4 className='login-title'>Login</h4>
                                     <form>
                                         <div>
                                             <div>
@@ -42,8 +42,8 @@ class Login extends Component {
                                             </div>
                                             <div className="form-inline" style={{marginTop : '7%'}}>
                                                 <a href='#' style={{marginLeft:'5%'}}>Create account</a>
-                                                <div style={{textAlign: 'right',position:'absolute',left : '75%'}}>
-                                                <Button variant="primary" style={{width :'80px'}}  >Login</Button>
+                                                <div className="login">
+                                                <Button variant="primary" style={{width :'100px'}}  >Login</Button>
                                                 </div>
                                             </div>
                                         </div>
