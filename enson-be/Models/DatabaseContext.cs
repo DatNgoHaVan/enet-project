@@ -9,7 +9,7 @@ namespace enson_be.Models
     public class DatabaseContext : DbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
-            : base(options)
+           : base(options)
         {
 
         }
@@ -26,10 +26,31 @@ namespace enson_be.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-            modelBuilder.Entity<Relationship>()
-                .HasKey(c => new { c.UserMain, c.UserSub });           
+            base.OnModelCreating(modelbuilder);
+
+            modelbuilder.Entity<Comment>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Comments)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelbuilder.Entity<Comment>()
+                .HasOne(e => e.Post)
+                .WithMany(e => e.Comments)
+                .HasForeignKey(e => e.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelbuilder.Entity<Appeal>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Appeals)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelbuilder.Entity<Appeal>()
+                .HasOne(e => e.Report)
+                .WithMany(e => e.Appeals)
+                .HasForeignKey(e => e.ReportId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
+
     }
 }
