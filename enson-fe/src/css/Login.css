@@ -1,0 +1,19 @@
+@font-face {
+    font-family: lilyScript;
+    src: url('../assets/font/LilyScriptOne-Regular.ttf');
+}
+
+.title{
+    font-family: lilyScript;
+}
+
+.div{
+    position:   relative;
+    height: 100vh;
+}
+
+.main{
+    height: 400px;
+    border-style: inset;
+    width:  450px;
+}
