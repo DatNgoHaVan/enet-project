@@ -18,7 +18,7 @@ class Login extends Component {
                                         <div>
                                             <div>
                                                 <p style={{marginLeft:'5%'}}>Username: </p>
-                                                <input type="text" className="form-control" 
+                                                <input type="text" cd className="form-control" 
                                                 style={{
                                                     width:'90%',
                                                     marginLeft:'5%',
@@ -42,8 +42,8 @@ class Login extends Component {
                                             </div>
                                             <div className="form-inline" style={{marginTop : '7%'}}>
                                                 <a href='#' style={{marginLeft:'5%'}}>Create account</a>
-                                                <div className="login">
-                                                <Button variant="primary" style={{width :'100px'}}  >Login</Button>
+                                                <div className="login-div">
+                                                <Button variant="primary" className='login' style={{width :'100px'}}  > Login</Button>
                                                 </div>
                                             </div>
                                         </div>
