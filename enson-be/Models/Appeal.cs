@@ -9,7 +9,7 @@ namespace enson_be.Models
     {
         public long AppealId { get; set; }
         public DateTime Date { get; set; }
-        public int Status { get; set; }        
+        public int Status { get; set; }
         public long ReportId { get; set; }
         public Report Report { get; set; }
         public long UserId { get; set; }
