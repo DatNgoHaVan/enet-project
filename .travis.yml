@@ -1,0 +1,10 @@
+language: csharp
+dist: xenial
+mono: none
+sudo: required
+dotnet: 2.2
+install:
+- cd enson-be
+- dotnet restore
+script:
+- dotnet build
