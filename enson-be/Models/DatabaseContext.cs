@@ -30,6 +30,7 @@ namespace enson_be.Models
         {
             base.OnModelCreating(modelbuilder);
 
+            // table Comment has two foreign key: UserId, PostId
             modelbuilder.Entity<Comment>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.Comments)
@@ -40,6 +41,7 @@ namespace enson_be.Models
                 .WithMany(e => e.Comments)
                 .HasForeignKey(e => e.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
+            // table Appeal has two foreign key: UserId, ReportId 
             modelbuilder.Entity<Appeal>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.Appeals)
