@@ -10,7 +10,7 @@ namespace enson_be.Models
     public class ListUser
     {
         [Key, ForeignKey("User")]
-        public long UserID { get; set; }
+        public long UserId { get; set; }
         public string Except { get; set; }
         public string Only { get; set; }
         public virtual User User { get; set; }

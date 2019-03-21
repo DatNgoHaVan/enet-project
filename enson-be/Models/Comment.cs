@@ -9,7 +9,7 @@ namespace enson_be.Models
 {
     public class Comment
     {
-        [Required]
+        [Key]
         public long CommentId { get; set; } 
         public DateTime Date { get; set; }
         public string Content { get; set; }

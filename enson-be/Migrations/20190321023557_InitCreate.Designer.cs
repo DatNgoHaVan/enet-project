@@ -10,7 +10,7 @@ using enson_be.Models;
 namespace enson_be.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20190320094242_InitCreate")]
+    [Migration("20190321023557_InitCreate")]
     partial class InitCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,13 +88,13 @@ namespace enson_be.Migrations
 
             modelBuilder.Entity("enson_be.Models.ListUser", b =>
                 {
-                    b.Property<long>("UserID");
+                    b.Property<long>("UserId");
 
                     b.Property<string>("Except");
 
                     b.Property<string>("Only");
 
-                    b.HasKey("UserID");
+                    b.HasKey("UserId");
 
                     b.ToTable("ListUsers");
                 });
@@ -177,9 +177,9 @@ namespace enson_be.Migrations
 
             modelBuilder.Entity("enson_be.Models.Relationship", b =>
                 {
-                    b.Property<long>("UserMain");
-
-                    b.Property<long>("UserSub");
+                    b.Property<long>("RelationshipId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Block");
 
@@ -187,11 +187,13 @@ namespace enson_be.Migrations
 
                     b.Property<bool>("Friend");
 
-                    b.Property<long?>("UserID");
+                    b.Property<long>("UserId");
 
-                    b.HasKey("UserMain", "UserSub");
+                    b.Property<long>("UserSub");
 
-                    b.HasIndex("UserID");
+                    b.HasKey("RelationshipId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Relationships");
                 });
@@ -222,7 +224,7 @@ namespace enson_be.Migrations
 
                     b.Property<int>("Type");
 
-                    b.Property<long?>("UserID");
+                    b.Property<long?>("UserId");
 
                     b.HasKey("ReportId");
 
@@ -230,7 +232,7 @@ namespace enson_be.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reports");
                 });
@@ -250,7 +252,7 @@ namespace enson_be.Migrations
 
             modelBuilder.Entity("enson_be.Models.User", b =>
                 {
-                    b.Property<long>("UserID")
+                    b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -270,13 +272,13 @@ namespace enson_be.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<long>("RoleID");
+                    b.Property<long>("RoleId");
 
                     b.Property<string>("UserName");
 
-                    b.HasKey("UserID");
+                    b.HasKey("UserId");
 
-                    b.HasIndex("RoleID");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -286,12 +288,12 @@ namespace enson_be.Migrations
                     b.HasOne("enson_be.Models.Report", "Report")
                         .WithMany("Appeals")
                         .HasForeignKey("ReportId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("enson_be.Models.User", "User")
                         .WithMany("Appeals")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("enson_be.Models.Comment", b =>
@@ -299,12 +301,12 @@ namespace enson_be.Migrations
                     b.HasOne("enson_be.Models.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("enson_be.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("enson_be.Models.Content", b =>
@@ -319,7 +321,7 @@ namespace enson_be.Migrations
                 {
                     b.HasOne("enson_be.Models.User", "User")
                         .WithOne("ListUser")
-                        .HasForeignKey("enson_be.Models.ListUser", "UserID")
+                        .HasForeignKey("enson_be.Models.ListUser", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -351,7 +353,8 @@ namespace enson_be.Migrations
                 {
                     b.HasOne("enson_be.Models.User", "User")
                         .WithMany("Relationships")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("enson_be.Models.Report", b =>
@@ -367,14 +370,14 @@ namespace enson_be.Migrations
 
                     b.HasOne("enson_be.Models.User", "User")
                         .WithMany("Reports")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("enson_be.Models.User", b =>
                 {
                     b.HasOne("enson_be.Models.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleID")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

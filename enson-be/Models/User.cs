@@ -8,8 +8,8 @@ namespace enson_be.Models
 {
     public class User
     {
-        [Required]
-        public long UserID { get; set; }
+        [Key]
+        public long UserId { get; set; }
         public string UserName { get; set; }
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
@@ -19,7 +19,7 @@ namespace enson_be.Models
         public DateTime Birthday { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public long RoleID { get; set; }
+        public long RoleId { get; set; }
         public Role Role { get; set; }
         public virtual List<Post> Posts { get; set; }
         public virtual List<Comment> Comments { get; set; }

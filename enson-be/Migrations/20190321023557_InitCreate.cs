@@ -40,7 +40,7 @@ namespace enson_be.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserID = table.Column<long>(nullable: false)
+                    UserId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
@@ -51,14 +51,14 @@ namespace enson_be.Migrations
                     Birthday = table.Column<DateTime>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    RoleID = table.Column<long>(nullable: false)
+                    RoleId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_RoleID",
-                        column: x => x.RoleID,
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "RoleId",
                         onDelete: ReferentialAction.Cascade);
@@ -80,7 +80,7 @@ namespace enson_be.Migrations
                         name: "FK_Contents_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -88,18 +88,18 @@ namespace enson_be.Migrations
                 name: "ListUsers",
                 columns: table => new
                 {
-                    UserID = table.Column<long>(nullable: false),
+                    UserId = table.Column<long>(nullable: false),
                     Except = table.Column<string>(nullable: true),
                     Only = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ListUsers", x => x.UserID);
+                    table.PrimaryKey("PK_ListUsers", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_ListUsers_Users_UserID",
-                        column: x => x.UserID,
+                        name: "FK_ListUsers_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -123,7 +123,7 @@ namespace enson_be.Migrations
                         name: "FK_Posts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -131,22 +131,23 @@ namespace enson_be.Migrations
                 name: "Relationships",
                 columns: table => new
                 {
-                    UserMain = table.Column<long>(nullable: false),
+                    RelationshipId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<long>(nullable: false),
                     UserSub = table.Column<long>(nullable: false),
                     Friend = table.Column<bool>(nullable: false),
                     Follow = table.Column<bool>(nullable: false),
-                    Block = table.Column<bool>(nullable: false),
-                    UserID = table.Column<long>(nullable: true)
+                    Block = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Relationships", x => new { x.UserMain, x.UserSub });
+                    table.PrimaryKey("PK_Relationships", x => x.RelationshipId);
                     table.ForeignKey(
-                        name: "FK_Relationships_Users_UserID",
-                        column: x => x.UserID,
+                        name: "FK_Relationships_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,13 +170,13 @@ namespace enson_be.Migrations
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "PostId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,7 +235,7 @@ namespace enson_be.Migrations
                     ApproveDate = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     Count = table.Column<int>(nullable: false),
-                    UserID = table.Column<long>(nullable: true),
+                    UserId = table.Column<long>(nullable: true),
                     PostId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
@@ -253,10 +254,10 @@ namespace enson_be.Migrations
                         principalColumn: "PostId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reports_Users_UserID",
-                        column: x => x.UserID,
+                        name: "FK_Reports_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -279,13 +280,13 @@ namespace enson_be.Migrations
                         column: x => x.ReportId,
                         principalTable: "Reports",
                         principalColumn: "ReportId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Appeals_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -324,9 +325,9 @@ namespace enson_be.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Relationships_UserID",
+                name: "IX_Relationships_UserId",
                 table: "Relationships",
-                column: "UserID");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reports_ContentId",
@@ -339,14 +340,14 @@ namespace enson_be.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reports_UserID",
+                name: "IX_Reports_UserId",
                 table: "Reports",
-                column: "UserID");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleID",
+                name: "IX_Users_RoleId",
                 table: "Users",
-                column: "RoleID");
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
