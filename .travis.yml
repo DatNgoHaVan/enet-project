@@ -1,10 +1,29 @@
-language: csharp
-dist: xenial
-mono: none
-sudo: required
-dotnet: 2.2
-install:
-- cd enson-be
-- dotnet restore
-script:
-- dotnet build
+matrix:
+  include:
+    - language: csharp
+    dist: xenial
+    mono: none
+    sudo: required
+    dotnet: 2.2
+    install:
+    - cd enson-be
+    - dotnet restore
+    script:
+    - dotnet build
+
+    - language: node_js
+      node_js:
+        - "stable"
+      cache:
+        directories:
+        - node_modules
+      script:
+        - cd enson-fe
+        - npm install
+        - npm test
+        - npm run build
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $githubToken
+        local_dir: build
