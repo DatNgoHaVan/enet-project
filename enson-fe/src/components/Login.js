@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button, Form, Row, Container, Image, Col } from 'react-bootstrap/';
 import '../css/Login.css'
 
 class Login extends Component {
     render() {
         return (
             <div style={{backgroundColor:'#00cc99'}}>
-                <div className="container" >
-                    <div className ="row">
-                        <div className="col-md-3"></div>
-                        <div className="col-md-6 div">
+                <Container>
+                    <Row>
+                        <Col md={3}></Col>
+                        <Col md={6} className="div">
                             <div style={{position:'absolute', top:'20%'}}>
                                 <div className="form-control" style={{height:'400px', borderStyle: 'inset', width:'450px'}}>
                                     <h3 className='title'>ENSON</h3>
                                     <h4 className='login-title'>Login</h4>
-                                    <form>
+                                    <Form>
                                         <div>
                                             <div>
                                                 <p style={{marginLeft:'5%'}}>Username: </p>
@@ -47,13 +47,13 @@ class Login extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </Form>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-md-6"></div>
-                    </div>
-                </div>
+                        </Col>
+                        <Col md={3}></Col>
+                    </Row>
+                </Container>
             </div>
         );
     }
