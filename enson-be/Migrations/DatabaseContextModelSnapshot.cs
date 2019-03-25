@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using enson_be.Models;
 
 namespace enson_be.Migrations
@@ -15,15 +15,14 @@ namespace enson_be.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("enson_be.Models.Appeal", b =>
                 {
                     b.Property<long>("AppealId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Date");
 
@@ -45,8 +44,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Comment", b =>
                 {
                     b.Property<long>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");
 
@@ -70,8 +68,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Content", b =>
                 {
                     b.Property<long>("ContentId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ContentName");
 
@@ -100,8 +97,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Log", b =>
                 {
                     b.Property<long>("LogId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");
 
@@ -117,8 +113,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Post", b =>
                 {
                     b.Property<long>("PostId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");
 
@@ -153,8 +148,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Reaction", b =>
                 {
                     b.Property<long>("ReactionId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");
 
@@ -176,8 +170,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Relationship", b =>
                 {
                     b.Property<long>("RelationshipId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Block");
 
@@ -199,8 +192,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Report", b =>
                 {
                     b.Property<long>("ReportId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("ApproveDate");
 
@@ -238,8 +230,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Role", b =>
                 {
                     b.Property<long>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Type");
 
@@ -251,8 +242,7 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.User", b =>
                 {
                     b.Property<long>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
 
