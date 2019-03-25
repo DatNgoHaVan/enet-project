@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace enson_be.Migrations
 {
-    public partial class InitCreate : Migration
+    public partial class initialSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     LogId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Content = table.Column<string>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: false),
                     ModifiedBy = table.Column<DateTime>(nullable: false)
@@ -28,7 +28,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     RoleId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -41,7 +41,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     UserName = table.Column<string>(nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
@@ -69,7 +69,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     ContentId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ContentName = table.Column<string>(nullable: true),
                     UserId = table.Column<long>(nullable: false)
                 },
@@ -108,7 +108,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Type = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
@@ -132,7 +132,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     RelationshipId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     UserId = table.Column<long>(nullable: false),
                     UserSub = table.Column<long>(nullable: false),
                     Friend = table.Column<bool>(nullable: false),
@@ -155,7 +155,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     CommentId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
@@ -202,7 +202,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     ReactionId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     PostId = table.Column<long>(nullable: false),
                     UserId = table.Column<long>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
@@ -225,7 +225,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     ReportId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ReporterId = table.Column<long>(nullable: false),
                     Type = table.Column<int>(nullable: false),
                     ContentId = table.Column<long>(nullable: false),
@@ -266,7 +266,7 @@ namespace enson_be.Migrations
                 columns: table => new
                 {
                     AppealId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     ReportId = table.Column<long>(nullable: false),
