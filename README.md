@@ -5,7 +5,7 @@ An social network project for training.
 ## Build Status
 | Build server    | Platform       | Status      |
 |-----------------|----------------|-------------|
-|Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/DatNgoHaVan/enson-project.svg?branch=dev)](https://travis-ci.com/DatNgoHaVan/enson-project) |
+|Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/DatNgoHaVan/enson-project.svg?token=44Dp4xgu5dU6gYhiYCoY&branch=dev)](https://travis-ci.com/DatNgoHaVan/enson-project)|
 
 ##THESE GUIDE FOR RUNNING BACK-END
 
