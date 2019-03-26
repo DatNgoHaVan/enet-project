@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace enson_be.Models
 {
     public class Report
     {
+        [Key]
         public long ReportId { get; set; }
         public long ReporterId { get; set; }
         public int Type { get; set; }
@@ -21,5 +23,7 @@ namespace enson_be.Models
         public User User { get; set; }
         public Post Post { get; set; }
         public Content Content { get; set; }
+        public long ReportTypeId { get; set; }
+        public ReportType ReportType { get; set; }
     }
 }

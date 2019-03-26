@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190320094242_InitCreate.cs" />
-    <Compile Remove="Migrations\20190320094242_InitCreate.Designer.cs" />
-    <Compile Remove="Migrations\20190321011851_Database.cs" />
-    <Compile Remove="Migrations\20190321011851_Database.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>

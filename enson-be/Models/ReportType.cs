@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace enson_be.Models
 {
-    public class Role
+    public class ReportType
     {
         [Key]
-        public long RoleId { get; set; }
-        public string Type { get; set; }
-        public virtual List<User> Users { get; set; }
+        public long ReportTypeId { get; set; }
+        public string ReportTypeName { get; set; }
+        public virtual List<Report> Reports { get; set; }
     }
 }

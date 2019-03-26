@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace enson_be.Models
 {
-    public class ListUser
+    public class AvailbleOptions
     {
-        [Key, ForeignKey("User")]
-        public long UserId { get; set; }
-        public string Except { get; set; }
-        public string Only { get; set; }
-        public virtual User User { get; set; }
+        [Key]
+        public long AvailbleOptionsId { get; set; }
+        public string Content { get; set; }
     }
 }

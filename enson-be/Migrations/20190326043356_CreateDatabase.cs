@@ -4,10 +4,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace enson_be.Migrations
 {
-    public partial class InitCreate : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AvailbleOptions",
+                columns: table => new
+                {
+                    AvailbleOptionsId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Content = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvailbleOptions", x => x.AvailbleOptionsId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Logs",
                 columns: table => new
@@ -21,6 +34,19 @@ namespace enson_be.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logs", x => x.LogId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReportTypes",
+                columns: table => new
+                {
+                    ReportTypeId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ReportTypeName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReportTypes", x => x.ReportTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,19 +111,48 @@ namespace enson_be.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ListUsers",
+                name: "Expects",
                 columns: table => new
                 {
-                    UserId = table.Column<long>(nullable: false),
-                    Except = table.Column<string>(nullable: true),
-                    Only = table.Column<string>(nullable: true)
+                    UserIdMain = table.Column<long>(nullable: false),
+                    UserIdSub = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ListUsers", x => x.UserId);
+                    table.PrimaryKey("PK_Expects", x => new { x.UserIdMain, x.UserIdSub });
                     table.ForeignKey(
-                        name: "FK_ListUsers_Users_UserId",
-                        column: x => x.UserId,
+                        name: "Expect1",
+                        column: x => x.UserIdMain,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "Expect2",
+                        column: x => x.UserIdSub,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Only",
+                columns: table => new
+                {
+                    UserIdMain = table.Column<long>(nullable: false),
+                    UserIdSub = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Only", x => new { x.UserIdMain, x.UserIdSub });
+                    table.ForeignKey(
+                        name: "Only1",
+                        column: x => x.UserIdMain,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "Only2",
+                        column: x => x.UserIdSub,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -112,13 +167,19 @@ namespace enson_be.Migrations
                     Type = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    VisibleOptions = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
-                    UserId = table.Column<long>(nullable: false)
+                    UserId = table.Column<long>(nullable: false),
+                    AvailbleOptionsId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.PostId);
+                    table.ForeignKey(
+                        name: "FK_Posts_AvailbleOptions_AvailbleOptionsId",
+                        column: x => x.AvailbleOptionsId,
+                        principalTable: "AvailbleOptions",
+                        principalColumn: "AvailbleOptionsId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Posts_Users_UserId",
                         column: x => x.UserId,
@@ -180,21 +241,28 @@ namespace enson_be.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostVisibleOptions",
+                name: "OptionPostUsers",
                 columns: table => new
                 {
                     PostId = table.Column<long>(nullable: false),
-                    ListUser = table.Column<string>(nullable: true)
+                    UserId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostVisibleOptions", x => x.PostId);
+                    table.PrimaryKey("PK_OptionPostUsers", x => new { x.UserId, x.PostId });
+                    table.UniqueConstraint("AK_OptionPostUsers_PostId_UserId", x => new { x.PostId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_PostVisibleOptions_Posts_PostId",
+                        name: "FK_OptionPostUsers_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "PostId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OptionPostUsers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,7 +304,8 @@ namespace enson_be.Migrations
                     Status = table.Column<int>(nullable: false),
                     Count = table.Column<int>(nullable: false),
                     UserId = table.Column<long>(nullable: true),
-                    PostId = table.Column<long>(nullable: true)
+                    PostId = table.Column<long>(nullable: true),
+                    ReportTypeId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -253,6 +322,12 @@ namespace enson_be.Migrations
                         principalTable: "Posts",
                         principalColumn: "PostId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reports_ReportTypes_ReportTypeId",
+                        column: x => x.ReportTypeId,
+                        principalTable: "ReportTypes",
+                        principalColumn: "ReportTypeId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reports_Users_UserId",
                         column: x => x.UserId,
@@ -315,6 +390,21 @@ namespace enson_be.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Expects_UserIdSub",
+                table: "Expects",
+                column: "UserIdSub");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Only_UserIdSub",
+                table: "Only",
+                column: "UserIdSub");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_AvailbleOptionsId",
+                table: "Posts",
+                column: "AvailbleOptionsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
@@ -340,6 +430,11 @@ namespace enson_be.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reports_ReportTypeId",
+                table: "Reports",
+                column: "ReportTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reports_UserId",
                 table: "Reports",
                 column: "UserId");
@@ -359,13 +454,16 @@ namespace enson_be.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "ListUsers");
+                name: "Expects");
 
             migrationBuilder.DropTable(
                 name: "Logs");
 
             migrationBuilder.DropTable(
-                name: "PostVisibleOptions");
+                name: "Only");
+
+            migrationBuilder.DropTable(
+                name: "OptionPostUsers");
 
             migrationBuilder.DropTable(
                 name: "Reactions");
@@ -381,6 +479,12 @@ namespace enson_be.Migrations
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "ReportTypes");
+
+            migrationBuilder.DropTable(
+                name: "AvailbleOptions");
 
             migrationBuilder.DropTable(
                 name: "Users");
