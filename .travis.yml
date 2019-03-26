@@ -12,13 +12,12 @@ matrix:
     - dotnet build
 
     - language: node_js
+    sudo: false
     node_js:
       - "stable"
-    cache:
-    directories:
-    - node_modules
+    install:
+    - cd enson-fe && npm install
     script:
-    - cd enson-fe
     - npm test
     - npm run build
 
