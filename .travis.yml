@@ -17,8 +17,10 @@ matrix:
     node_js:
       - 8
       - 10
+    before_install:
+    - cd enson-fe
     install:
-    - cd enson-fe && npm install
+    - npm install
     script:
     - npm run build
     deploy:
