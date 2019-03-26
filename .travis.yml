@@ -12,14 +12,22 @@ matrix:
     - dotnet build
 
     - language: node_js
+    dist: xenial
     sudo: false
     node_js:
-      - "stable"
+      - 8
+      - 10
     install:
     - cd enson-fe && npm install
     script:
-    - npm test
     - npm run build
+    deploy:
+    provider: pages
+    skip_cleanup: true
+    github_token: $github_token
+    local_dir: build
+    on:
+      branch: dev
 
 notifications:
   email: false
