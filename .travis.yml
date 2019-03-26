@@ -1,28 +1,13 @@
-matrix:
-  include:
-    - language: csharp
-    dist: xenial
-    mono: none
-    sudo: required
-    dotnet: 2.2
-    install:
-    - cd enson-be
-    - dotnet restore
-    script:
-    - dotnet build
-
-    - language: node_js
-    dist: xenial
-    sudo: false
-    node_js:
-      - 8
-      - 10
-    before_install:
-    - cd enson-fe
-    install:
-    - npm install
-    script:
-    - npm run build
+language: csharp
+dist: xenial
+mono: none
+sudo: required
+dotnet: 2.2
+install:
+- cd enson-be
+- dotnet restore
+script:
+- dotnet build
 
 notifications:
   email: false
