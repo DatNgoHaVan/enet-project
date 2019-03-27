@@ -41,3 +41,8 @@
     color: #007bff !important;
     background-color: white !important;
 }
+
+.notice{
+    color: red;
+    font-size: 12px;
+}

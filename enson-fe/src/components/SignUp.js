@@ -7,14 +7,12 @@ class SignUp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user: {
-                firstName: '',
-                lastName: '',
-                email : '',
-                username: '',
-                password: '',
-                confirmPassword: '',
-            },
+            firstName: '',
+            lastName: '',
+            email : '',
+            username: '',
+            password: '',
+            confirmPassword: '',
             submitted: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,16 +22,18 @@ class SignUp extends Component {
         event.preventDefault();
 
         this.setState({submitted : true});
-        const {user} = this.state;
+        const {firstName,lastName,email,username,password,confirmPassword} = this.state;
         const { dispatch } = this.props;
         console.log(dispatch);
-        if (user.firstName && user.lastName && user.username && user.password && user.email && user.confirmPassword) {
-            dispatch(register(user));
+        if (firstName && lastName && username && password && email && confirmPassword) {
+       //        dispatch(register(user));
         }
     }
 
     render() {
-        const {user, submitted} = this.state;
+        const {firstName,lastName,email,username,password,confirmPassword, submitted} = this.state;
+        console.log(firstName);
+        console.log((firstName == ''));
         return (
             <Container style={{ marginTop: "4%", padding: "30px", height: "auto", width: "500px", backgroundColor: "#FFF" }} >
                 <Col>
@@ -54,20 +54,24 @@ class SignUp extends Component {
                                 <Col>
                                     <Form.Group controlId="firstName">
                                         <Form.Label>First Name</Form.Label>
-                                        <Form.Control type="text" placeholder="" onChange={firstName => this.setState({firstName})} />
+                                        <Form.Control type="text" placeholder="" onChange={e => this.setState({ firstName:e.target.value})} />
                                         <Form.Text className="text-muted">
+                                            {submitted && !firstName &&
+                                                <div><p className='notice'>First Name is required</p></div>
+                                            }
                                         </Form.Text>
-                                        {submitted && !user.firstName &&
-                                            <div>First Name is required</div>
-                                        }
+                                        
                                     </Form.Group>
                                 </Col>
 
                                 <Col>
                                     <Form.Group controlId="lastName">
                                         <Form.Label>Last Name</Form.Label>
-                                        <Form.Control type="text" placeholder="" onChange={lastName => this.setState({lastName})}/>
+                                        <Form.Control type="text" placeholder="" onChange={e => this.setState({ lastName:e.target.value})}/>
                                         <Form.Text className="text-muted">
+                                            {submitted &&!lastName &&
+                                                <div><p className='notice'>Last Name is required</p></div>
+                                            }
                                         </Form.Text>
                                     </Form.Group>
                                 </Col>
@@ -77,15 +81,20 @@ class SignUp extends Component {
                                 <Col>
                                     <Form.Group controlId="formEmail" >
                                         <Form.Label>Email address</Form.Label >
-                                        <Form.Control type="email" placeholder="" onChange={email => this.setState({email})} />
+                                        <Form.Control type="email" placeholder="" onChange={e => this.setState({ email:e.target.value})} />
                                         <Form.Text className="text-muted">
+                                            {submitted && !email &&
+                                                <div><p className='notice'>Email is required</p></div>
+                                            }
                                         </Form.Text>
                                     </Form.Group>
                                     <Form.Group controlId="formUsername" >
                                         <Form.Label>Username</Form.Label >
-                                        <Form.Control type="text" placeholder="" onChange={username => this.setState({username})}/>
+                                        <Form.Control type="text" placeholder="" onChange={e => this.setState({ username:e.target.value})}/>
                                         <Form.Text className="text-muted">
-                                            You can use letters, numbers & periods
+                                            {(submitted && !username)? 
+                                                <div><p className='notice'>Username is required</p></div>:<div>You can use letters, numbers & periods</div>
+                                            }
                                         </Form.Text>
                                     </Form.Group>
 
@@ -93,18 +102,22 @@ class SignUp extends Component {
                                         <Col>
                                             <Form.Group controlId="formPassword" >
                                                 <Form.Label>Password</Form.Label >
-                                                <Form.Control type="password" placeholder="" onChange={password => this.setState({password})} />
+                                                <Form.Control type="password" placeholder="" onChange={e => this.setState({ password:e.target.value})} />
                                                 <Form.Text className="text-muted">
-                                                    You can use letters, numbers & periods
+                                                    {(submitted && !password)?
+                                                        <div><p className='notice'>Password is required</p></div>:<div>You can use letters, numbers & periods</div>
+                                                    }   
                                                 </Form.Text>
                                             </Form.Group>
                                         </Col>
                                         <Col>
                                             <Form.Group controlId="formConfirmPassword" >
                                                 <Form.Label>Confirm Password</Form.Label >
-                                                <Form.Control type="password" placeholder="" onChange={confirmPassword => this.setState({confirmPassword})} />
+                                                <Form.Control type="password" placeholder="" onChange={e => this.setState({ confirmPassword:e.target.value})} />
                                                 <Form.Text className="text-muted">
-                                                    You can use letters, numbers & periods
+                                                    {(submitted && !confirmPassword )?
+                                                        <div><p className='notice'>Comfirm password is required</p></div> :<div>You can use letters, numbers & periods</div>
+                                                    }   
                                                 </Form.Text>
                                             </Form.Group>
                                         </Col>
