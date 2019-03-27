@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace enson_be.Data
 {
-    public class LoginRepository
+    public class LoginRepository:ILoginRepository
     {
         private readonly DatabaseContext _context;
         public LoginRepository(DatabaseContext context)
