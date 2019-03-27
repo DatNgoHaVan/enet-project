@@ -10,5 +10,8 @@ namespace enson_be.Data
 
         //Represents an asynchronous operation that return true/false for user exist already
         Task<bool> UserExist(string username);
+
+        //Represents an asynchronous operation that return true/false for email exist already
+        Task<bool> EmailExist(string email);
     }
 }

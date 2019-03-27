@@ -62,5 +62,12 @@ namespace enson_be.Data
                 return true;
             return false;
         }
+
+        public async Task<bool> EmailExist(string email)
+        {
+            if (await _context.Users.AnyAsync(x => x.Email == email))
+                return true;
+            return false;
+        }
     }
 }
