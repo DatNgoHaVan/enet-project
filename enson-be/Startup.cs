@@ -32,7 +32,7 @@ namespace enson_be
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
             //add scoped for register repository
-            services.AddScoped<IRegisterRepository,RegisterRepository>();
+            services.AddScoped<IRegisterRepository,RegisterRepository>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +50,7 @@ namespace enson_be
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            
         }
     }
 }

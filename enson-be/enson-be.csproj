@@ -6,6 +6,19 @@
     <RootNamespace>enson_be</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190328025403_createDB.cs" />
+    <Compile Remove="Migrations\20190328025403_createDB.Designer.cs" />
+    <Compile Remove="Migrations\20190328034625_createDB.cs" />
+    <Compile Remove="Migrations\20190328034625_createDB.Designer.cs" />
+    <Compile Remove="Migrations\20190328035934_createDB.cs" />
+    <Compile Remove="Migrations\20190328035934_createDB.Designer.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />

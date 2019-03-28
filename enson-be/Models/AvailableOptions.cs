@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace enson_be.Models
 {
-    public class AvailbleOptions
+    public class AvailableOptions
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public long AvailbleOptionsId { get; set; }
+        public long AvailableOptionsId { get; set; }
         public string Content { get; set; }
     }
 }

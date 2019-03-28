@@ -11,6 +11,7 @@ namespace enson_be.Models
     {
         [Key, Column(Order = 1)]
         public long PostId { get; set; }
+
         [Key, Column(Order = 2)]
         public long UserId { get; set; }
         [ForeignKey("PostId")]

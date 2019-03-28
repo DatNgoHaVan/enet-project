@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using enson_be.Data;
 using enson_be.Dtos;
@@ -17,7 +17,11 @@ namespace enson_be.Controllers
         {
             _repo = repo;
         }
-
+        /// <summary>
+        /// create new account
+        /// </summary>
+        /// <param name="userForRegisterDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {

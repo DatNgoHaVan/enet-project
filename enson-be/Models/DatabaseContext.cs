@@ -15,7 +15,7 @@ namespace enson_be.Models
         }
         // create table in SQLServer
         public DbSet<Appeal> Appeals { get; set; }
-        public DbSet<AvailbleOptions> AvailbleOptions { get; set; }
+        public DbSet<AvailableOptions> AvailableOptions { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Content> Contents { get; set; }
         public DbSet<Expect> Expects { get; set; }
@@ -75,7 +75,6 @@ namespace enson_be.Models
 
             modelbuilder.Entity<Expect>()
                 .HasKey(e => new { e.UserIdMain, e.UserIdSub });
-
             // table Expect have two primary key from table User so we have Expect1, Expect2, User1, User2.
             modelbuilder.Entity<Expect>()
                 .HasOne(e => e.User1)

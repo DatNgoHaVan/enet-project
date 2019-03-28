@@ -12,6 +12,7 @@ namespace enson_be.Models
         [Key]
         [Column(Order = 1)]
         public long UserIdMain { get; set; }
+
         [Key]
         [Column(Order = 2)]
         public long UserIdSub { get; set; }

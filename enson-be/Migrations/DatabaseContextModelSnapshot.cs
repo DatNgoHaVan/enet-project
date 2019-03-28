@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using enson_be.Models;
 
 namespace enson_be.Migrations
@@ -15,20 +15,21 @@ namespace enson_be.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("enson_be.Models.Appeal", b =>
                 {
                     b.Property<long>("AppealId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime?>("Date");
 
                     b.Property<long>("ReportId");
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("Status");
 
                     b.Property<long>("UserId");
 
@@ -41,26 +42,28 @@ namespace enson_be.Migrations
                     b.ToTable("Appeals");
                 });
 
-            modelBuilder.Entity("enson_be.Models.AvailbleOptions", b =>
+            modelBuilder.Entity("enson_be.Models.AvailableOptions", b =>
                 {
-                    b.Property<long>("AvailbleOptionsId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<long>("AvailableOptionsId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content");
 
-                    b.HasKey("AvailbleOptionsId");
+                    b.HasKey("AvailableOptionsId");
 
-                    b.ToTable("AvailbleOptions");
+                    b.ToTable("AvailableOptions");
                 });
 
             modelBuilder.Entity("enson_be.Models.Comment", b =>
                 {
                     b.Property<long>("CommentId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime?>("Date");
 
                     b.Property<string>("Image");
 
@@ -80,7 +83,8 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Content", b =>
                 {
                     b.Property<long>("ContentId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContentName");
 
@@ -109,13 +113,14 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Log", b =>
                 {
                     b.Property<long>("LogId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content");
 
-                    b.Property<DateTime>("ModifiedBy");
+                    b.Property<DateTime?>("ModifiedBy");
 
-                    b.Property<DateTime>("ModifiedDate");
+                    b.Property<DateTime?>("ModifiedDate");
 
                     b.HasKey("LogId");
 
@@ -151,13 +156,14 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Post", b =>
                 {
                     b.Property<long>("PostId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AvailbleOptionsId");
+                    b.Property<long>("AvailableOptionsId");
 
                     b.Property<string>("Content");
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("Status");
 
                     b.Property<string>("Type");
 
@@ -167,7 +173,7 @@ namespace enson_be.Migrations
 
                     b.HasKey("PostId");
 
-                    b.HasIndex("AvailbleOptionsId");
+                    b.HasIndex("AvailableOptionsId");
 
                     b.HasIndex("UserId");
 
@@ -177,11 +183,12 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Reaction", b =>
                 {
                     b.Property<long>("ReactionId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime?>("Date");
 
                     b.Property<string>("Image");
 
@@ -199,13 +206,14 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Relationship", b =>
                 {
                     b.Property<long>("RelationshipId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Block");
+                    b.Property<bool?>("Block");
 
-                    b.Property<bool>("Follow");
+                    b.Property<bool?>("Follow");
 
-                    b.Property<bool>("Friend");
+                    b.Property<bool?>("Friend");
 
                     b.Property<long>("UserId");
 
@@ -221,29 +229,30 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Report", b =>
                 {
                     b.Property<long>("ReportId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ApproveDate");
+                    b.Property<DateTime?>("ApproveDate");
 
                     b.Property<long>("BeReportedId");
 
                     b.Property<long>("ContentId");
 
-                    b.Property<int>("Count");
+                    b.Property<int?>("Count");
 
-                    b.Property<long>("Judge");
+                    b.Property<long?>("Judge");
 
                     b.Property<long?>("PostId");
 
-                    b.Property<DateTime>("ReportDate");
+                    b.Property<DateTime?>("ReportDate");
 
                     b.Property<long>("ReportTypeId");
 
                     b.Property<long>("ReporterId");
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("Status");
 
-                    b.Property<int>("Type");
+                    b.Property<int?>("Type");
 
                     b.Property<long?>("UserId");
 
@@ -263,7 +272,8 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.ReportType", b =>
                 {
                     b.Property<long>("ReportTypeId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ReportTypeName");
 
@@ -275,7 +285,8 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.Role", b =>
                 {
                     b.Property<long>("RoleId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Type");
 
@@ -287,11 +298,12 @@ namespace enson_be.Migrations
             modelBuilder.Entity("enson_be.Models.User", b =>
                 {
                     b.Property<long>("UserId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address");
 
-                    b.Property<DateTime>("Birthday");
+                    b.Property<DateTime?>("Birthday");
 
                     b.Property<string>("Email");
 
@@ -395,9 +407,9 @@ namespace enson_be.Migrations
 
             modelBuilder.Entity("enson_be.Models.Post", b =>
                 {
-                    b.HasOne("enson_be.Models.AvailbleOptions", "AvailbleOptions")
+                    b.HasOne("enson_be.Models.AvailableOptions", "AvailableOptions")
                         .WithMany()
-                        .HasForeignKey("AvailbleOptionsId")
+                        .HasForeignKey("AvailableOptionsId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("enson_be.Models.User", "User")
