@@ -44,7 +44,7 @@ namespace enson_be.Data
         /**Hash password */
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            /**return passwordHas and passwordSalt */
+            /**return passwordHash and passwordSalt */
             /*Auto generate key hmac */
             using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {
