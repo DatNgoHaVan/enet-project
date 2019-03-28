@@ -1,14 +1,15 @@
 import { alertError } from './AlertAction';
-import {userConstants} from './ActionType';
-import {history} from '../History';
+import { userConstants } from './ActionType';
+import { history } from '../History';
+import { login } from '../../services/AuthService'
 
-export const login = (username, password) => {
+export const loginAction = (username, password) => {
     return dispatch => {
-        dispatch(request({ username }));
+        dispatch(request(username));
 
-        userService.login(username, password)
+        login(username, password)
             .then(
-                user => { 
+                user => {
                     dispatch(success(user));
                     history.push('/');
                 },

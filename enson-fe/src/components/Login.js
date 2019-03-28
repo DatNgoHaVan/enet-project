@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import '../css/Login.css'
-import {login} from '../redux/action/LoginAction'
+import { loginAction } from '../redux/action/LoginAction'
 
 class Login extends Component {
 
@@ -13,8 +13,9 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            submitted: ''
+            submitted: false
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(e) {
@@ -24,7 +25,7 @@ class Login extends Component {
         const { username, password } = this.state;
         const { dispatch } = this.props;
         if (username && password) {
-            dispatch(login(username, password));
+            dispatch(loginAction(username, password));
         }
     }
 
@@ -39,7 +40,7 @@ class Login extends Component {
                                 <div className="form-control" style={{ height: '400px', borderStyle: 'inset', width: '450px' }}>
                                     <h3 className='title'>ENSON</h3>
                                     <h4 className='login-title'>Login</h4>
-                                    <Form onSubmit = {this.handleSubmit}>
+                                    <Form onSubmit={this.handleSubmit}>
                                         <div>
                                             <div>
                                                 <p style={{ marginLeft: '5%' }}>Username: </p>
@@ -68,7 +69,7 @@ class Login extends Component {
                                             <div className="form-inline" style={{ marginTop: '7%' }}>
                                                 <Link to="/signup"><Button variant="link">Create account</Button></Link>
                                                 <div className="login-div">
-                                                    <Button variant="primary" className='login' style={{ width: '100px' }}  > Login</Button>
+                                                    <Button variant="primary" type="submit" className='login' style={{ width: '100px' }}  > Login</Button>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,7 +86,7 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+    const { loggingIn } = state.LoginReducer;
     return {
         loggingIn
     };
