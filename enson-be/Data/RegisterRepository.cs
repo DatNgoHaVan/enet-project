@@ -44,7 +44,7 @@ namespace enson_be.Data
         /**Hash password */
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            /**return passwordHas and passwordSalt */
+            /**return passwordHash and passwordSalt */
             /*Auto generate key hmac */
             using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {
@@ -59,6 +59,13 @@ namespace enson_be.Data
         {
             /*Compare with every username in db */
             if (await _context.Users.AnyAsync(x => x.UserName == username))
+                return true;
+            return false;
+        }
+
+        public async Task<bool> EmailExist(string email)
+        {
+            if (await _context.Users.AnyAsync(x => x.Email == email))
                 return true;
             return false;
         }

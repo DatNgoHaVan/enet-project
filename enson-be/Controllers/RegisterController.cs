@@ -34,6 +34,12 @@ namespace enson_be.Controllers
                 return BadRequest("This username is already exist");
             }
 
+            //check email is already exist
+            if (await _repo.EmailExist(userForRegisterDto.Email))
+            {
+                return BadRequest("This email is already exist");
+            }
+
             //object user to create
             var userToCreate = new User
             {
