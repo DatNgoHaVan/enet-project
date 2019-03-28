@@ -6,11 +6,17 @@
     <RootNamespace>enson_be</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Remove="Migrations\20190320094242_InitCreate.cs" />
-    <Compile Remove="Migrations\20190320094242_InitCreate.Designer.cs" />
-    <Compile Remove="Migrations\20190321011851_Database.cs" />
-    <Compile Remove="Migrations\20190321011851_Database.Designer.cs" />
+    <Compile Remove="Migrations\20190328025403_createDB.cs" />
+    <Compile Remove="Migrations\20190328025403_createDB.Designer.cs" />
+    <Compile Remove="Migrations\20190328034625_createDB.cs" />
+    <Compile Remove="Migrations\20190328034625_createDB.Designer.cs" />
+    <Compile Remove="Migrations\20190328035934_createDB.cs" />
+    <Compile Remove="Migrations\20190328035934_createDB.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

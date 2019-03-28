@@ -33,7 +33,7 @@ namespace enson_be
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DatabaseContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("SqlConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
             //add scoped for register repository
             services.AddScoped<IRegisterRepository, RegisterRepository>();
 
@@ -76,6 +76,7 @@ namespace enson_be
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseMvc();
+
             app.UseAuthentication();
         }
     }

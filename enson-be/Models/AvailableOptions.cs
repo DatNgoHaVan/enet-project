@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace enson_be.Models
 {
-    public class PostVisibleOptions
+    public class AvailableOptions
     {
-        [Key, ForeignKey("Post")]
-        public long PostId { get; set; }
-        public string ListUser { get; set; }
-        public Post Post { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public long AvailableOptionsId { get; set; }
+        public string Content { get; set; }
     }
 }

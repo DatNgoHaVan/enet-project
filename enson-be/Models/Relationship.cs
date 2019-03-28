@@ -9,13 +9,14 @@ namespace enson_be.Models
 {
     public class Relationship
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public long RelationshipId { get; set; }
         public long UserId { get; set; }        
         public long UserSub { get; set; }
-        public Boolean Friend { get; set; }
-        public Boolean Follow { get; set; }
-        public Boolean Block { get; set; }
+        public Boolean? Friend { get; set; }
+        public Boolean? Follow { get; set; }
+        public Boolean? Block { get; set; }
         public User User { get; set; }
     }
 }
