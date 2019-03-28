@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace enson_be.Models
 {
-    public class ListUser
+    public class OptionPostUser
     {
-        [Key, ForeignKey("User")]
+        [Key, Column(Order = 1)]
+        public long PostId { get; set; }
+
+        [Key, Column(Order = 2)]
         public long UserId { get; set; }
-        public string Except { get; set; }
-        public string Only { get; set; }
-        public virtual User User { get; set; }
+        [ForeignKey("PostId")]
+        public Post Post { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
     }
 }
