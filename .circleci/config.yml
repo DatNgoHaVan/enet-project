@@ -1,0 +1,19 @@
+version: 2
+jobs:
+ build:
+   machine: true
+   steps:
+     - checkout 
+
+     # build image
+     - run: |
+         cd enson-be
+         sudo docker info
+         sudo docker build -t aspnetapp -f Dockerfile .
+     # deploy the image
+     - run: |         
+         sudo docker login --username=$HEROKU_USERNAME --password=$HEROKU_API_KEY registry.heroku.com
+         sudo docker tag aspnetapp registry.heroku.com/$HEROKU_APP_NAME/web
+         sudo docker push registry.heroku.com/$HEROKU_APP_NAME/web                
+         curl https://cli-assets.heroku.com/install.sh | sh
+         sudo heroku container:release web -a $HEROKU_APP_NAME
