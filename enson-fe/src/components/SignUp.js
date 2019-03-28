@@ -3,7 +3,7 @@ import { Button, Form, Row, Container, Image, Col } from 'react-bootstrap/';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import '../css/Login.css';
-import {registerAction} from '../redux/action/AuthAction';
+import {register} from '../services/AuthService'
 import Login from './Login';
 class SignUp extends Component {
 
@@ -35,7 +35,8 @@ class SignUp extends Component {
                 password: password,
                 email: email
             }
-            registerAction(user);
+            const res = register(user);
+            console.log(res);
         }
     }
 

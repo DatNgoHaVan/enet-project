@@ -11,7 +11,7 @@ class Login extends Component {
             <Router>
                 <Switch>
                     <Route path="/signup" component={SignUp}></Route>
-                    <div style={{ backgroundColor: '#00cc99' }}>
+                    <div>
                         <Container>
                             <Row>
                                 <Col md={3}></Col>
