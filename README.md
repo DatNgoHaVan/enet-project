@@ -20,6 +20,7 @@ An social network project for training.
 
 - Be sure you are in "enson-be" folder.
 - Update the connection string in appsettings.json.
+- In Startup.cs be sure ```UseSqlserver``` in ```options.UseSqlserver``` be for use "Update-Database".
 - Build whole solution.
 - In Solution Explorer, make sure that "enson-be" is selected as the Startup Project
 - Open Package Manager Console Window and make sure that "enson-be" is selected as Default project. Then type "Update-Database" then press "Enter". This action will create database schema.
