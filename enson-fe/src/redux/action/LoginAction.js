@@ -5,22 +5,26 @@ import { login } from '../../services/AuthService'
 
 export const loginAction = (username, password) => {
     return dispatch => {
-        dispatch(request(username));
-
-        login(username, password)
+        const user = {
+            username: username,
+            password: password
+        }
+        login(user)
             .then(
-                user => {
-                    dispatch(success(user));
-                    history.push('/');
-                },
-                error => {
-                    dispatch(failure(error));
-                    dispatch(alertError(error));
+                res => {
+                    if (res.status === 200) {
+                        res.json().then(token => {
+                            localStorage.setItem('token', token);
+                        })
+                        history.push('/');
+                    }
+                    if(res.status === 500){
+                        dispatch(alertError("Server is not run"));
+                    }
+                    if(res.status === 401) {
+                        dispatch(alertError("Username or password is not correct"));
+                    }
                 }
             );
-    };
-
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
-}
+    }
+};
