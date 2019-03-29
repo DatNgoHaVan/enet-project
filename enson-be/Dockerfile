@@ -10,7 +10,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+FROM microsoft/dotnet:2.2-sdk
 WORKDIR /app
 COPY --from=build-env /app/out .
-CMD dotnet enson-be.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet enson-be.dll
