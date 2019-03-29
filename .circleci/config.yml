@@ -8,12 +8,18 @@ jobs:
      # build image
      - run: |
          cd enson-be
-         sudo docker info
-         sudo docker build -t aspnetapp -f Dockerfile .
+         docker info
+         docker build -t aspnetapp -f Dockerfile .
      # deploy the image
      - run: |         
-         sudo docker login --username=$HEROKU_USERNAME --password=$HEROKU_API_KEY registry.heroku.com
-         sudo docker tag aspnetapp registry.heroku.com/$HEROKU_APP_NAME/web
-         sudo docker push registry.heroku.com/$HEROKU_APP_NAME/web                
-         curl https://cli-assets.heroku.com/install.sh | sh
-         sudo heroku container:release web -a $HEROKU_APP_NAME
+         set -eu -o pipefail
+         echo $HEROKU_API_KEY | docker login --username=$HEROKU_USERNAME --password-stdin registry.heroku.com
+         docker tag aspnetapp registry.heroku.com/$HEROKU_APP_NAME/web
+         docker push registry.heroku.com/$HEROKU_APP_NAME/web
+         docker inspect registry.heroku.com/$HEROKU_APP_NAME/web --format={{.Id}} > WEB_DOCKER_IMAGE_ID_FILE
+         export WEB_DOCKER_IMAGE_ID=$(cat WEB_DOCKER_IMAGE_ID_FILE)
+         curl -n -X PATCH https://api.heroku.com/apps/$HEROKU_APP_NAME/formation \
+            -d '{ "updates": [ { "type": "web", "docker_image": "'"$WEB_DOCKER_IMAGE_ID"'" }]}' \
+          -H "Content-Type: application/json" \
+          -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
+          -H "Authorization: Bearer $HEROKU_API_KEY"
