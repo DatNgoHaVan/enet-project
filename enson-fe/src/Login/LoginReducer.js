@@ -1,4 +1,4 @@
-import { userConstants } from '../action/ActionType';
+import { userConstants } from '../redux/action/ActionType';
 
 let user = JSON.parse(localStorage.getItem('user'));
 const initialState = user ? { loggedIn: true, user } : {};

@@ -1,7 +1,6 @@
-import { alertError } from './AlertAction';
-import { userConstants } from './ActionType';
-import { history } from '../History';
-import { login } from '../../services/AuthService'
+import { alertError } from '../redux/action/AlertAction';
+import { history } from '../redux/History';
+import { login } from '../services/AuthService'
 
 export const loginAction = (username, password) => {
     return dispatch => {
@@ -12,16 +11,16 @@ export const loginAction = (username, password) => {
         login(user)
             .then(
                 res => {
-                    if (res.status === 200) {
+                    if (res.ok) {
                         res.json().then(token => {
                             localStorage.setItem('token', token);
+                            history.push('/');
                         })
-                        history.push('/');
                     }
-                    if(res.status === 500){
-                        dispatch(alertError("Server is not run"));
+                    if (res.status === 500) {
+                        dispatch(alertError("Server isn't running"));
                     }
-                    if(res.status === 401) {
+                    if (res.status === 401) {
                         dispatch(alertError("Username or password is not correct"));
                     }
                 }
