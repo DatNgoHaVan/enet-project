@@ -11,7 +11,10 @@ export const registerAction = (user) => {
                 history.push('/login')
                 dispatch(alertSuccess('Registration successful'));
             }
-            else {
+            if(res.status === 500){
+                dispatch(alertError("Server isn't running"));
+            }
+            if(res.status ===400){
                 return res.text().then(text =>{
                     dispatch(alertError(text));
                 });
