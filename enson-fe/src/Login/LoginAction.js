@@ -1,6 +1,6 @@
-import { alertError } from './AlertAction';
-import { history } from '../History';
-import { login } from '../../services/AuthService'
+import { alertError } from '../redux/action/AlertAction';
+import { history } from '../redux/History';
+import { login } from '../services/AuthService'
 
 export const loginAction = (username, password) => {
     return dispatch => {
