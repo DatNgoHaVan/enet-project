@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace enson_be.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -25,6 +26,7 @@ namespace enson_be.Controllers
             _repo = repo;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
@@ -39,7 +41,8 @@ namespace enson_be.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.UserId.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.UserName)
+                new Claim(ClaimTypes.Name, userFromRepo.UserName),
+                new Claim(ClaimTypes.Role, userFromRepo.RoleId.ToString())
             };
 
             //create key for token get section
