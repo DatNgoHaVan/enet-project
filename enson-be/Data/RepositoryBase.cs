@@ -45,9 +45,9 @@ namespace enson_be.Data
             _context.Set<T>().Update(entity);
         }
 
-        public async Task<T> FindOne(T entity)
+        public async Task<T> FindOne(Expression<Func<T, bool>> expression)
         {
-            return await _context.Set<T>().FirstOrDefaultAsync(x => x == entity);
+            return await _context.Set<T>().SingleOrDefaultAsync(x => x == expression);
         }
     }
 }
