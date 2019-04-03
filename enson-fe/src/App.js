@@ -3,12 +3,12 @@ import { Router, Route} from "react-router-dom";
 import { connect } from 'react-redux';
 
 import './App.css';
-import {Login} from './components/Login';
-import { SignUp } from './components/SignUp';
+import {Login} from './Login/Login';
+import { SignUp } from './SingUp/SignUp';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { history } from './redux/History';
 import { alertClear } from './redux/action/AlertAction'
-import Homepage from './components/Homepage';
+import Homepage from './Homepage/Homepage';
 import { PrivateRoute } from './components/PrivateRoute';
 
 class App extends Component {

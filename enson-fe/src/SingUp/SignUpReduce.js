@@ -1,4 +1,4 @@
-import { userConstants } from '../action/ActionType';
+import { userConstants } from '../redux/action/ActionType';
 
 export function registration(state = {}, action) {
     switch (action.type) {
