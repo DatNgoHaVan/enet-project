@@ -1,0 +1,75 @@
+.tagContainer {
+    background-color: white;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.tagTitle {
+    font-size: 18px;
+}
+
+.tagImage {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+
+.imageContainer {
+    padding: 10px;
+    background-color: cornflowerblue;
+    border-radius: 30px;
+    position: absolute;
+    right: 30px;
+}
+
+.titleContainer {
+    margin-left: 15px;
+    padding-top: 13px;
+}
+
+.tagTitle {
+    height: 25px;
+    font-size: 18px;
+    color: #666666;
+}
+
+.tagNumber {
+    padding-bottom: 10px;
+    height: 30px;
+    font-size: 20px;
+    color: #009973;
+}
+
+.imageUD {
+    height: 25px;
+    width: 20px;
+}
+
+table {
+    width: '100%';
+    background-color: white;
+    border-radius: 15px !important;
+}
+
+th, td {
+    text-align: left;
+    padding: 14px !important;
+}
+
+th{
+    background-color: #e6e6e6 !important;
+}
+
+.tableName{
+    color: #009973;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    text-align: start;
+    padding-top: 17px;
+}
+
+.tableNameContainer{
+    align-items: center;
+    justify-content: center;
+}
