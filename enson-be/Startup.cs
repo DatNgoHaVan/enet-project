@@ -42,6 +42,8 @@ namespace enson_be
 
             //add scoped for login
             services.AddScoped<ILoginRepository, LoginRepository>();
+
+            services.AddScoped<IPostRepository, PostRepository>();
             
             //config authen for authencation middleware
             /*This will be changed in future */
@@ -75,9 +77,8 @@ namespace enson_be
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            app.UseMvc();
-
             app.UseAuthentication();
+            app.UseMvc();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using enson_be.Models;
 
+
 namespace enson_be.Data
 {
     public class PostRepository : RepositoryBase<Post>, IPostRepository
@@ -11,14 +12,16 @@ namespace enson_be.Data
         {
         }
 
-        public Task CreatePostAsync(Post post)
+        public async Task CreatePostAsync(Post post)
         {
-            throw new System.NotImplementedException();
+            Create(post);
+            await SaveAsync();
         }
 
-        public Task DeletePostAsync(Post post)
+        public async Task DeletePostAsync(Post post)
         {
-            throw new System.NotImplementedException();
+            Delete(post);
+            await SaveAsync();
         }
 
         public async Task<IEnumerable<Post>> GetAllPostAsync()
@@ -29,18 +32,21 @@ namespace enson_be.Data
 
         public async Task<Post> GetOnePostById(long postId)
         {
-            var posts = await FindOne(x => x.PostId == postId);
-            return posts; 
+            var posts = await FindByConditionAsync(o => o.PostId.Equals(postId));
+            return posts.DefaultIfEmpty(new Post())
+                    .FirstOrDefault();
         }
 
-        public Task<IEnumerable<Post>> GetPostByUserId(long userId)
+        public async Task<IEnumerable<Post>> GetPostByUserId(long userId)
         {
-            throw new System.NotImplementedException();
+            var posts = await FindByConditionAsync(x => x.UserId == userId);
+            return posts;
         }
 
-        public Task UpdatePostAsync(long postId, Post post)
+        public async Task UpdatePostAsync(Post post)
         {
-            throw new System.NotImplementedException();
+            Update(post);
+            await SaveAsync();
         }
     }
 }

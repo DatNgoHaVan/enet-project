@@ -10,7 +10,7 @@ namespace enson_be.Data
         Task<Post> GetOnePostById(long postId);
         Task<IEnumerable<Post>> GetPostByUserId(long userId);
         Task CreatePostAsync(Post post);
-        Task UpdatePostAsync(long postId, Post post);
+        Task UpdatePostAsync(Post post);
         Task DeletePostAsync(Post post);
 
     }

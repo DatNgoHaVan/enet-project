@@ -10,7 +10,7 @@ namespace enson_be.Data
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        private DatabaseContext _context;
+        protected DatabaseContext _context;
         public RepositoryBase(DatabaseContext context)
         {
             _context = context;
