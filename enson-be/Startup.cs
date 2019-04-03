@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using enson_be.Data;
+using AutoMapper;
+using enson_be.Helpers;
 using enson_be.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace enson_be
@@ -33,15 +28,31 @@ namespace enson_be
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("SqlConnection")));
             //add scoped for register repository
             services.AddScoped<IRegisterRepository, RegisterRepository>();
+
+            //add scoped for user repository
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            //add scoped for login
+            services.AddScoped<ILoginRepository, LoginRepository>();
 
             //add cors
             services.AddCors();
 
-            //add scoped for login
-            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddAutoMapper();
+
+            // configure strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+          
+
+           
             
             //config authen for authencation middleware
             /*This will be changed in future */
