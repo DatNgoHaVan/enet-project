@@ -156,7 +156,9 @@ namespace enson_be.Controllers
 
                 else
                 {
+                    //create Post obj for update
                     var postForUpdate = new Post();
+                    //set postForUpdate by map postForUpdateDto and postFromRepo
                     postForUpdate = _mapper.Map(postForUpdateDto, postFromRepo);
                     await _repo.UpdatePostAsync(postForUpdate);
                     return StatusCode(200);
