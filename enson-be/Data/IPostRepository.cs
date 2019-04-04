@@ -12,6 +12,5 @@ namespace enson_be.Data
         Task CreatePostAsync(Post post);
         Task UpdatePostAsync(Post post);
         Task DeletePostAsync(Post post);
-
     }
 }

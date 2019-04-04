@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace enson_be.Dtos
 {
     public class PostForCreationDto

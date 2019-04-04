@@ -1,6 +1,6 @@
 namespace enson_be.Dtos
 {
-    public class PostForUpdate
+    public class PostForUpdateDto
     {
         public string Type { get; set; }
         public string Url { get; set; }

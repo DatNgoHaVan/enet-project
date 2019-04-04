@@ -12,37 +12,47 @@ namespace enson_be.Data
         {
         }
 
+        //Call create method in RepositoryBase
         public async Task CreatePostAsync(Post post)
         {
             Create(post);
             await SaveAsync();
         }
 
+        //Call delete method in RepositoryBase
         public async Task DeletePostAsync(Post post)
         {
             Delete(post);
             await SaveAsync();
         }
 
+        //Get all post 
         public async Task<IEnumerable<Post>> GetAllPostAsync()
         {
+            //create obj posts
             var posts = await FindAllAsync();
+            //return posts sort id
             return posts.OrderBy(x => x.PostId);
         }
 
+        //Get one post
         public async Task<Post> GetOnePostById(long postId)
         {
-            var posts = await FindByConditionAsync(o => o.PostId.Equals(postId));
-            return posts.DefaultIfEmpty(new Post())
-                    .FirstOrDefault();
+            //get post with post id
+            var posts = await FindByConditionAsync(x => x.PostId.Equals(postId));
+            //return 1 post and default if empty
+            return posts.DefaultIfEmpty(new Post()).FirstOrDefault();
         }
 
+        //get all post of user with user id
         public async Task<IEnumerable<Post>> GetPostByUserId(long userId)
         {
-            var posts = await FindByConditionAsync(x => x.UserId == userId);
-            return posts;
+            //get obj post with user id
+            var posts = await FindByConditionAsync(x => x.UserId.Equals(userId));
+            return posts.OrderBy(x => x.PostId);
         }
 
+        //call update in RepoBase
         public async Task UpdatePostAsync(Post post)
         {
             Update(post);
