@@ -1,0 +1,39 @@
+.pageButton{
+    height: 40px;
+    width: 40px;
+    border-radius: 25px;
+    background-color: white;
+    margin: 2px;
+    color: black;
+}
+
+.pageImage{
+    height: 15px;
+    width: 15px;
+    align-items: flex-start;
+}
+
+.number1{
+    height: 40px;
+    width: 40px;
+    border-radius: 25px;
+    padding: 7px;
+}
+
+.btnActive{
+    background-color: #00cc99;
+    color: white;
+}
+
+.inputPage{
+    width: 80px;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 7px;
+    text-align: center;
+}
+
+.totalPage{
+    justify-content: center;
+    height: 10px;
+}

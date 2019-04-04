@@ -61,7 +61,7 @@ class DashBoard extends Component {
                                 </div>
                             </div>
                         </div>
-                        <ManageUser/>
+                        <ManageUser />
                     </div>
                 </div>
             </div>
