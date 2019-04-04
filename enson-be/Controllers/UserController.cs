@@ -7,86 +7,122 @@ using enson_be.Data;
 using enson_be.Dtos;
 using enson_be.Helpers;
 using enson_be.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace enson_be.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserRepository userRepository;
-        private IMapper mapper;
-        private readonly AppSettings appSettings;
-        public UserController(IUserRepository _userRepository, IMapper _mapper, IOptions<AppSettings> _appSettings)
+        private IUserRepository _userRepository;
+        private ILogger<UserController> _logger;
+        public UserController(IUserRepository userRepository, ILogger<UserController> logger)
         {
-            userRepository = _userRepository;
-            mapper = _mapper;
-            appSettings = _appSettings.Value;
+            _userRepository = userRepository;
+            _logger = logger;
         }
 
-
+        [Authorize(Roles = "2")]
         [HttpGet]
-        public IActionResult GetUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
-            var users = userRepository.GetUsers();
-            var usersDto = mapper.Map<IList<UserDto>>(users);
-            return Ok(usersDto);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetUserById(long id)
-        {
-            var user = userRepository.GetUserById(id);
-            var userDto = mapper.Map<UserDto>(user);
-            return Ok(userDto);            
-        }
-
-        [HttpPost]
-        public IActionResult AddUser([FromBody]UserDto userDto)
-        {
-            // map dto to models
-            var user = mapper.Map<User>(userDto);
             try
             {
-                // save
-                userRepository.AddUser(user, userDto.Password);
-                return Ok();
+                var users = await _userRepository.GetAllUserAsync();
+                return Ok(users);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
+                return BadRequest();
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(long id, [FromBody]UserDto userDto)
+        [Authorize(Roles = "1,2")]
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserById(long userId)
         {
-            // map dto to models and set id
-            var user = mapper.Map<User>(userDto);
-            user.UserId = id;
-
             try
             {
-                // save
-                userRepository.UpdateUser(user, userDto.Password);
-                return Ok();
+                var user = await _userRepository.GetUserByIdAsync(userId);
+                if (user == null)
+                {
+                    _logger.LogError($"User with userId: {userId}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(user);
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
+                return BadRequest();
             }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteUser(long id)
+        [Authorize(Roles = "1,2")]
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> UpdateUser(long userId, [FromBody]UserForUpdateDto userForUpdateDto)
         {
-            userRepository.DeleteUser(id);
-            return Ok();            
+            try
+            {
+                var user = await _userRepository.GetUserByIdAsync(userId);
+
+                // check null user
+                if (user == null)
+                {
+                    _logger.LogError($"User with userId: {userId}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    // update user property
+                    var userForUpdate = new User()
+                    {
+                        UserName = userForUpdateDto.UserName,
+                        Email = userForUpdateDto.Email,
+                        FirstName = userForUpdateDto.FirstName,
+                        LastName = userForUpdateDto.LastName
+                    };
+                    await _userRepository.UpdateUserAsync(userForUpdate, userForUpdateDto.Password);
+                    return Ok();
+                }                
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [Authorize(Roles = "2")]
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser(long userId)
+        {
+            try
+            {
+                var user = await _userRepository.GetUserByIdAsync(userId);
+                // check null user
+                if (user == null)
+                {
+                    _logger.LogError($"User with userId: {userId}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    await _userRepository.DeleteUserAsync(user);
+                    return Ok();
+                }                
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
     }
 }
