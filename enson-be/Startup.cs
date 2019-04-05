@@ -1,8 +1,9 @@
-﻿using System.Text;
+using System.Text;
 using enson_be.Data;
 using AutoMapper;
 using enson_be.Helpers;
 using enson_be.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,7 @@ namespace enson_be
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("SqlConnection")));
+
             //add scoped for register repository
             services.AddScoped<IRegisterRepository, RegisterRepository>();
 
@@ -38,13 +40,11 @@ namespace enson_be
             //add scoped for login
             services.AddScoped<ILoginRepository, LoginRepository>();
 
-            //add cors
-            services.AddCors();
+            //add scoped for Post
+            services.AddScoped<IPostRepository, PostRepository>();
 
-            services.AddAutoMapper();         
-          
-
-           
+            //add automapper
+            services.AddAutoMapper();
             
             //config authen for authencation middleware
             /*This will be changed in future */
@@ -77,11 +77,15 @@ namespace enson_be
             }
 
             //app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            app.UseAuthentication();
-            app.UseMvc();
 
+            //Allow any for CORS
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+
+            //Use Authentication
+            app.UseAuthentication();
             
+            app.UseMvc();
         }
     }
 }
