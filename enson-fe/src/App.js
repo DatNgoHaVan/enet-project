@@ -25,15 +25,16 @@ class App extends Component {
   render() {
     const { alert } = this.props;
     return (
-      <div style={{ backgroundColor: '#00cc99' }}>
+      <div>
         {alert.message &&
           <div className={`alert ${alert.type}`}>{alert.message}</div>
         }
         <Router forceRefresh={true} history={history}>
           <div>
-            <PrivateRoute exact path="/" component={Homepage} />
+            {/* <PrivateRoute exact path="/" component={Homepage} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={SignUp} />
+            <Route path="/signup" component={SignUp} /> */}
+            <Homepage/>
           </div>
         </Router>
       </div>
