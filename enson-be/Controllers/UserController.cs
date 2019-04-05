@@ -22,11 +22,13 @@ namespace enson_be.Controllers
     {
         private IUserRepository _userRepository;
         private ILogger<UserController> _logger;
+        private IMapper _mapper;
 
-        public UserController(IUserRepository userRepository, ILogger<UserController> logger)
+        public UserController(IUserRepository userRepository, ILogger<UserController> logger, IMapper mapper)
         {
             _userRepository = userRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [Authorize(Roles = "2")]
@@ -96,7 +98,8 @@ namespace enson_be.Controllers
                         LastName = userForUpdateDto.LastName,
                         RoleId = 1
                     };
-
+                    // map
+                    userForUpdate = _mapper.Map(userForUpdateDto, user);
                     await _userRepository.UpdateUserAsync(userForUpdate, userForUpdateDto.Password);
                     return Ok();
                 }

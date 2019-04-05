@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using enson_be.Dtos;
 using enson_be.Models;
 
@@ -10,6 +10,7 @@ namespace enson_be.Helpers
         {
             //Create Map for PostForUpdateDto and Post
             CreateMap<PostForUpdateDto,Post>();
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }
