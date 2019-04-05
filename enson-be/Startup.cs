@@ -39,17 +39,17 @@ namespace enson_be
             //add scoped for register repository
             services.AddScoped<IRegisterRepository, RegisterRepository>();
 
-            //add cors
-            services.AddCors();
+            //add scoped for user repository
+            services.AddScoped<IUserRepository, UserRepository>();
 
             //add scoped for login
             services.AddScoped<ILoginRepository, LoginRepository>();
+
             //add scoped for Post
             services.AddScoped<IPostRepository, PostRepository>();
 
             //add automapper
             services.AddAutoMapper();
-            
             
             //config authen for authencation middleware
             /*This will be changed in future */
@@ -85,6 +85,7 @@ namespace enson_be
 
             //Allow any for CORS
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
 
             //Use Authentication
             app.UseAuthentication();
