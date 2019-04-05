@@ -30,8 +30,8 @@ namespace enson_be.Data
             return user.DefaultIfEmpty(new User()).FirstOrDefault();
         }
 
-        public async Task UpdateUserAsync(User user, string password = null)
-        {
+        public async Task UpdateUserAsync(User user, string password)
+        {            
             //declare passwordHash and passwordSalt
             byte[] passwordHash, passwordSalt;
             //run create password hash
@@ -42,7 +42,7 @@ namespace enson_be.Data
             user.PasswordSalt = passwordSalt;
 
             Update(user);
-            await SaveAsync();
+            await SaveAsync();         
         }
         /**Hash password */
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -56,6 +56,6 @@ namespace enson_be.Data
                 //A secret key was auto generated
                 passwordSalt = hmac.Key;
             }
-        }
+        }        
     }
 }

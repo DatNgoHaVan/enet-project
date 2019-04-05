@@ -22,6 +22,7 @@ namespace enson_be.Controllers
     {
         private IUserRepository _userRepository;
         private ILogger<UserController> _logger;
+
         public UserController(IUserRepository userRepository, ILogger<UserController> logger)
         {
             _userRepository = userRepository;
@@ -50,6 +51,8 @@ namespace enson_be.Controllers
             try
             {
                 var user = await _userRepository.GetUserByIdAsync(userId);
+
+                // check null
                 if (user == null)
                 {
                     _logger.LogError($"User with userId: {userId}, hasn't been found in db.");
@@ -70,8 +73,10 @@ namespace enson_be.Controllers
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser(long userId, [FromBody]UserForUpdateDto userForUpdateDto)
         {
+
             try
             {
+                // find user with id
                 var user = await _userRepository.GetUserByIdAsync(userId);
 
                 // check null user
@@ -88,16 +93,19 @@ namespace enson_be.Controllers
                         UserName = userForUpdateDto.UserName,
                         Email = userForUpdateDto.Email,
                         FirstName = userForUpdateDto.FirstName,
-                        LastName = userForUpdateDto.LastName
+                        LastName = userForUpdateDto.LastName,
+                        RoleId = 1
                     };
+
                     await _userRepository.UpdateUserAsync(userForUpdate, userForUpdateDto.Password);
                     return Ok();
-                }                
+                }
             }
             catch (Exception)
             {
                 return BadRequest();
             }
+            
         }
 
         [Authorize(Roles = "2")]

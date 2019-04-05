@@ -78,9 +78,10 @@ namespace enson_be
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseAuthentication();
             app.UseMvc();
 
-            app.UseAuthentication();
+            
         }
     }
 }
