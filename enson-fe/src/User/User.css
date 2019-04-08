@@ -1,7 +1,7 @@
 /* Add Friend Suggestion  */
 
 #addFriendSuggestion {
-    width: 300px;
+    width: 350px;
     /* border-radius: 10px; */
     background-color: rgb(255, 255, 255);
 }
@@ -19,17 +19,15 @@
     font-size: 11px;
 }
 
-#addFriendSuggestionList {
-    margin: 15px;
-}
+#addFriendSuggestionList {}
 
 /* End Friend Suggestion */
 
 /* Add Friend Button */
 
 #addFriendCard {
-    margin: 1px;
-    padding: 5px;
+    background: rgb(255, 255, 255);
+    margin: 15px;
 }
 
 #suggestedFriendAvatar {
@@ -52,44 +50,28 @@
 }
 
 #mutualFriendNumber a {
-    font-size: 12px;
+    font-size: 11px;
     color: lightslategray;
 }
 
 #addFriendButton {
-    margin: 5px;
-    /* margin-left: 10px; */
     border-radius: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    background-color: #345AA6;
-}
-
-#addFriendButton:hover {
-    background-color: rgb(17, 84, 219);
-}
-
-#addFriendButton span {
-    font-size: 12px;
-    margin-left: 5px;
-    color: white;
 }
 
 #addFriendButton i {
     font-size: 12px;
-    color: white;
+    color: rgb(0, 0, 0);
+}
+
+#addFriendButton i :hover {
+    font-size: 12px;
+    color: rgb(207, 0, 0);
 }
 
 #removeSuggestButton {
     margin: 5px;
     /* margin-left: 10px; */
     border-radius: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 2px;
-    padding-bottom: 2px;
     background-color: #F5F6F7;
 }
 
@@ -99,7 +81,6 @@
 
 #removeSuggestButton span {
     font-size: 12px;
-    margin-left: 5px;
     color: rgb(41, 41, 41);
 }
 

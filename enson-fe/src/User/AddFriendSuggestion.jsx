@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import "./User.css";
-import AddFriendButton from "./AddFriendButton";
+import AddFriendItem from "./AddFriendItem";
 class AddFriendSuggestion extends PureComponent {
   render() {
     return (
@@ -14,7 +14,7 @@ class AddFriendSuggestion extends PureComponent {
           </a>
         </div>
         <div id="addFriendSuggestionList" />
-        <AddFriendButton />
+        <AddFriendItem />
         <div />
       </div>
     );

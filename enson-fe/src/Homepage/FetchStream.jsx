@@ -1,7 +1,8 @@
 import React, { PureComponent } from "react";
 
-import AddFriendSuggestion from "../User/AddFriendSuggestion";
+import AddFriendItem from "../User/AddFriendItem";
 import "./Homepage";
+import AddFriendSuggestion from "../User/AddFriendSuggestion";
 
 class FetchStream extends PureComponent {
   render() {
