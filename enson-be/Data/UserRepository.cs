@@ -21,7 +21,12 @@ namespace enson_be.Data
         public async Task<IEnumerable<User>> GetAllUserAsync()
         {
             var users = await FindAllAsync();
-            return users.OrderBy(x => x.UserName);
+
+            // return user without password
+            return await Task.Run(() => users.Select(x => {
+                x.PasswordHash = null; x.PasswordSalt = null;
+                return x;
+            }));            
         }
 
         public async Task<User> GetUserByIdAsync(long userId)
