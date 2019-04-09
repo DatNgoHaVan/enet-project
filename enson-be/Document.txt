@@ -1,0 +1,15 @@
+﻿Remember add token!
+Get All User(choose GET)
+Run: https://localhost:44343/api/user/
+
+Get User By Id(choose GET)
+Run : https://localhost:44343/api/user/IDUSERWANTTOGET
+ex: https://localhost:44343/api/user/27
+
+Update User (choose PUT)
+Run: https://localhost:44343/api/user/IDUSERWANTTOPUT
+ex: https://localhost:44343/api/user/27
+
+Delete User (choose DELETE)
+Run: https://localhost:44343/api/user/IDUSERWANTTODELETE
+ex: https://localhost:44343/api/user/27

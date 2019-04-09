@@ -54,6 +54,10 @@ namespace enson_be.Controllers
             {
                 var user = await _userRepository.GetUserByIdAsync(userId);
 
+                // return without password
+                user.PasswordHash = null;
+                user.PasswordSalt = null;
+
                 // check null
                 if (user == null)
                 {
