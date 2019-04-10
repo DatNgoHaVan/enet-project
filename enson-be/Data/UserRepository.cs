@@ -29,9 +29,21 @@ namespace enson_be.Data
             }));            
         }
 
+        public async Task<User> GetUserByEmailAsync(string userEmail)
+        {
+            var user = await FindByConditionAsync(x => x.Email.Equals(userEmail));
+            return user.DefaultIfEmpty(new User()).FirstOrDefault();
+        }
+
         public async Task<User> GetUserByIdAsync(long userId)
         {
             var user = await FindByConditionAsync(x => x.UserId.Equals(userId));
+            return user.DefaultIfEmpty(new User()).FirstOrDefault();
+        }
+
+        public async Task<User> GetUserByUserNameAsync(string userName)
+        {
+            var user = await FindByConditionAsync(x => x.UserName.Equals(userName));
             return user.DefaultIfEmpty(new User()).FirstOrDefault();
         }
 
