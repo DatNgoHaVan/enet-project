@@ -10,6 +10,8 @@ namespace enson_be.Data
     {
         Task<IEnumerable<User>> GetAllUserAsync();
         Task<User> GetUserByIdAsync(long userId);
+        Task<User> GetUserByEmailAsync(string userEmail);
+        Task<User> GetUserByUserNameAsync(string userName);
         Task UpdateUserAsync(User user, string password);
         Task DeleteUserAsync(User user);
     }

@@ -46,6 +46,8 @@ namespace enson_be.Controllers
             }
         }
 
+        // get user by id
+
         [Authorize(Roles = "1,2")]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUserById(long userId)
@@ -62,10 +64,84 @@ namespace enson_be.Controllers
                 if (user == null)
                 {
                     _logger.LogError($"User with userId: {userId}, hasn't been found in db.");
-                    return NotFound();
+                    return StatusCode(404, "Not found!");
                 }
                 else
                 {
+                    if (userId != user.UserId)
+                    {
+                        return StatusCode(404, "Not found!");
+                    }
+                    return Ok(user);
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        // get user by email
+
+        [Authorize(Roles = "1,2")]
+        [HttpGet("getByEmail/{userEmail}")]
+        public async Task<IActionResult> GetUserByEmail(string userEmail)
+        {
+            try
+            {
+                var user = await _userRepository.GetUserByEmailAsync(userEmail);
+
+                // return without password
+                user.PasswordHash = null;
+                user.PasswordSalt = null;
+
+                // check null
+                if (user == null)
+                {
+                    _logger.LogError($"User with userEmail: {userEmail}, hasn't been found in db.");
+                    return StatusCode(404, "Not found!");
+                }
+                else
+                {
+                    if (userEmail != user.Email)
+                    {
+                        return StatusCode(404, "Not found!");
+                    }
+                    return Ok(user);
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        // get user by username
+
+        [Authorize(Roles = "1,2")]
+        [HttpGet("getByUserName/{userName}")]
+        public async Task<IActionResult> GetUserByUserName(string userName)
+        {
+            try
+            {
+                var user = await _userRepository.GetUserByUserNameAsync(userName);
+
+                // return without password
+                user.PasswordHash = null;
+                user.PasswordSalt = null;
+
+                // check null
+                if (user == null)
+                {
+                    _logger.LogError($"User with userName: {userName}, hasn't been found in db.");
+                    return StatusCode(404, "Not found!");
+                }
+                else
+                {
+                    if(userName != user.UserName)
+                    {
+                        return StatusCode(404, "Not found!");
+                    }
                     return Ok(user);
                 }
             }
@@ -89,7 +165,7 @@ namespace enson_be.Controllers
                 if (user == null)
                 {
                     _logger.LogError($"User with userId: {userId}, hasn't been found in db.");
-                    return NotFound();
+                    return StatusCode(404, "Not found!");
                 }
                 else
                 {
@@ -126,7 +202,7 @@ namespace enson_be.Controllers
                 if (user == null)
                 {
                     _logger.LogError($"User with userId: {userId}, hasn't been found in db.");
-                    return NotFound();
+                    return StatusCode(404, "Not found!");
                 }
                 else
                 {
