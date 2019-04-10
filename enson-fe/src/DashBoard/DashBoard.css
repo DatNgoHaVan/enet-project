@@ -86,10 +86,6 @@ button:focus {
     box-shadow: none !important;
 }
 
-p:hover{
-    color: #cccccc;
-}
-
 .name {
     margin-left: 5px;
     margin-top: 12px;

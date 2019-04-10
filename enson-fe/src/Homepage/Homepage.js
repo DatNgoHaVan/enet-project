@@ -10,6 +10,7 @@ class Homepage extends Component {
     
     logout(){
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         history.push('/');
     }
 

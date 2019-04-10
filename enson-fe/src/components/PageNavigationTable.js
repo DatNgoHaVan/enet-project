@@ -7,8 +7,8 @@ import './PageNaviGationTable.css';
 class PageNavigationTable extends Component {
     constructor(props) {
         super(props);
-        
-        const {totalRecords} = this.props;
+
+        const { totalRecords } = this.props;
         console.log(totalRecords);
         this.handleChange = this.handleChange.bind(this);
         this.handleClickBack = this.handleClickBack.bind(this);
@@ -16,7 +16,7 @@ class PageNavigationTable extends Component {
         this.changePage = this.changePage.bind(this);
         this.state = {
             page: 1,
-            numberPage: Math.ceil(totalRecords/10),
+            numberPage: Math.ceil(totalRecords / 10),
         }
     }
 
@@ -30,23 +30,23 @@ class PageNavigationTable extends Component {
         this.changePage();
     }
 
-   /* componentDidMount() {
+    /* componentDidMount() {
         console.log(this.props.totalRecords);
         this.setState({  });
-    } */
+     } */
 
-    handleClickBack() {
+    async handleClickBack() {
         const number = this.state.page;
         if (number > 1) {
-            this.setState({ page: number - 1 })
+            await this.setState({ page: number - 1 })
             this.changePage();
         }
     }
 
-    handleClickNext() {
+    async handleClickNext() {
         const number = this.state.page;
         if (number < this.state.numberPage) {
-            this.setState({ page: number + 1 })
+            await this.setState({ page: number + 1 })
             this.changePage();
         }
     }

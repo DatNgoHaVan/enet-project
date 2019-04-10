@@ -10,7 +10,7 @@ import DashBoard from './DashBoard/DashBoard';
 
 ReactDOM.render(
     <Provider store={store}>
-        <DashBoard />
+        <App />
     </Provider>,
     document.getElementById('root')
 );

@@ -7,7 +7,7 @@ import home from '../assets/images/home.png';
 import user from '../assets/images/user.png';
 import post from '../assets/images/post.png';
 import report from '../assets/images/report.png';
-import ManageUser from '../ManageUser/ManageUser';
+import {ManageUser} from '../ManageUser/ManageUser';
 
 class DashBoard extends Component {
 
@@ -17,7 +17,7 @@ class DashBoard extends Component {
                 <div className="row rowContainer" >
                     <div className="col-lg-2" style={{ marginTop: '20px' }}>
                         <div className="nameProject">
-                            <p style={{ width: 'auto', textAlign: 'center', fontSize: '28px' }}>ENSON</p>
+                            <p style={{ width: 'auto', textAlign: 'center', fontSize: '28px' }}>ENET</p>
                         </div>
                         <div className="bar">
                             <ul className="ul">
