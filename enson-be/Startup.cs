@@ -48,6 +48,7 @@ namespace enson_be
             //add scoped for Post
             services.AddScoped<IPostRepository, PostRepository>();
 
+            services.AddScoped<ICommentRepository, CommentRepository>();
             //add automapper
             services.AddAutoMapper();
             

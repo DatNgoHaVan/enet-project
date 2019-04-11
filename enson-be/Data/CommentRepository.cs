@@ -23,7 +23,7 @@ namespace enson_be.Data
             await SaveAsync();
         }
 
-        public async Task<IEnumerable<Comment>> GetAllComment()
+        public async Task<IEnumerable<Comment>> GetAllCommentAsync()
         {
             var comments = await FindAllAsync();
             return comments.OrderBy(x => x.CommentId);

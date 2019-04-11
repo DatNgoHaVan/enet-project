@@ -10,7 +10,10 @@ namespace enson_be.Helpers
         {
             //Create Map for PostForUpdateDto and Post
             CreateMap<PostForUpdateDto,Post>();
+
             CreateMap<UserForUpdateDto, User>();
+            
+            CreateMap<CommentForUpdateDto, Comment>();
         }
     }
 }
