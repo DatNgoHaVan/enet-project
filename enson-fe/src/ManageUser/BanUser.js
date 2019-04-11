@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { history } from '../redux/History';
 
-class Homepage extends Component {
+class BanUser extends Component {
 
     constructor(props){
         super(props);
@@ -23,4 +23,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default BanUser;
