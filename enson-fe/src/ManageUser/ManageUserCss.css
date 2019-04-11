@@ -73,3 +73,17 @@ th{
     align-items: center;
     justify-content: center;
 }
+
+.btnRender{
+    width: 60px !important;
+}
+
+.linkRender{
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+button:active{
+    background-color: white !important;
+    color: #009973 !important;
+}

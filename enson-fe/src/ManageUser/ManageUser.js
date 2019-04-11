@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import './ManageUserCss.css';
+import { getAll } from '../services/UserService';
 import { getAllUserAction } from './ManageUserAction';
+import PageNavigationTable from '../components/PageNavigationTable';
+
 import total from '../assets/images/total.png';
 import up from '../assets/images/up.png';
 import newUser from '../assets/images/newUser.png';
 import onlineUser from '../assets/images/onlineUser.png';
 import banUser from '../assets/images/banUser.png'
-import PageNavigationTable from '../components/PageNavigationTable';
+import user from '../assets/images/user.png';
+import edit from '../assets/images/edit.png';
+import ban from '../assets/images/ban.png';
 
 class ManageUser extends Component {
 
@@ -25,22 +31,29 @@ class ManageUser extends Component {
     }
 
     async componentDidMount() {
-        this.props.dispatch(getAllUserAction());
-        console.log("ahihihihi");
+        await getAll().then(async res => {
+            if (res.ok) {
+                await res.json().then(async list => {
+                    await this.setState({ data: Array.from(list) });
+                })
+            }
+        });
+        const a = this.state.data.slice();
+        await this.setState({ renderData: a.splice(0, 10) })
     }
 
-    async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.listUser !== prevProps.listUser) {
-            this.props.dispatch(getAllUserAction());
-            const { listUser } = this.props;
-            console.log(listUser);
-            if (listUser) {
-                await this.setState({ data: listUser });
-                const a = this.state.data.slice();
-                await this.setState({ renderData: a.splice(0, 10) })
+    /*    async componentDidUpdate(prevProps, prevState, snapshot) {
+            if (this.props.listUser !== prevProps.listUser) {
+                this.props.dispatch(getAllUserAction());
+                const { listUser } = this.props;
+                console.log(listUser);
+                if (listUser) {
+                    await this.setState({ data: listUser });
+                    const a = this.state.data.slice();
+                    await this.setState({ renderData: a.splice(0, 10) })
+                }
             }
-        }
-    }
+        } */
 
     onPageChanged(value) {
         console.log(value);
@@ -51,12 +64,12 @@ class ManageUser extends Component {
 
     render() {
         const { data, renderData } = this.state;
-        const { getAll, listUser } = this.props;
+        //    const { getAll, listUser } = this.props;
         console.log(renderData);
-        console.log(listUser);
+        console.log(data);
         return (
             <div>
-                {listUser && <div className="container" style={{ width: '100%', maxWidth: '1270px', marginTop: '45px' }}>
+                {renderData && <div className="container" style={{ width: '100%', maxWidth: '1270px', marginTop: '45px' }}>
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="tagContainer">
@@ -158,15 +171,18 @@ class ManageUser extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {renderData.map((value, index) => (
-                                    <tr>
-                                        <td>{value.id}</td>
-                                        <td>{value.name}</td>
-                                        <td>{value.username}</td>
+                                {renderData.map((value) => (
+                                    <tr key={value.userId}>
+                                        <td>{value.userId}</td>
+                                        <td>{value.firstName}  {value.lastName}</td>
+                                        <td>{value.userName}</td>
                                         <td>{value.email}</td>
-                                        <td>{value.role}</td>
+                                        <td>{value.roleId === 1 ? "User" : "Admin"}</td>
                                         <td></td>
-                                        <td></td>
+                                        <td>
+                                            <Link to={`/admin/user/view/${value.userId}`} className="linkRender"><button className="btn btn-sm btn-info btnRender" >View</button></Link>
+                                            <Link to={`/admin/user/ban/${value.userId}`} className="linkRender"><button className="btn btn-sm btn-danger btnRender" >Ban</button></Link>
+                                        </td>
                                     </tr>
                                 ))}
                                 <tr>
@@ -176,7 +192,7 @@ class ManageUser extends Component {
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>{!listUser ? '' : <PageNavigationTable totalRecords={listUser.length} onPageChanged={this.onPageChanged} />}</td>
+                                    <td>{data.length === 0 ? '' : <PageNavigationTable totalRecords={data.length} onPageChanged={this.onPageChanged} />}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -5,6 +5,11 @@
     background-color: white;
     margin: 2px;
     color: black;
+    border-color: black
+}
+
+button:active{
+    background-color: #009973
 }
 
 .pageImage{
@@ -18,11 +23,6 @@
     width: 40px;
     border-radius: 25px;
     padding: 7px;
-}
-
-.btnActive{
-    background-color: #00cc99;
-    color: white;
 }
 
 .inputPage{

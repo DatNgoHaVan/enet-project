@@ -74,7 +74,7 @@ class PageNavigationTable extends Component {
                 <div className="form-inline">
                     <button className="pageButton" onClick={this.handleClickBack}><img className="pageImage" src={back}></img></button>
                     <input className="inputPage" max={this.state.numberPage} value={this.state.page} onChange={this.handleChange} onKeyDown={this.handlePress} ></input>
-                    <p class="totalPage">of {this.state.numberPage}</p>
+                    <p className="totalPage">of {this.state.numberPage}</p>
                     <button className="pageButton" onClick={this.handleClickNext}><img className="pageImage" src={next}></img></button>
                 </div>
         );
