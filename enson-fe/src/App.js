@@ -10,6 +10,10 @@ import { history } from './redux/History';
 import { alertClear } from './redux/action/AlertAction'
 import Homepage from './Homepage/Homepage';
 import { PrivateRoute } from './components/PrivateRoute';
+import DashBoard from './DashBoard/DashBoard';
+import ViewUser from './ManageUser/ViewUser/ViewUser';
+import EditUser from './ManageUser/EditUser/EditUser';
+import BanUser from './ManageUser/BanUser';
 
 class App extends Component {
 
@@ -25,7 +29,7 @@ class App extends Component {
   render() {
     const { alert } = this.props;
     return (
-      <div style={{ backgroundColor: '#00cc99' }}>
+      <div>
         {alert.message &&
           <div className={`alert ${alert.type}`}>{alert.message}</div>
         }
@@ -33,7 +37,11 @@ class App extends Component {
           <div>
             <PrivateRoute exact path="/" component={Homepage} />
             <Route path="/login" component={Login} />
+            <Route path="/admin" component={DashBoard} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/admin/user/view/:id" component= {ViewUser} />
+            <Route path="/admin/user/edit/:id" component= {EditUser} />
+            <Route path="/admin/user/ban/:id" component= {BanUser} />
           </div>
         </Router>
       </div>
