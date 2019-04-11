@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using enson_be.Models;
 
@@ -6,39 +7,50 @@ namespace enson_be.Data
 {
     public class CommentRepository : RepositoryBase<Comment>, ICommentRepository
     {
-        public Task CreateCommentAsync(Comment comment)
+        public CommentRepository(DatabaseContext context) : base(context)
         {
-            throw new System.NotImplementedException();
         }
 
-        public Task DeleteCommentAsync(Comment comment)
+        public async Task CreateCommentAsync(Comment comment)
         {
-            throw new System.NotImplementedException();
+            Create(comment);
+            await SaveAsync();
         }
 
-        public Task<IEnumerable<Comment>> GetAllComment()
+        public async Task DeleteCommentAsync(Comment comment)
         {
-            throw new System.NotImplementedException();
+            Delete(comment);
+            await SaveAsync();
         }
 
-        public Task<Comment> GetCommentById(long commentId)
+        public async Task<IEnumerable<Comment>> GetAllComment()
         {
-            throw new System.NotImplementedException();
+            var comments = await FindAllAsync();
+            return comments.OrderBy(x => x.CommentId);
         }
 
-        public Task<IEnumerable<Comment>> GetCommentByPostId(long postId)
+        public async Task<Comment> GetCommentById(long commentId)
         {
-            throw new System.NotImplementedException();
+            var comments = await FindByConditionAsync(x => x.CommentId.Equals(commentId));
+            return comments.DefaultIfEmpty(new Comment()).FirstOrDefault();
         }
 
-        public Task<IEnumerable<Comment>> GetCommentByUserId(long userId)
+        public async Task<IEnumerable<Comment>> GetCommentByPostId(long postId)
         {
-            throw new System.NotImplementedException();
+            var comments = await FindByConditionAsync(x => x.PostId.Equals(postId));
+            return comments.DefaultIfEmpty(new Comment()).OrderBy(x => x.CommentId);
         }
 
-        public Task UpdateCommentAsync(Comment comment)
+        public async Task<IEnumerable<Comment>> GetCommentByUserId(long userId)
         {
-            throw new System.NotImplementedException();
+            var comments = await FindByConditionAsync(x => x.UserId.Equals(userId));
+            return comments.DefaultIfEmpty(new Comment()).OrderBy(x => x.CommentId);
+        }
+
+        public async Task UpdateCommentAsync(Comment comment)
+        {
+            Update(comment);
+            await SaveAsync();
         }
     }
 }
