@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Router, Route} from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import './App.css';
-import {Login} from './Login/Login';
-import { SignUp } from './SingUp/SignUp';
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { Login } from './Login/Login';
+import { SignUp } from './SingUp/SignUp';
 import { history } from './redux/History';
 import { alertClear } from './redux/action/AlertAction'
 import Homepage from './Homepage/Homepage';
 import { PrivateRoute } from './components/PrivateRoute';
-import DashBoard from './DashBoard/DashBoard';
-import ViewUser from './ManageUser/ViewUser/ViewUser';
-import EditUser from './ManageUser/EditUser/EditUser';
+import { DashBoard } from './DashBoard/DashBoard';
+import { ViewUser } from './ManageUser/ViewUser/ViewUser';
 import BanUser from './ManageUser/BanUser';
 
 class App extends Component {
@@ -39,8 +39,8 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/admin" component={DashBoard} />
             <Route path="/signup" component={SignUp} />
-            <Route path="/admin/user/view/:id" component= {ViewUser} />
-            <Route path="/admin/user/ban/:id" component= {BanUser} />
+            <Route path="/admin/user/view/:id" component={ViewUser} />
+            <Route path="/admin/user/ban/:id" component={BanUser} />
           </div>
         </Router>
       </div>
