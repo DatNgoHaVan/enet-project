@@ -64,9 +64,6 @@ class ManageUser extends Component {
 
     render() {
         const { data, renderData } = this.state;
-        //    const { getAll, listUser } = this.props;
-        console.log(renderData);
-        console.log(data);
         return (
             <div>
                 {renderData && <div className="container" style={{ width: '100%', maxWidth: '1270px', marginTop: '45px' }}>
@@ -158,7 +155,7 @@ class ManageUser extends Component {
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><button type="button" className="btn btn-success">New user</button></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <th>ID</th>
@@ -203,7 +200,6 @@ class ManageUser extends Component {
     }
 }
 
-export default ManageUser;
 function mapStateToProps(state) {
     const { getAll, listUser } = state.ManageUserReducer;
     return {
