@@ -166,7 +166,7 @@ namespace enson_be.Controllers
         }
 
         [Authorize(Roles = "2")]
-        [HttpPut]
+        [HttpPut("{commentId}")]
         public async Task<IActionResult> UpdateComment(long commentId, [FromBody] CommentForUpdateDto commentForUpdateDto)
         {
             try
@@ -208,7 +208,7 @@ namespace enson_be.Controllers
         }
 
         [Authorize(Roles = "2")]
-        [HttpDelete]
+        [HttpDelete("{commentId}")]
         public async Task<IActionResult> DeleteComment(long commentId)
         {
             try
