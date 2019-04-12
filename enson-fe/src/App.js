@@ -40,7 +40,6 @@ class App extends Component {
             <Route path="/admin" component={DashBoard} />
             <Route path="/signup" component={SignUp} />
             <Route path="/admin/user/view/:id" component= {ViewUser} />
-            <Route path="/admin/user/edit/:id" component= {EditUser} />
             <Route path="/admin/user/ban/:id" component= {BanUser} />
           </div>
         </Router>

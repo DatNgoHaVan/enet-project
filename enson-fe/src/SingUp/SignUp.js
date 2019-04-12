@@ -42,7 +42,8 @@ class SignUp extends Component {
     render() {
         const { firstName, lastName, email, username, password, confirmPassword, submitted } = this.state;
         return (
-            <Container style={{ marginTop: "4%", padding: "30px", height: "auto", width: "500px", backgroundColor: "#FFF" }} >
+            <div style={{backgroundColor : '#00cc99', height : '100vh'}}>
+            <Container style={{ position: 'absolute', top: '4%', left : '35%', padding: "30px", height: "auto", width: "500px", backgroundColor: "#FFF" }} >
                 <Col>
                     <Row style={{ textAlign: 'center', height: '40px' }}>
                         <Col style={{ textAlign: 'center' }}>
@@ -52,7 +53,7 @@ class SignUp extends Component {
                     </Row>
                     <Row>
                         <Col style={{ textAlign: 'center' }}>
-                            <h3 className='title' style={{ color: "#0074D9" }}>ENSON</h3>
+                            <h3 className='title' style={{ color: "#0074D9" }}>ENET</h3>
                         </Col>
                     </Row>
                     <Row style={{ marginTop: 10 }}>
@@ -67,7 +68,6 @@ class SignUp extends Component {
                                                 <div><p className='notice'>First Name is required</p></div>
                                             }
                                         </Form.Text>
-
                                     </Form.Group>
                                 </Col>
 
@@ -143,9 +143,11 @@ class SignUp extends Component {
                     </Row>
                 </Col>
             </Container>
+            </div>
         );
     }
 }
+
 function mapStateToProps(state) {
     const { registering } = state.registration;
     return {

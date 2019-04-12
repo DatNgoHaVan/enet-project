@@ -31,7 +31,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{backgroundColor : '#00cc99'}}>
                 <Container>
                     <Row>
                         <Col md={3}></Col>
