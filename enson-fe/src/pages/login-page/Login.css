@@ -1,6 +1,6 @@
 @font-face {
     font-family: lilyScript;
-    src: url('../assets/font/LilyScriptOne-Regular.ttf');
+    src: url('../../assets/font/LilyScriptOne-Regular.ttf');
 }
 
 .title{

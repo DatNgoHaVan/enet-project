@@ -1,4 +1,4 @@
-import { alertConstants } from './ActionType';
+import { alertConstants } from './action-type';
 
 
 export const alertSuccess = (message) => {

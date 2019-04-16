@@ -3,8 +3,8 @@ import { Button, Form, Row, Container, Image, Col } from 'react-bootstrap/';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import '../Login/Login.css';
-import { registerAction } from '../../redux/action/SignUpAction';
+import '../login-page/login.css';
+import { registerAction } from '../../redux/action/sign-up-action';
 class SignUp extends Component {
 
     constructor(props) {

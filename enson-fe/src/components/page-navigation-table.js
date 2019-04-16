@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import next from '../assets/images/next.png';
 import back from '../assets/images/back.png';
-import './PageNaviGationTable.css';
+import './page-navigation-table.css';
 
 class PageNavigationTable extends Component {
     constructor(props) {

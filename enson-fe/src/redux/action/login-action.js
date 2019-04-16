@@ -1,7 +1,7 @@
-import { alertError } from '../redux/action/AlertAction';
-import { history } from '../redux/History';
-import { login } from '../services/AuthService';
-import { parseJwt } from '../components/Comment';
+import { alertError } from './alert-action';
+import { history } from '../history';
+import { login } from '../../services/AuthService';
+import { parseJwt } from '../../components/comment';
 
 export const loginAction = (username, password) => {
     return dispatch => {

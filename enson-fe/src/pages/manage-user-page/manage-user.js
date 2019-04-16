@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import './ManageUserCss.css';
+import './manage-user.css';
 import { getAll } from '../../services/UserService';
-import { getAllUserAction } from '../../redux/action/ManageUserAction';
-import PageNavigationTable from '../../components/PageNavigationTable';
+import { getAllUserAction } from '../../redux/action/manage-user-action';
+import PageNavigationTable from '../../components/page-navigation-table';
 
-import total from '../assets/images/total.png';
-import up from '../assets/images/up.png';
-import newUser from '../assets/images/newUser.png';
-import onlineUser from '../assets/images/onlineUser.png';
-import banUser from '../assets/images/banUser.png'
-import user from '../assets/images/user.png';
-import edit from '../assets/images/edit.png';
-import ban from '../assets/images/ban.png';
+import total from '../../assets/images/total.png';
+import up from '../../assets/images/up.png';
+import newUser from '../../assets/images/newUser.png';
+import onlineUser from '../../assets/images/onlineUser.png';
+import banUser from '../../assets/images/banUser.png'
+import user from '../../assets/images/user.png';
+import edit from '../../assets/images/edit.png';
+import ban from '../../assets/images/ban.png';
 
 class ManageUser extends Component {
 

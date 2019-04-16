@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./Post.css";
+import "../post/post.css";
 
 class Comment extends Component {
   render() {

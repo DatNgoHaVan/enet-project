@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { history } from "../../redux/History";
+import { history } from "../../redux/history";
 
-import "./Homepage.css";
-import TopNav from "../../components-business/top-nav/TopNav";
-import Post from "../../components-business/post/Post";
-import SideNav from "../../components-business/side-nav/SideNav";
-import CreatePost from "../../components-business/post/CreatePost";
-import FetchStream from "./section/fetch-stream/FetchStream";
+import "./home-page.css";
+import TopNav from "../../components-business/top-nav/top-nav";
+import Post from "../../components-business/post/post";
+import SideNav from "../../components-business/side-nav/side-nav";
+import CreatePost from "../../components-business/post/create-post";
+import FetchStream from "./section/fetch-stream/fetch-stream";
+
 class Homepage extends Component {
   constructor(props) {
     super(props);

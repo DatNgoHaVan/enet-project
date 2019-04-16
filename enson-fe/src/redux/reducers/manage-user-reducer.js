@@ -1,4 +1,4 @@
-import { userConstants } from '../action/ActionType';
+import { userConstants } from '../action/action-type';
 
 export const ManageUserReducer = (state = {getAll : false}, action) =>{
     switch (action.type) {

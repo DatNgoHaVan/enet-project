@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import './DashBoard.css';
-import { history } from '../../redux/History';
-import { getUser } from '../../redux/action/ViewUserAction';
+import './dashboard.css';
+import { history } from '../../redux/history';
+import { getUser } from '../../redux/action/view-user-action';
 
-import search from '../assets/images/search.png'
-import avatar from '../assets/images/25231.png'
-import home from '../assets/images/home.png';
-import userImg from '../assets/images/user.png';
-import post from '../assets/images/post.png';
-import report from '../assets/images/report.png';
-import pass from '../assets/images/pass.png';
-import logout from '../assets/images/exit.png';
+import search from '../../assets/images/search.png'
+import avatar from '../../assets/images/25231.png'
+import home from '../../assets/images/home.png';
+import userImg from '../../assets/images/user.png';
+import post from '../../assets/images/post.png';
+import report from '../../assets/images/report.png';
+import pass from '../../assets/images/pass.png';
+import logout from '../../assets/images/exit.png';
 
 import { ManageUser } from '../manage-user-page/manage-user';
-import { parseJwt } from '../../components/Comment';
+import { parseJwt } from '../../components/comment';
 
 class DashBoard extends Component {
 

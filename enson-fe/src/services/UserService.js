@@ -11,6 +11,7 @@ export const getAll = async () => {
 
 export const getUserById = async (id) => {
     const token = localStorage.getItem('token');
+    console.log(token);
     return await fetch('https://enson-project.herokuapp.com/api/user/' + id, {
         method: 'get',
         headers: { "Authorization": token }

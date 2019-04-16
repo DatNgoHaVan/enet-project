@@ -1,7 +1,7 @@
 import { register } from '../../services/AuthService';
 import { history } from '../history';
-import { alertSuccess, alertError } from './AlertAction';
-import { userConstants } from './ActionType';
+import { alertSuccess, alertError } from './alert-action';
+import { userConstants } from './action-type';
 
 export const registerAction = (user) => {
     return dispatch => {

@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
-import "./User.css";
-import AddFriendItem from "./AddFriendItem";
+import "./user.css";
+import AddFriendItem from "./add-friend-item";
 class AddFriendSuggestion extends PureComponent {
   render() {
     return (

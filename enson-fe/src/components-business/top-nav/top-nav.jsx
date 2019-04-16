@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./Homepage.css";
+import "../../pages/home-page/home-page.css";
 
 
 class TopNav extends Component {

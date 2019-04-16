@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-import "./Post.css";
+import "./post.css";
 
 class CreatePost extends PureComponent {
   constructor(props) {

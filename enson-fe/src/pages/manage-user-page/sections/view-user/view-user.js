@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import { history } from '../../../../redux/History';
-import { getUser } from '../../../../redux/action/ViewUserAction';
-import './ViewUser.css';
+import { history } from '../../../../redux/history';
+import { getUser } from '../../../../redux/action/view-user-action';
+import './view-user.css';
 
-import avatar from '../../assets/images/25231.png';
+import avatar from '../../../../assets/images/25231.png';
 
 class ViewUser extends Component {
 

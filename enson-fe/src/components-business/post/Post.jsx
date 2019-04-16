@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import "./Post.css";
-import Comment from "../comment/Comment";
-import CommentBox from "../comment/CreateComment";
+import "./post.css";
+import Comment from "../comment/comment";
+import CommentBox from "../comment/create-comment";
+
 class Post extends Component {
   constructor(props) {
     super(props);

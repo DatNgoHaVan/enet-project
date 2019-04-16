@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { history } from '../../../../redux/History';
+import { history } from '../../../../redux/history';
 
 class EditUser extends Component {
 

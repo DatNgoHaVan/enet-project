@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
-import "./User.css";
+import "./user.css";
+
 class AddFriendItem extends PureComponent {
   render() {
     return (
