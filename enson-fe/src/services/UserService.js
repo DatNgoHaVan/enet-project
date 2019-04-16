@@ -8,3 +8,14 @@ export const getAll = async () => {
             return response;
         })
 }
+
+export const getUserById = async (id) => {
+    const token = localStorage.getItem('token');
+    return await fetch('https://enson-project.herokuapp.com/api/user/' + id, {
+        method: 'get',
+        headers: { "Authorization": token }
+    })
+        .then(response => {
+            return response;
+        })
+}
