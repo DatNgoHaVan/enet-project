@@ -1,0 +1,154 @@
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+
+#navbar {
+    overflow: hidden;
+    background-color: rgb(17, 134, 134);
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    height: 42px;
+}
+
+/* Style the navigation bar links */
+
+#navbar a {
+    color: white;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+}
+
+/* Right-aligned link */
+
+#navbar a.right {
+    float: right;
+}
+
+/* Change color on hover */
+
+#navbar a:hover {
+    background-color: #ddd;
+    color: rgb(189, 189, 189);
+}
+
+/* Active/current link */
+
+#navbar a.active {
+    background-color: #666;
+    color: white;
+}
+/* Fetch Stream */
+#fetchStream{
+    width: 300px;
+}
+/* End fecth stream */
+/* Side Nav */
+
+#leftContainer {
+    width: 250px;
+}
+
+#sideNavBar {
+    overflow: hidden;
+    position: fixed;
+    position: -webkit-sticky;
+    height: auto;
+    width: 250px;
+}
+
+#userProfile {
+    margin-top: 10px;
+    background-color: #ffffff;
+}
+
+#userProfile a {
+    margin: 0 auto;
+}
+
+#userProfile img {
+    width: 100px;
+    border-radius: 50%;
+    margin-left: 75px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#fullName {
+    text-align: center;
+    width: 100%;
+    font-size: 18px;
+    color: #00CC99;
+}
+
+#username {
+    color: rgb(107, 107, 107);
+    text-align: center;
+    width: 100%;
+    font-size: 13px;
+}
+
+#analysing div {
+    color: #00CC99;
+    margin: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+#analysing a {
+    font-size: 13px;
+    color: #666;
+}
+
+#analysing a :hover {
+    font-size: 13px;
+    color: #00CC99;
+}
+
+#listSideNavBarButton{
+    padding: 5px;
+    background-color: #ffffff;
+}
+#listSideNavBarButton span{
+    margin: 5px;
+    padding: 5px;
+}
+#newsFeedButton{
+    padding: 5px;
+}
+#newsFeedButton:hover{
+background-color: #dfdfdf;
+}
+/* End Side Nav */
+
+/* Container */
+
+.container {
+    position: relative;
+}
+
+.topright {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+}
+
+/* Content container */
+
+#mainContainer {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* Left container */
+
+/* Center Container */
+
+#feedStream {
+    width: 500px;
+    height: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#rightContainer {}

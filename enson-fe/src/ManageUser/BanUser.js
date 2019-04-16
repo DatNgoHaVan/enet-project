@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { history } from '../redux/History';
 
-class Homepage extends Component {
+class BanUser extends Component {
 
     constructor(props){
         super(props);
@@ -10,6 +10,7 @@ class Homepage extends Component {
     
     logout(){
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         history.push('/');
     }
 
@@ -22,4 +23,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default BanUser;

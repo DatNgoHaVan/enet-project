@@ -1,13 +1,17 @@
 import { combineReducers } from 'redux';
 
-import {registration} from './SignUpReduce';
+import {registration} from '../../SingUp/SignUpReduce';
 import { alert } from './AlertReduce';
-import {LoginReducer} from './LoginReducer';
+import {LoginReducer} from '../../Login/LoginReducer';
+import {ManageUserReducer} from '../../ManageUser/ManageUserReducer';
+import {ViewUserReducer} from '../../ManageUser/ViewUser/ViewUserReducer';
 
 const rootReducer = combineReducers({
     alert,
     registration,
-    LoginReducer
+    LoginReducer,
+    ManageUserReducer,
+    ViewUserReducer
 });
 
 export default rootReducer;

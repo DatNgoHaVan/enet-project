@@ -3,8 +3,8 @@ import { Button, Form, Row, Container, Col } from 'react-bootstrap/';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import '../css/Login.css'
-import { loginAction } from '../redux/action/LoginAction'
+import './Login.css'
+import { loginAction } from './LoginAction'
 
 class Login extends Component {
 
@@ -31,14 +31,14 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ backgroundColor: '#00cc99' }}>
                 <Container>
                     <Row>
                         <Col md={3}></Col>
                         <Col md={6} className="div">
                             <div style={{ position: 'absolute', top: '20%' }}>
                                 <div className="form-control" style={{ height: '400px', borderStyle: 'inset', width: '450px' }}>
-                                    <h3 className='title'>ENSON</h3>
+                                    <h3 className='title'>ENET</h3>
                                     <h4 className='login-title'>Login</h4>
                                     <Form onSubmit={this.handleSubmit}>
                                         <div>
