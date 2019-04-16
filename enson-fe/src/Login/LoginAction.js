@@ -1,6 +1,7 @@
 import { alertError } from '../redux/action/AlertAction';
 import { history } from '../redux/History';
-import { login } from '../services/AuthService'
+import { login } from '../services/AuthService';
+import { parseJwt } from '../components/Comment';
 
 export const loginAction = (username, password) => {
     return dispatch => {
@@ -13,7 +14,9 @@ export const loginAction = (username, password) => {
                 res => {
                     if (res.ok) {
                         res.json().then(token => {
-                            localStorage.setItem('token', token);
+                            localStorage.setItem('token',"Bearer " + token.token);
+                            localStorage.setItem('tokenB', token.token);
+                            localStorage.setItem('role',parseJwt(token.token).role);
                             history.push('/');
                         })
                     }
