@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import "./Homepage.css";
 
-// import { Nav, NavDropdown, FormControl, Navbar, Button, Form, Row, Container, Image, Col, Card } from 'react-bootstrap/';
 
 class SideNav extends Component {
   render() {
