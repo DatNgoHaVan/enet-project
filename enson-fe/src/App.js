@@ -5,15 +5,16 @@ import { connect } from "react-redux";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Login } from "./Login/Login";
-import { SignUp } from "./SingUp/SignUp";
-import { history } from "./redux/History";
-import { alertClear } from "./redux/action/AlertAction";
-import Homepage from "./Homepage/Homepage";
-import { PrivateRoute } from "./components/PrivateRoute";
-import { DashBoard } from "./DashBoard/DashBoard";
-import { ViewUser } from "./ManageUser/ViewUser/ViewUser";
-import BanUser from "./ManageUser/BanUser";
+
+import { SignUp } from "./pages/sign-up-page/sign-up";
+import { history } from "./redux/history";
+import { alertClear } from "./redux/action/alert-action";
+import Homepage from "./pages/home-page/home-page";
+import { PrivateRoute } from "./components/private-route";
+import { ViewUser } from "./pages/manage-user-page/sections/view-user/view-user";
+import BanUser from './pages/manage-user-page/sections/ban-user/ban-user';
+import { Login } from "./pages/login-page/login";
+import { DashBoard } from "./pages/dashboard-page/dashboard";
 
 class App extends Component {
     constructor(props) {
