@@ -2,6 +2,10 @@
   "name": "enson-fe",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.15.1",
+    "npm" : "6.4.1"
+  },
   "dependencies": {
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
@@ -19,12 +23,10 @@
     "serve": "^10.1.2"
   },
   "scripts": {
-    "dev": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
