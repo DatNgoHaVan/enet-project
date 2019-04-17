@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
     "draft-js": "^0.10.5",
