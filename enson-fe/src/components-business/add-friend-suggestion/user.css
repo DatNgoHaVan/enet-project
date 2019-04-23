@@ -1,0 +1,87 @@
+/* Add Friend Suggestion  */
+
+#addFriendSuggestion {
+    width: 350px;
+    /* border-radius: 10px; */
+    background-color: rgb(255, 255, 255);
+}
+
+#addFriendSuggestionTitle {
+    color: rgb(82, 82, 82);
+    font-size: 13px;
+    padding: 10px;
+    margin: 15px;
+    border-bottom: 1px solid aliceblue;
+}
+
+#addFriendSuggestionTitle i {
+    margin-left: 60px;
+    font-size: 11px;
+}
+
+#addFriendSuggestionList {}
+
+/* End Friend Suggestion */
+
+/* Add Friend Button */
+
+#addFriendCard {
+    background: rgb(255, 255, 255);
+    margin: 15px;
+}
+
+#suggestedFriendAvatar {
+    padding: 5px;
+}
+
+#suggestedFriendAvatar img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+#suggestedFriendName a {
+    font-size: 13px;
+}
+
+#suggestedFriendName span {
+    font-size: 12px;
+    color: lightslategray;
+    margin-left: 5px;
+}
+
+#mutualFriendNumber a {
+    font-size: 11px;
+    color: lightslategray;
+}
+
+#addFriendButton {
+    border-radius: 5px;
+}
+
+#addFriendButton i {
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+}
+
+#addFriendButton i :hover {
+    font-size: 12px;
+    color: rgb(207, 0, 0);
+}
+
+#removeSuggestButton {
+    margin: 5px;
+    /* margin-left: 10px; */
+    border-radius: 5px;
+    background-color: #F5F6F7;
+}
+
+#removeSuggestButton:hover {
+    background-color: rgb(231, 231, 231);
+}
+
+#removeSuggestButton span {
+    font-size: 12px;
+    color: rgb(41, 41, 41);
+}
+
+/* End Add Friend Button */
