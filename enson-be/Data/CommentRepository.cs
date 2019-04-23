@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using enson_be.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace enson_be.Data
 {
@@ -25,8 +26,12 @@ namespace enson_be.Data
 
         public async Task<IEnumerable<Comment>> GetAllCommentAsync()
         {
-            var comments = await FindAllAsync();
-            return comments.OrderBy(x => x.CommentId);
+            // var comments = await FindAllAsync();
+            // return comments.OrderBy(x => x.CommentId);
+            return await _context.Comments
+                .Include(p => p.Post)
+                .Include(x => x.User)
+                .ToListAsync();
         }
 
         public async Task<Comment> GetCommentById(long commentId)

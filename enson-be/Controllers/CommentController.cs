@@ -8,6 +8,7 @@ using enson_be.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace enson_be.Controllers
 {
@@ -18,13 +19,13 @@ namespace enson_be.Controllers
     {
         private readonly ICommentRepository _repo;
         private readonly ILogger<CommentController> _logger;
-        private readonly IMapper _map;
+        private readonly IMapper _mapper;
 
-        public CommentController(ICommentRepository repo, ILogger<CommentController> logger, IMapper map)
+        public CommentController(ICommentRepository repo, ILogger<CommentController> logger, IMapper mapper)
         {
             _repo = repo;
             _logger = logger;
-            _map = map;
+            _mapper = mapper;
         }
 
         [Authorize(Roles = "1,2")]
@@ -34,7 +35,8 @@ namespace enson_be.Controllers
             try
             {
                 var comments = await _repo.GetAllCommentAsync();
-                return Ok(comments);
+                var resources = _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentForReturnDto>>(comments);
+                return Ok(resources);
             }
             catch (Exception ex)
             {
@@ -195,7 +197,7 @@ namespace enson_be.Controllers
                 else
                 {
                     var commentForUpdate = new Comment();
-                    commentForUpdate = _map.Map(commentForUpdateDto, commentFromRepo);
+                    commentForUpdate = _mapper.Map(commentForUpdateDto, commentFromRepo);
                     await _repo.UpdateCommentAsync(commentForUpdate);
                     return StatusCode(201);
                 }

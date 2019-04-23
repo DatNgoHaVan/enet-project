@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using enson_be.Dtos;
 using enson_be.Models;
 
 namespace enson_be.Data
 {
     public interface IPostRepository
     {
-        Task<IEnumerable<Post>> GetAllPostAsync();
+        List<PostForReturnDto> GetAllPostAsync();
         Task<Post> GetOnePostById(long postId);
         Task<IEnumerable<Post>> GetPostByUserId(long userId);
         Task CreatePostAsync(Post post);

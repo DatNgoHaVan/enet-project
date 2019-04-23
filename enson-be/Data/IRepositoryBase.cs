@@ -10,6 +10,7 @@ namespace enson_be.Data
     {
         Task<IEnumerable<T>> FindAllAsync();
         Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression);
+        IQueryable<T> FindAsQueryable();
         void Create(T entity);
         void Delete(T entity);
         void Update(T entity);

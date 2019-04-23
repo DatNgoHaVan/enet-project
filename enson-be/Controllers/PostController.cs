@@ -8,6 +8,7 @@ using enson_be.Dtos;
 using enson_be.Models;
 using AutoMapper;
 using enson_be.Helpers;
+using System.Collections.Generic;
 
 namespace enson_be.Controllers
 {
@@ -30,11 +31,12 @@ namespace enson_be.Controllers
         //get all post only for admin
         [Authorize(Roles = "2")]
         [HttpGet]
-        public async Task<IActionResult> GetAllPost()
+        public IActionResult GetAllPost()
         {
             try
             {
-                var posts = await _repo.GetAllPostAsync();
+                var posts =  _repo.GetAllPostAsync();
+                //var resources = _mapper.Map<Post, PostForReturnDto>(posts);
                 return Ok(posts);
             }
             catch (Exception ex)
@@ -53,14 +55,15 @@ namespace enson_be.Controllers
             try
             {
                 var posts = await _repo.GetOnePostById(id);
-                if (posts == null)
+                var resources = _mapper.Map<Post, PostForReturnDto>(posts);
+                if (posts == null || posts.PostId.Equals("0"))
                 {
                     _logger.LogError($"Post with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(posts);
+                    return Ok(resources);
                 }
             }
             catch (Exception ex)

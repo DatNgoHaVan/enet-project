@@ -11,7 +11,7 @@ namespace enson_be.Data
     //Inherit IRepository with type T is a class
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected DatabaseContext _context;
+        protected readonly DatabaseContext _context;
         public RepositoryBase(DatabaseContext context)
         {
             _context = context;
@@ -51,6 +51,11 @@ namespace enson_be.Data
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
+        }
+
+        public IQueryable<T> FindAsQueryable()
+        {
+            return _context.Set<T>().AsQueryable();
         }
     }
 }
