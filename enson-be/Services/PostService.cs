@@ -11,12 +11,10 @@ namespace enson_be.Data
     public class PostService : IPostService
     {
         private readonly IRepositoryBase<Post> _repo;
-        private readonly IMapper _mapper;
 
         public PostService(IRepositoryBase<Post> repo, IMapper mapper)
         {
             _repo = repo;
-            _mapper = mapper;
         }
 
         //Call create method in RepositoryBase
@@ -34,27 +32,28 @@ namespace enson_be.Data
         }
 
         //Get all post 
-        public List<PostForReturnDto> GetAllPostAsync()
+        public async Task<IEnumerable<Post>> GetAllPostAsync()
         {
-            //create obj posts
-            //var posts = await FindAllAsync();
-            //return posts sort id
-            //return posts.OrderBy(x => x.PostId);           
-            var postsToReturn = _repo.FindAll()
-                .AsQueryable()
-                .Select(x => new PostForReturnDto
-                {
-                    PostId = x.PostId,
-                    Type = x.Type,
-                    Url = x.Url,
-                    Content = x.Content,
-                    Status = x.Status,
-                    UserId = x.UserId,
-                    AvailableOptions = x.AvailableOptions,
-                    //User = new UserForReturnDto(x.User),
-                    //Comments = x.Comments.Select(y => new CommentForReturnDto().FromEntity(y)).ToList()
-                });
-            return postsToReturn.ToList();
+            var postsToReturn = await _repo.FindAll()
+                            .Include(x => x.AvailableOptions)
+                            .Include(x => x.User)
+                            .Include(x => x.Comments)
+                            .ThenInclude(p => p.User)
+                            .OrderBy(x => x.PostId)
+                            .ToListAsync();
+            // .Select(x => new PostForReturnDto
+            // {
+            //     PostId = x.PostId,
+            //     Type = x.Type,
+            //     Url = x.Url,
+            //     Content = x.Content,
+            //     Status = x.Status,
+            //     UserId = x.UserId,
+            //     AvailableOptions = x.AvailableOptions,
+            //     //User = new UserForReturnDto(x.User),
+            //     //Comments = x.Comments.Select(y => new CommentForReturnDto().FromEntity(y)).ToList()
+            // });
+            return postsToReturn;
         }
 
         //Get one post
@@ -62,10 +61,11 @@ namespace enson_be.Data
         {
             //get post with post id
             var postToReturn = await _repo
-                            .FindByCondition(x=>x.PostId.Equals(postId))
+                            .FindByCondition(x => x.PostId.Equals(postId))
                             .Include(x => x.AvailableOptions)
                             .Include(x => x.User)
                             .Include(x => x.Comments)
+                            .ThenInclude(p => p.User)
                             .ToListAsync();
             //return 1 post and default if empty
             return postToReturn.DefaultIfEmpty().FirstOrDefault();
@@ -80,11 +80,11 @@ namespace enson_be.Data
                             .Include(x => x.AvailableOptions)
                             .Include(x => x.User)
                             .Include(x => x.Comments)
-                            //.ThenInclude(p => p.User)
+                            .ThenInclude(p => p.User)
                             .OrderBy(x => x.PostId)
                             .ToListAsync();
             return postsToReturn;
-                
+
         }
 
         //call update in RepoBase

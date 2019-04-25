@@ -31,13 +31,13 @@ namespace enson_be.Controllers
         //get all post only for admin
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult GetAllPost()
+        public async Task<IActionResult> GetAllPost()
         {
             try
             {
-                var posts =  _postService.GetAllPostAsync();
-                //var resources = _mapper.Map<Post, PostForReturnDto>(posts);
-                return Ok(posts);
+                var posts =  await _postService.GetAllPostAsync();
+                var resources = _mapper.Map<IEnumerable<Post>, IEnumerable<PostForReturnDto>>(posts);
+                return Ok(resources);
             }
             catch (Exception ex)
             {

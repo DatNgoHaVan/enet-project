@@ -54,7 +54,6 @@ namespace enson_be.Services
                             .OrderBy(x => x.CommentId)
                             .ToListAsync();
             return commentToReturn;
-
         }
 
         public async Task<IEnumerable<Comment>> GetCommentByUserId(long userId)

@@ -26,15 +26,16 @@ namespace enson_be.Data
 
         public async Task<IEnumerable<User>> GetAllUserAsync()
         {
-            var usersToReturn = await _repo.FindAll().ToListAsync();
+            var usersToReturn = await _repo.FindAll().Include(x => x.Role).ToListAsync();
             // return user without password
             return usersToReturn;
         }
 
         public async Task<User> GetUserByEmailAsync(string userEmail)
         {
-            var userToReturn = await _repo 
+            var userToReturn = await _repo
                             .FindByCondition(x => x.Email.Equals(userEmail))
+                            .Include(x => x.Role)
                             .ToListAsync();
             return userToReturn.FirstOrDefault();
         }
@@ -43,6 +44,7 @@ namespace enson_be.Data
         {
             var user = await _repo
                             .FindByCondition(x => x.UserId.Equals(userId))
+                            .Include(x => x.Role)
                             .ToListAsync();
             return user.DefaultIfEmpty(new User()).FirstOrDefault();
         }
@@ -51,12 +53,13 @@ namespace enson_be.Data
         {
             var userToReturn = await _repo
                             .FindByCondition(x => x.UserName.Equals(userName))
+                            .Include(x => x.Role)
                             .ToListAsync();
             return userToReturn.DefaultIfEmpty(new User()).FirstOrDefault();
         }
 
         public async Task UpdateUserAsync(User user, string password)
-        {            
+        {
             //declare passwordHash and passwordSalt
             byte[] passwordHash, passwordSalt;
             //run create password hash
@@ -67,7 +70,7 @@ namespace enson_be.Data
             user.PasswordSalt = passwordSalt;
 
             _repo.Update(user);
-            await _repo.SaveAsync();         
+            await _repo.SaveAsync();
         }
         /**Hash password */
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -81,6 +84,6 @@ namespace enson_be.Data
                 //A secret key was auto generated
                 passwordSalt = hmac.Key;
             }
-        }        
+        }
     }
 }

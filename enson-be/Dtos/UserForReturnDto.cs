@@ -8,6 +8,8 @@ namespace enson_be.Dtos
 {
     public class UserForReturnDto
     {
+        public long UserId { get; set; }
+
         public string UserName { get; set; }
 
         public string FirstName { get; set; }
@@ -20,22 +22,10 @@ namespace enson_be.Dtos
 
         public string Address { get; set; }
 
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         public long RoleId { get; set; }
 
-        public UserForReturnDto()
-        {
-            
-        }
-        public UserForReturnDto(User user)
-        {
-            UserName = user.UserName;
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            Email = user.Email;
-            RoleId = user.RoleId;
-        }
-
+        public RoleForSubReturn Role { get; set; }
     }
 }
