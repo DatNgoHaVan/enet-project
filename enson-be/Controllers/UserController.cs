@@ -20,25 +20,26 @@ namespace enson_be.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserRepository _userRepository;
+        private IUserService _userService;
         private ILogger<UserController> _logger;
         private IMapper _mapper;
 
-        public UserController(IUserRepository userRepository, ILogger<UserController> logger, IMapper mapper)
+        public UserController(IUserService userService, ILogger<UserController> logger, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _logger = logger;
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
             try
             {
-                var users = await _userRepository.GetAllUserAsync();
-                return Ok(users);
+                var users = await _userService.GetAllUserAsync();
+                var resources = _mapper.Map<IEnumerable<User>,IEnumerable<UserForReturnDto>>(users);
+                return Ok(resources);
             }
             catch (Exception)
             {
@@ -48,13 +49,13 @@ namespace enson_be.Controllers
 
         // get user by id
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User, Admin")]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUserById(long userId)
         {
             try
             {
-                var user = await _userRepository.GetUserByIdAsync(userId);
+                var user = await _userService.GetUserByIdAsync(userId);
 
                 // return without password
                 user.PasswordHash = null;
@@ -83,13 +84,13 @@ namespace enson_be.Controllers
 
         // get user by email
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User, Admin")]
         [HttpGet("getByEmail/{userEmail}")]
         public async Task<IActionResult> GetUserByEmail(string userEmail)
         {
             try
             {
-                var user = await _userRepository.GetUserByEmailAsync(userEmail);
+                var user = await _userService.GetUserByEmailAsync(userEmail);
 
                 // return without password
                 user.PasswordHash = null;
@@ -118,13 +119,13 @@ namespace enson_be.Controllers
 
         // get user by username
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpGet("getByUserName/{userName}")]
         public async Task<IActionResult> GetUserByUserName(string userName)
         {
             try
             {
-                var user = await _userRepository.GetUserByUserNameAsync(userName);
+                var user = await _userService.GetUserByUserNameAsync(userName);
 
                 // return without password
                 user.PasswordHash = null;
@@ -138,7 +139,7 @@ namespace enson_be.Controllers
                 }
                 else
                 {
-                    if(userName != user.UserName)
+                    if (userName != user.UserName)
                     {
                         return StatusCode(404, "Not found!");
                     }
@@ -151,7 +152,7 @@ namespace enson_be.Controllers
             }
         }
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser(long userId, [FromBody]UserForUpdateDto userForUpdateDto)
         {
@@ -159,7 +160,7 @@ namespace enson_be.Controllers
             try
             {
                 // find user with id
-                var user = await _userRepository.GetUserByIdAsync(userId);
+                var user = await _userService.GetUserByIdAsync(userId);
 
                 // check null user
                 if (user == null)
@@ -180,7 +181,7 @@ namespace enson_be.Controllers
                     };
                     // map
                     userForUpdate = _mapper.Map(userForUpdateDto, user);
-                    await _userRepository.UpdateUserAsync(userForUpdate, userForUpdateDto.Password);
+                    await _userService.UpdateUserAsync(userForUpdate, userForUpdateDto.Password);
                     return Ok();
                 }
             }
@@ -188,16 +189,16 @@ namespace enson_be.Controllers
             {
                 return BadRequest();
             }
-            
+
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser(long userId)
         {
             try
             {
-                var user = await _userRepository.GetUserByIdAsync(userId);
+                var user = await _userService.GetUserByIdAsync(userId);
                 // check null user
                 if (user == null)
                 {
@@ -206,9 +207,9 @@ namespace enson_be.Controllers
                 }
                 else
                 {
-                    await _userRepository.DeleteUserAsync(user);
+                    await _userService.DeleteUserAsync(user);
                     return Ok();
-                }                
+                }
             }
             catch (Exception)
             {

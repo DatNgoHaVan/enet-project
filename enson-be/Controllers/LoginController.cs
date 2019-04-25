@@ -18,9 +18,9 @@ namespace enson_be.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ILoginRepository _repo;
+        private readonly ILoginService _repo;
         private readonly IConfiguration _config;
-        public LoginController(ILoginRepository repo, IConfiguration config)
+        public LoginController(ILoginService repo, IConfiguration config)
         {
             _config = config;
             _repo = repo;
@@ -42,7 +42,7 @@ namespace enson_be.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.UserId.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.UserName),
-                new Claim(ClaimTypes.Role, userFromRepo.RoleId.ToString())
+                new Claim(ClaimTypes.Role, userFromRepo.Role.Type.ToString())
             };
 
             //create key for token get section

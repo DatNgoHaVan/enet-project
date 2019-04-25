@@ -20,6 +20,8 @@ namespace enson_be.Helpers
             CreateMap<AvailableOptionsForReturnDto, AvailableOptions>();
 
             CreateMap<CommentForReturnDto, Comment>();
+
+            CreateMap<UserForReturnDto,User>();
         }
     }
 }

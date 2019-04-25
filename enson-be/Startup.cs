@@ -17,6 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using enson_be.Domain.Services;
+using enson_be.Services;
 
 namespace enson_be
 {
@@ -36,19 +38,24 @@ namespace enson_be
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("SqlConnection")));
 
+            //add scoped for Repository Base service
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
             //add scoped for register repository
-            services.AddScoped<IRegisterRepository, RegisterRepository>();
+            services.AddScoped<IRegisterService, RegisterService>();
 
             //add scoped for user repository
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
 
             //add scoped for login
-            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<ILoginService, LoginService>();
 
             //add scoped for Post
-            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
 
-            services.AddScoped<ICommentRepository, CommentRepository>();
+            //add scoped for Comment
+            services.AddScoped<ICommentService, CommentService>();
+
             //add automapper
             services.AddAutoMapper();
             
@@ -91,7 +98,9 @@ namespace enson_be
             //Use Authentication
             app.UseAuthentication();
             
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

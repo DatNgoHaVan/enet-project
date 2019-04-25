@@ -12,8 +12,8 @@ namespace enson_be.Controllers
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly IRegisterRepository _repo;
-        public RegisterController(IRegisterRepository repo)
+        private readonly IRegisterService _repo;
+        public RegisterController(IRegisterService repo)
         {
             _repo = repo;
         }
