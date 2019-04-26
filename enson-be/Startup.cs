@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using enson_be.Data;
 using enson_be.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using enson_be.Domain.Services;
 using enson_be.Services;
+using enson_be.Services.SwaggerService;
 
 namespace enson_be
 {
@@ -58,7 +52,7 @@ namespace enson_be
 
             //add automapper
             services.AddAutoMapper();
-            
+
             //config authen for authencation middleware
             /*This will be changed in future */
             /*Just for example need time to research more about authen */
@@ -74,6 +68,9 @@ namespace enson_be
                         ValidateAudience = false
                     };
                 });
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerServiceDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +79,7 @@ namespace enson_be
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwaggerServiceDocumentation();
             }
             else
             {
@@ -94,11 +92,11 @@ namespace enson_be
             //Allow any for CORS
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-
             //Use Authentication
             app.UseAuthentication();
-            
-            app.UseMvc(routes => {
+
+            app.UseMvc(routes =>
+            {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
