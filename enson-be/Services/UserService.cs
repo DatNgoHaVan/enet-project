@@ -11,29 +11,29 @@ namespace enson_be.Data
 {
     public class UserService : IUserService
     {
-        private IRepositoryBase<User> _repo;
+        private IRepositoryBase<User> _userRepository;
 
-        public UserService(IRepositoryBase<User> repo)
+        public UserService(IRepositoryBase<User> userRepository)
         {
-            _repo = repo;
+            _userRepository = userRepository;
         }
 
         public async Task DeleteUserAsync(User user)
         {
-            _repo.Delete(user);
-            await _repo.SaveAsync();
+            _userRepository.Delete(user);
+            await _userRepository.SaveAsync();
         }
 
         public async Task<IEnumerable<User>> GetAllUserAsync()
         {
-            var usersToReturn = await _repo.FindAll().Include(x => x.Role).ToListAsync();
+            var usersToReturn = await _userRepository.FindAll().Include(x => x.Role).ToListAsync();
             // return user without password
             return usersToReturn;
         }
 
         public async Task<User> GetUserByEmailAsync(string userEmail)
         {
-            var userToReturn = await _repo
+            var userToReturn = await _userRepository
                             .FindByCondition(x => x.Email.Equals(userEmail))
                             .Include(x => x.Role)
                             .ToListAsync();
@@ -42,7 +42,7 @@ namespace enson_be.Data
 
         public async Task<User> GetUserByIdAsync(long userId)
         {
-            var user = await _repo
+            var user = await _userRepository
                             .FindByCondition(x => x.UserId.Equals(userId))
                             .Include(x => x.Role)
                             .ToListAsync();
@@ -51,7 +51,7 @@ namespace enson_be.Data
 
         public async Task<User> GetUserByUserNameAsync(string userName)
         {
-            var userToReturn = await _repo
+            var userToReturn = await _userRepository
                             .FindByCondition(x => x.UserName.Equals(userName))
                             .Include(x => x.Role)
                             .ToListAsync();
@@ -69,8 +69,8 @@ namespace enson_be.Data
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _repo.Update(user);
-            await _repo.SaveAsync();
+            _userRepository.Update(user);
+            await _userRepository.SaveAsync();
         }
         /**Hash password */
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

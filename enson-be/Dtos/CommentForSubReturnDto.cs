@@ -2,7 +2,7 @@ using System;
 
 namespace enson_be.Dtos
 {
-    public class CommentForSubReturn
+    public class CommentForSubReturnDto
     {
         public long CommentId { get; set; }
 

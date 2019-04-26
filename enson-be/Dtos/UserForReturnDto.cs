@@ -26,6 +26,6 @@ namespace enson_be.Dtos
 
         public long RoleId { get; set; }
 
-        public RoleForSubReturn Role { get; set; }
+        public RoleForSubReturnDto Role { get; set; }
     }
 }

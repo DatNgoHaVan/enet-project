@@ -21,6 +21,6 @@ namespace enson_be.Dtos
 
         public AvailableOptions AvailableOptions { get; set; }
 
-        public List<CommentForSubReturn> Comments { get; set; }
+        public List<CommentForSubReturnDto> Comments { get; set; }
     }
 }

@@ -10,27 +10,27 @@ namespace enson_be.Services
 {
     public class CommentService : ICommentService
     {
-        private IRepositoryBase<Comment> _repo;
-        public CommentService(IRepositoryBase<Comment> repo)
+        private IRepositoryBase<Comment> _commentRepository;
+        public CommentService(IRepositoryBase<Comment> commentRepository)
         {
-            _repo = repo;
+            _commentRepository = commentRepository;
         }
 
         public async Task CreateCommentAsync(Comment comment)
         {
-            _repo.Create(comment);
-            await _repo.SaveAsync();
+            _commentRepository.Create(comment);
+            await _commentRepository.SaveAsync();
         }
 
         public async Task DeleteCommentAsync(Comment comment)
         {
-            _repo.Delete(comment);
-            await _repo.SaveAsync();
+            _commentRepository.Delete(comment);
+            await _commentRepository.SaveAsync();
         }
 
         public async Task<IEnumerable<Comment>> GetAllCommentAsync()
         {
-            var commentToReturn = await _repo.FindAll()
+            var commentToReturn = await _commentRepository.FindAll()
                             .Include(x => x.User)
                             .OrderBy(x => x.CommentId)
                             .ToListAsync();
@@ -39,7 +39,7 @@ namespace enson_be.Services
 
         public async Task<Comment> GetCommentById(long commentId)
         {
-            var commentToReturn = await _repo
+            var commentToReturn = await _commentRepository
                             .FindByCondition(x => x.CommentId.Equals(commentId))
                             .Include(x => x.User)
                             .ToListAsync();
@@ -48,7 +48,7 @@ namespace enson_be.Services
 
         public async Task<IEnumerable<Comment>> GetCommentByPostId(long postId)
         {
-            var commentToReturn = await _repo
+            var commentToReturn = await _commentRepository
                             .FindByCondition(x => x.PostId.Equals(postId))
                             .Include(x => x.User)
                             .OrderBy(x => x.CommentId)
@@ -58,7 +58,7 @@ namespace enson_be.Services
 
         public async Task<IEnumerable<Comment>> GetCommentByUserId(long userId)
         {
-            var commentToReturn = await _repo
+            var commentToReturn = await _commentRepository
                             .FindByCondition(x => x.PostId.Equals(userId))
                             .Include(x => x.User)
                             .OrderBy(x => x.CommentId)
@@ -68,8 +68,8 @@ namespace enson_be.Services
 
         public async Task UpdateCommentAsync(Comment comment)
         {
-            _repo.Update(comment);
-            await _repo.SaveAsync();
+            _commentRepository.Update(comment);
+            await _commentRepository.SaveAsync();
         }
     }
 }
