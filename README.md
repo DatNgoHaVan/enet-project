@@ -5,8 +5,8 @@ An social network project for training.
 ## Build Status
 | Build server    | Platform       | Status            |
 |-----------------|----------------|-------------------|
-|Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/DatNgoHaVan/enson-project.svg?token=44Dp4xgu5dU6gYhiYCoY&branch=dev)](https://travis-ci.com/DatNgoHaVan/enson-project)       |
-|Circle           | Linux / MacOS  |[![CircleCI](https://circleci.com/gh/DatNgoHaVan/enson-project/tree/dev.svg?style=svg)](https://circleci.com/gh/DatNgoHaVan/enson-project/tree/dev)        |
+|Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/DatNgoHaVan/enson-project.svg?token=44Dp4xgu5dU6gYhiYCoY&branch=dev)](https://travis-ci.com/DatNgoHaVan/enson-project)|
+|Circle           | Linux / MacOS  |[![CircleCI](https://circleci.com/gh/DatNgoHaVan/enson-project/tree/dev.svg?style=svg&circle-token=0f59b88df225bbb90fc51868916971d0b2c58cf3)](https://circleci.com/gh/DatNgoHaVan/enson-project/tree/dev)|
 
 
 ## Visual Studio 2017 and Postgresql
