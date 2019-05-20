@@ -5,6 +5,7 @@ cache:
   directories:
     - node_modules
 script:
+  - cd enson-fe
   - npm test
   - npm run build
 
