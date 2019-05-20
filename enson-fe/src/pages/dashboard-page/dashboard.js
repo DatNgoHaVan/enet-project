@@ -15,7 +15,7 @@ import pass from '../../assets/images/pass.png';
 import logout from '../../assets/images/exit.png';
 
 import { ManageUser } from '../manage-user-page/manage-user';
-import { parseJwt } from '../../components/comment';
+import { parseJwt } from '../../components/Comment';
 
 class DashBoard extends Component {
 
