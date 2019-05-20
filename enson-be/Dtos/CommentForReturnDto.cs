@@ -19,19 +19,5 @@ namespace enson_be.Dtos
         public UserForSubReturnDto User { get; set; }
 
         public long PostId { get; set; }
-
-        // public CommentForReturnDto FromEntity(Comment comment)
-        // {
-        //     return new CommentForReturnDto()
-        //     {
-        //         CommentId = comment.CommentId,
-        //         Date = comment.Date,
-        //         Content = comment.Content,
-        //         Image = comment.Image,
-        //         UserId = comment.UserId,
-        //         PostId = comment.PostId,
-        //         //User = new UserForReturnDto(comment.User) 
-        //     };
-        // }
     }
 }

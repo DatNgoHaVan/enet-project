@@ -8,11 +8,11 @@ namespace enson_be.Data
 {
     public interface IPostService
     {
-        Task<IEnumerable<Post>> GetAllPostAsync();
-        Task<Post> GetOnePostById(long postId);
-        Task<IEnumerable<Post>> GetPostByUserId(long userId);
+        Task<IEnumerable<PostForReturnDto>> GetAllPostAsync();
+        Task<PostForReturnDto> GetOnePostById(long postId);
+        Task<IEnumerable<PostForReturnDto>> GetPostByUserId(long userId);
         Task CreatePostAsync(Post post);
-        Task UpdatePostAsync(Post post);
+        Task UpdatePostAsync(PostForUpdateDto postForUpdate);
         Task DeletePostAsync(Post post);
     }
 }

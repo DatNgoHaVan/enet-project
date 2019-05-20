@@ -36,8 +36,7 @@ namespace enson_be.Controllers
             try
             {
                 var posts =  await _postService.GetAllPostAsync();
-                var resources = _mapper.Map<IEnumerable<Post>, IEnumerable<PostForReturnDto>>(posts);
-                return Ok(resources);
+                return Ok(posts);
             }
             catch (Exception ex)
             {
@@ -55,7 +54,7 @@ namespace enson_be.Controllers
             try
             {
                 var posts = await _postService.GetOnePostById(id);
-                var resources = _mapper.Map<Post, PostForReturnDto>(posts);
+                //var resources = _mapper.Map<Post, PostForReturnDto>(posts);
                 if (posts == null || posts.PostId.Equals("0"))
                 {
                     _logger.LogError($"Post with id: {id}, hasn't been found in db.");
@@ -63,7 +62,7 @@ namespace enson_be.Controllers
                 }
                 else
                 {
-                    return Ok(resources);
+                    return Ok(posts);
                 }
             }
             catch (Exception ex)
@@ -160,10 +159,10 @@ namespace enson_be.Controllers
                 else
                 {
                     //create Post obj for update
-                    var postForUpdate = new Post();
+                    // var postForUpdate = new Post();
                     //set postForUpdate by map postForUpdateDto and postFromRepo
-                    postForUpdate = _mapper.Map(postForUpdateDto, postFromRepo);
-                    await _postService.UpdatePostAsync(postForUpdate);
+                    //postForUpdate = _mapper.Map(postForUpdateDto, postFromRepo);
+                    await _postService.UpdatePostAsync(postForUpdateDto);
                     return StatusCode(200);
                 }
             }
@@ -188,7 +187,7 @@ namespace enson_be.Controllers
                     return NotFound();
                 }
 
-                await _postService.DeletePostAsync(postForDelete);
+                //await _postService.DeletePostAsync(postForDelete);
 
                 return StatusCode(200);
             }

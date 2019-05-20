@@ -15,8 +15,6 @@ namespace enson_be.Dtos
 
         public int? Status { get; set; }
 
-        public long UserId { get; set; }
-
         public UserForSubReturnDto User { get; set; }
 
         public AvailableOptions AvailableOptions { get; set; }

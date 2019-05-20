@@ -24,6 +24,8 @@ namespace enson_be.Helpers
             CreateMap<UserForReturnDto,User>();
 
             CreateMap<UserForSubReturnDto,User>();
+
+            CreateMap<PostForReturnDto,PostForUpdateDto>();
         }
     }
 }
