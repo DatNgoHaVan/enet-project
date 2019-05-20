@@ -1,7 +1,7 @@
 import { alertError } from './alert-action';
 import { history } from '../history';
 import { login } from '../../services/AuthService';
-import { parseJwt } from '../../components/comment';
+import { parseJwt } from '../../components/Comment';
 
 export const loginAction = (username, password) => {
     return dispatch => {
