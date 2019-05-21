@@ -24,7 +24,7 @@ An social network.
 - Be sure you are in "enet-be" folder.
 - Build whole solution.
 - In Solution Explorer, make sure that "enet-be" is selected as the Startup Project
-- {Open Package Manager Console Window and make sure that "enet-be" is selected as Default project. Then type "Update-Database" then press "Enter". This action will create database schema.} NO NEED !!
+- ~~Open Package Manager Console Window and make sure that "enet-be" is selected as Default project. Then type "Update-Database" then press "Enter". This action will create database schema.~~
 - In Visual Studio, press "Control + F5". Or using "dotnet run" or "dotnet watch run" and hit "Enter" in VSCode.
 
 ## Mac/Linux with PostgreSQL
@@ -39,8 +39,8 @@ An social network.
 #### Steps to run
 *NOTE: If you are using VSCode, please install C# Extension first!* 
 - Be sure you are in enet-be folder.
-- {Update the connection string in appsettings.json
-- Run file linux-build.sh by "sudo ./linux-build.sh". For ubuntu 18 "sudo bash linux-build.sh"} NO NEED!!
+- ~~Update the connection string in appsettings.json~~
+- ~~Run file linux-build.sh by "sudo ./linux-build.sh". For ubuntu 18 "sudo bash linux-build.sh"~~
 - In the terminal, type "dotnet run" or "dotnet watch run" and hit "Enter".
 - `Example with Postman` Call register API: http://localhost:5000/api/register/
 
