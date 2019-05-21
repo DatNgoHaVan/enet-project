@@ -7,7 +7,7 @@ jobs:
 
      # build image
      - run: |
-         cd enson-be
+         cd enet-be
          docker info
          docker build -t aspnetapp -f Dockerfile .
      # deploy the image
