@@ -34,11 +34,7 @@ namespace enson_be.Data
         //Get all post 
         public async Task<IEnumerable<PostForReturnDto>> GetAllPostAsync()
         {
-            IEnumerable<PostForReturnDto> postsToReturn = await _postRepository.FindAll()
-                            // .Include(x => x.AvailableOptions)
-                            // .Include(x => x.User)
-                            // .Include(x => x.Comments)
-                            // .ThenInclude(p => p.User)
+            var postsToReturn = await _postRepository.FindAll()
                             .Select(x => new PostForReturnDto
                             {
                                 PostId = x.PostId,
@@ -50,9 +46,8 @@ namespace enson_be.Data
                                 Comments = x.Comments.Select(p => new CommentForSubReturnDto().FromEntity(p, p.User)).ToList(),
                                 AvailableOptions = x.AvailableOptions,
                             })
-                            .OrderBy(x => x.PostId)
                             .ToListAsync();
-            return postsToReturn.AsEnumerable();
+            return postsToReturn;
         }
 
         //Get one post
@@ -75,7 +70,7 @@ namespace enson_be.Data
                             // .ThenInclude(p => p.User)
                             .ToListAsync();
             //return 1 post and default if empty
-            return postToReturn.SingleOrDefault();
+            return postToReturn.DefaultIfEmpty().SingleOrDefault();
         }
 
         //get all post of user with user id

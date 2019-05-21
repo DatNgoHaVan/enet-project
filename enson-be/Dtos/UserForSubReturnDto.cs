@@ -12,7 +12,6 @@ namespace enson_be.Dtos
             FirstName = user.FirstName;
             LastName = user.LastName;
             Birthday = user.Birthday;
-
         }
         public long UserId { get; set; }
         public string FirstName { get; set; }

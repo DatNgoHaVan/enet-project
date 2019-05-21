@@ -24,8 +24,6 @@ namespace enson_be.Dtos
                 Content = comment.Content,
                 Image = comment.Image,
                 User = new UserForSubReturnDto(user),
-                //PostId = comment.PostId,
-                //User = new UserForReturnDto(comment.User) 
             };
         }
     }
