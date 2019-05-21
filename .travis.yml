@@ -1,13 +1,13 @@
-language: csharp
-dist: xenial
-mono: none
-sudo: required
-dotnet: 2.2
-install:
-- cd enson-be
-- dotnet restore
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
 script:
-- dotnet build
+  - cd enet-fe
+  - npm install
+  - npm test
 
 notifications:
   email: false
