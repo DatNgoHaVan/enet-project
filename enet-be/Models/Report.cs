@@ -22,10 +22,10 @@ namespace enet_be.Models
         public int? Status { get; set; }
         public int? Count { get; set; }
         public virtual List<Appeal> Appeals { get; set; }
-        public User User { get; set; }
-        public Post Post { get; set; }
-        public Content Content { get; set; }
+        public virtual User User { get; set; }
+        public virtual Post Post { get; set; }
+        public virtual Content Content { get; set; }
         public long ReportTypeId { get; set; }
-        public ReportType ReportType { get; set; }
+        public virtual ReportType ReportType { get; set; }
     }
 }

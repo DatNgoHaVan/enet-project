@@ -16,7 +16,7 @@ namespace enet_be.Models
         [Key]
         [Column(Order = 2)]
         public long UserIdSub { get; set; }
-        public User User1 { get; set; }
-        public User User2 { get; set; }
+        public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
     }
 }

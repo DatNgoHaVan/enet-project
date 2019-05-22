@@ -16,13 +16,14 @@ namespace enet_be.Models
         public string Url { get; set; }
         public string Content { get; set; }
         public int? Status { get; set; }
+        public bool IsExist { get; set; }
         public long UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public virtual List<Comment> Comments { get; set; }
         public virtual List<Reaction> Reactions { get; set; }
         public virtual List<Report> Reports { get; set; }
         public long AvailableOptionsId { get; set; }
-        public AvailableOptions AvailableOptions { get; set; }
+        public virtual AvailableOptions AvailableOptions { get; set; }
         public virtual List<OptionPostUser> OptionPostUsers { get; set; }
     }
 }

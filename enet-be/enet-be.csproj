@@ -11,15 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190328025403_createDB.cs" />
-    <Compile Remove="Migrations\20190328025403_createDB.Designer.cs" />
-    <Compile Remove="Migrations\20190328034625_createDB.cs" />
-    <Compile Remove="Migrations\20190328034625_createDB.Designer.cs" />
-    <Compile Remove="Migrations\20190328035934_createDB.cs" />
-    <Compile Remove="Migrations\20190328035934_createDB.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />

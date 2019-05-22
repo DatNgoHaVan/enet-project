@@ -17,6 +17,6 @@ namespace enet_be.Models
         public Boolean? Friend { get; set; }
         public Boolean? Follow { get; set; }
         public Boolean? Block { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }

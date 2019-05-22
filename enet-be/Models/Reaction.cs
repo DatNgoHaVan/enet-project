@@ -17,6 +17,6 @@ namespace enet_be.Models
         public DateTime? Date { get; set; }
         public string Content { get; set; }
         public string Image { get; set; }
-        public Post Post { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

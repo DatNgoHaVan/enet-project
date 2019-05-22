@@ -16,7 +16,7 @@ namespace enet_be.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("enet_be.Models.Appeal", b =>
@@ -63,6 +63,8 @@ namespace enet_be.Migrations
                     b.Property<DateTime?>("Date");
 
                     b.Property<string>("Image");
+
+                    b.Property<bool?>("IsExist");
 
                     b.Property<long>("PostId");
 
@@ -156,6 +158,8 @@ namespace enet_be.Migrations
                     b.Property<long>("AvailableOptionsId");
 
                     b.Property<string>("Content");
+
+                    b.Property<bool>("IsExist");
 
                     b.Property<int?>("Status");
 
@@ -296,6 +300,10 @@ namespace enet_be.Migrations
                     b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("Image");
+
+                    b.Property<bool>("IsExist");
 
                     b.Property<string>("LastName");
 
