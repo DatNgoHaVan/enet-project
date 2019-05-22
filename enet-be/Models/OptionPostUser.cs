@@ -15,8 +15,8 @@ namespace enet_be.Models
         [Key, Column(Order = 2)]
         public long UserId { get; set; }
         [ForeignKey("PostId")]
-        public Post Post { get; set; }
+        public virtual Post Post { get; set; }
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }

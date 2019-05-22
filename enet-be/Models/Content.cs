@@ -14,7 +14,7 @@ namespace enet_be.Models
         public long ContentId { get; set; }
         public string ContentName { get; set; }
         public long UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public virtual List<Report> Reports { get; set; }
     }
 }
