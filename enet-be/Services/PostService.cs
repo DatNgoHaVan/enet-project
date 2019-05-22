@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using enet_be.Dtos;
+using enet_be.Helpers;
 using enet_be.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +12,12 @@ namespace enet_be.Data
     public class PostService : IPostService
     {
         private readonly IRepositoryBase<Post> _postRepository;
+        private readonly IMapper _mapper;
 
         public PostService(IRepositoryBase<Post> postRepository, IMapper mapper)
         {
             _postRepository = postRepository;
+            _mapper = mapper;
         }
 
         //Call create method in RepositoryBase
@@ -96,10 +99,17 @@ namespace enet_be.Data
 
         }
 
+        public async Task<Post> GetPostForUpdate(long postId)
+        {
+            var postToReturn = await _postRepository.FindByCondition(x => x.PostId.Equals(postId)).ToListAsync();
+            return postToReturn.DefaultIfEmpty().FirstOrDefault();
+        }
+
         //call update in RepoBase
-        public async Task UpdatePostAsync(PostForUpdateDto postForUpdate)
+        public async Task UpdatePostAsync(PostForUpdateDto postForUpdate, Post postFromRepository)
         {
             var post = new Post();
+            post = postForUpdate.MapFromPostUpdateToPost();
             _postRepository.Update(post);
             await _postRepository.SaveAsync();
         }

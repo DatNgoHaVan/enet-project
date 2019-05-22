@@ -9,11 +9,17 @@ namespace enet_be.Helpers
         public AutoMapperProfiles()
         {
             //Create Map for PostForUpdateDto and Post
-            CreateMap<PostForUpdateDto,Post>();
+            CreateMap<PostForUpdateDto, Post>();
 
             CreateMap<UserForUpdateDto, User>();
-            
+
             CreateMap<CommentForUpdateDto, Comment>();
+
+            CreateMap<PostForReturnDto, Post>();
+
+            CreateMap<AvailableOptionsForReturnDto, AvailableOptions>();
+
+            CreateMap<CommentForReturnDto, Comment>();
         }
     }
 }

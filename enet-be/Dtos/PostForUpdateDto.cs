@@ -1,3 +1,5 @@
+using enet_be.Models;
+
 namespace enet_be.Dtos
 {
     public class PostForUpdateDto

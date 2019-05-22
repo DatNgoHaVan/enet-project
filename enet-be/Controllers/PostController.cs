@@ -48,7 +48,7 @@ namespace enet_be.Controllers
         //get post id only for admin
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("{id}")]
+        [Route("{postId}")]
         public async Task<IActionResult> GetPostById(long id)
         {
             try
@@ -138,7 +138,7 @@ namespace enet_be.Controllers
         //Update post for admin and user
         [Authorize(Roles = "User,Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePost(long id, [FromBody] PostForUpdateDto postForUpdateDto)
+        public async Task<IActionResult> UpdatePost(long postId, [FromBody] PostForUpdateDto postForUpdateDto)
         {
             try
             {
@@ -148,11 +148,11 @@ namespace enet_be.Controllers
                     return BadRequest("Post object is null");
                 }
 
-                var postFromRepo = await _postService.GetOnePostById(id);
+                var postFromRepository = await _postService.GetPostForUpdate(postId);
 
-                if (postFromRepo == null)
+                if (postFromRepository == null)
                 {
-                    _logger.LogError($"Post with id: {id}, hasn't been found in db.");
+                    _logger.LogError($"Post with id: {postId}, hasn't been found in db.");
                     return NotFound();
                 }
 
@@ -162,7 +162,7 @@ namespace enet_be.Controllers
                     // var postForUpdate = new Post();
                     //set postForUpdate by map postForUpdateDto and postFromRepo
                     //postForUpdate = _mapper.Map(postForUpdateDto, postFromRepo);
-                    await _postService.UpdatePostAsync(postForUpdateDto);
+                    await _postService.UpdatePostAsync(postForUpdateDto, postFromRepository);
                     return StatusCode(200);
                 }
             }

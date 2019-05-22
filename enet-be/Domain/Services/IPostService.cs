@@ -11,8 +11,9 @@ namespace enet_be.Data
         Task<IEnumerable<PostForReturnDto>> GetAllPostAsync();
         Task<PostForReturnDto> GetOnePostById(long postId);
         Task<IEnumerable<PostForReturnDto>> GetPostByUserId(long userId);
+        Task<Post> GetPostForUpdate(long postId);
         Task CreatePostAsync(Post post);
-        Task UpdatePostAsync(PostForUpdateDto postForUpdate);
+        Task UpdatePostAsync(PostForUpdateDto postForUpdate, Post postFromRepository);
         Task DeletePostAsync(Post post);
     }
 }
