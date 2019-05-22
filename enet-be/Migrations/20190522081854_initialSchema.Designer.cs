@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using enson_be.Models;
+using enet_be.Models;
 
-namespace enson_be.Migrations
+namespace enet_be.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20190329064629_initialSchema")]
+    [Migration("20190522081854_initialSchema")]
     partial class initialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,10 +18,10 @@ namespace enson_be.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("enson_be.Models.Appeal", b =>
+            modelBuilder.Entity("enet_be.Models.Appeal", b =>
                 {
                     b.Property<long>("AppealId")
                         .ValueGeneratedOnAdd();
@@ -43,7 +43,7 @@ namespace enson_be.Migrations
                     b.ToTable("Appeals");
                 });
 
-            modelBuilder.Entity("enson_be.Models.AvailableOptions", b =>
+            modelBuilder.Entity("enet_be.Models.AvailableOptions", b =>
                 {
                     b.Property<long>("AvailableOptionsId")
                         .ValueGeneratedOnAdd();
@@ -55,7 +55,7 @@ namespace enson_be.Migrations
                     b.ToTable("AvailableOptions");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Comment", b =>
+            modelBuilder.Entity("enet_be.Models.Comment", b =>
                 {
                     b.Property<long>("CommentId")
                         .ValueGeneratedOnAdd();
@@ -65,6 +65,8 @@ namespace enson_be.Migrations
                     b.Property<DateTime?>("Date");
 
                     b.Property<string>("Image");
+
+                    b.Property<bool?>("IsExist");
 
                     b.Property<long>("PostId");
 
@@ -79,7 +81,7 @@ namespace enson_be.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Content", b =>
+            modelBuilder.Entity("enet_be.Models.Content", b =>
                 {
                     b.Property<long>("ContentId")
                         .ValueGeneratedOnAdd();
@@ -95,7 +97,7 @@ namespace enson_be.Migrations
                     b.ToTable("Contents");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Expect", b =>
+            modelBuilder.Entity("enet_be.Models.Expect", b =>
                 {
                     b.Property<long>("UserIdMain");
 
@@ -108,7 +110,7 @@ namespace enson_be.Migrations
                     b.ToTable("Expects");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Log", b =>
+            modelBuilder.Entity("enet_be.Models.Log", b =>
                 {
                     b.Property<long>("LogId")
                         .ValueGeneratedOnAdd();
@@ -124,7 +126,7 @@ namespace enson_be.Migrations
                     b.ToTable("Logs");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Only", b =>
+            modelBuilder.Entity("enet_be.Models.Only", b =>
                 {
                     b.Property<long>("UserIdMain");
 
@@ -137,7 +139,7 @@ namespace enson_be.Migrations
                     b.ToTable("Only");
                 });
 
-            modelBuilder.Entity("enson_be.Models.OptionPostUser", b =>
+            modelBuilder.Entity("enet_be.Models.OptionPostUser", b =>
                 {
                     b.Property<long>("UserId");
 
@@ -150,7 +152,7 @@ namespace enson_be.Migrations
                     b.ToTable("OptionPostUsers");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Post", b =>
+            modelBuilder.Entity("enet_be.Models.Post", b =>
                 {
                     b.Property<long>("PostId")
                         .ValueGeneratedOnAdd();
@@ -158,6 +160,8 @@ namespace enson_be.Migrations
                     b.Property<long>("AvailableOptionsId");
 
                     b.Property<string>("Content");
+
+                    b.Property<bool>("IsExist");
 
                     b.Property<int?>("Status");
 
@@ -176,7 +180,7 @@ namespace enson_be.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Reaction", b =>
+            modelBuilder.Entity("enet_be.Models.Reaction", b =>
                 {
                     b.Property<long>("ReactionId")
                         .ValueGeneratedOnAdd();
@@ -198,7 +202,7 @@ namespace enson_be.Migrations
                     b.ToTable("Reactions");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Relationship", b =>
+            modelBuilder.Entity("enet_be.Models.Relationship", b =>
                 {
                     b.Property<long>("RelationshipId")
                         .ValueGeneratedOnAdd();
@@ -220,7 +224,7 @@ namespace enson_be.Migrations
                     b.ToTable("Relationships");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Report", b =>
+            modelBuilder.Entity("enet_be.Models.Report", b =>
                 {
                     b.Property<long>("ReportId")
                         .ValueGeneratedOnAdd();
@@ -262,7 +266,7 @@ namespace enson_be.Migrations
                     b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("enson_be.Models.ReportType", b =>
+            modelBuilder.Entity("enet_be.Models.ReportType", b =>
                 {
                     b.Property<long>("ReportTypeId")
                         .ValueGeneratedOnAdd();
@@ -274,7 +278,7 @@ namespace enson_be.Migrations
                     b.ToTable("ReportTypes");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Role", b =>
+            modelBuilder.Entity("enet_be.Models.Role", b =>
                 {
                     b.Property<long>("RoleId")
                         .ValueGeneratedOnAdd();
@@ -286,7 +290,7 @@ namespace enson_be.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("enson_be.Models.User", b =>
+            modelBuilder.Entity("enet_be.Models.User", b =>
                 {
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd();
@@ -298,6 +302,10 @@ namespace enson_be.Migrations
                     b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("Image");
+
+                    b.Property<bool>("IsExist");
 
                     b.Property<string>("LastName");
 
@@ -318,136 +326,136 @@ namespace enson_be.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("enson_be.Models.Appeal", b =>
+            modelBuilder.Entity("enet_be.Models.Appeal", b =>
                 {
-                    b.HasOne("enson_be.Models.Report", "Report")
+                    b.HasOne("enet_be.Models.Report", "Report")
                         .WithMany("Appeals")
                         .HasForeignKey("ReportId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("enson_be.Models.User", "User")
+                    b.HasOne("enet_be.Models.User", "User")
                         .WithMany("Appeals")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Comment", b =>
+            modelBuilder.Entity("enet_be.Models.Comment", b =>
                 {
-                    b.HasOne("enson_be.Models.Post", "Post")
+                    b.HasOne("enet_be.Models.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("enson_be.Models.User", "User")
+                    b.HasOne("enet_be.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Content", b =>
+            modelBuilder.Entity("enet_be.Models.Content", b =>
                 {
-                    b.HasOne("enson_be.Models.User", "User")
+                    b.HasOne("enet_be.Models.User", "User")
                         .WithMany("Contents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Expect", b =>
+            modelBuilder.Entity("enet_be.Models.Expect", b =>
                 {
-                    b.HasOne("enson_be.Models.User", "User1")
+                    b.HasOne("enet_be.Models.User", "User1")
                         .WithMany("Expects1")
                         .HasForeignKey("UserIdMain")
                         .HasConstraintName("Expect1")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("enson_be.Models.User", "User2")
+                    b.HasOne("enet_be.Models.User", "User2")
                         .WithMany("Expects2")
                         .HasForeignKey("UserIdSub")
                         .HasConstraintName("Expect2")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Only", b =>
+            modelBuilder.Entity("enet_be.Models.Only", b =>
                 {
-                    b.HasOne("enson_be.Models.User", "User1")
+                    b.HasOne("enet_be.Models.User", "User1")
                         .WithMany("Only1")
                         .HasForeignKey("UserIdMain")
                         .HasConstraintName("Only1")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("enson_be.Models.User", "User2")
+                    b.HasOne("enet_be.Models.User", "User2")
                         .WithMany("Only2")
                         .HasForeignKey("UserIdSub")
                         .HasConstraintName("Only2")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("enson_be.Models.OptionPostUser", b =>
+            modelBuilder.Entity("enet_be.Models.OptionPostUser", b =>
                 {
-                    b.HasOne("enson_be.Models.Post", "Post")
+                    b.HasOne("enet_be.Models.Post", "Post")
                         .WithMany("OptionPostUsers")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("enson_be.Models.User", "User")
+                    b.HasOne("enet_be.Models.User", "User")
                         .WithMany("OptionPostUsers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Post", b =>
+            modelBuilder.Entity("enet_be.Models.Post", b =>
                 {
-                    b.HasOne("enson_be.Models.AvailableOptions", "AvailableOptions")
+                    b.HasOne("enet_be.Models.AvailableOptions", "AvailableOptions")
                         .WithMany()
                         .HasForeignKey("AvailableOptionsId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("enson_be.Models.User", "User")
+                    b.HasOne("enet_be.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Reaction", b =>
+            modelBuilder.Entity("enet_be.Models.Reaction", b =>
                 {
-                    b.HasOne("enson_be.Models.Post", "Post")
+                    b.HasOne("enet_be.Models.Post", "Post")
                         .WithMany("Reactions")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Relationship", b =>
+            modelBuilder.Entity("enet_be.Models.Relationship", b =>
                 {
-                    b.HasOne("enson_be.Models.User", "User")
+                    b.HasOne("enet_be.Models.User", "User")
                         .WithMany("Relationships")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("enson_be.Models.Report", b =>
+            modelBuilder.Entity("enet_be.Models.Report", b =>
                 {
-                    b.HasOne("enson_be.Models.Content", "Content")
+                    b.HasOne("enet_be.Models.Content", "Content")
                         .WithMany("Reports")
                         .HasForeignKey("ContentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("enson_be.Models.Post", "Post")
+                    b.HasOne("enet_be.Models.Post", "Post")
                         .WithMany("Reports")
                         .HasForeignKey("PostId");
 
-                    b.HasOne("enson_be.Models.ReportType", "ReportType")
+                    b.HasOne("enet_be.Models.ReportType", "ReportType")
                         .WithMany("Reports")
                         .HasForeignKey("ReportTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("enson_be.Models.User", "User")
+                    b.HasOne("enet_be.Models.User", "User")
                         .WithMany("Reports")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("enson_be.Models.User", b =>
+            modelBuilder.Entity("enet_be.Models.User", b =>
                 {
-                    b.HasOne("enson_be.Models.Role", "Role")
+                    b.HasOne("enet_be.Models.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);

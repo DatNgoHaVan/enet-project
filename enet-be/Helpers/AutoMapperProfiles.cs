@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using enson_be.Dtos;
-using enson_be.Models;
+using enet_be.Dtos;
+using enet_be.Models;
 
-namespace enson_be.Helpers
+namespace enet_be.Helpers
 {
     public class AutoMapperProfiles : Profile
     {

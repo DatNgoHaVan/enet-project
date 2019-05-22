@@ -1,40 +1,43 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using enson_be.Data;
-using enson_be.Dtos;
-using enson_be.Models;
-using enson_be.Helpers;
+using enet_be.Data;
+using enet_be.Dtos;
+using enet_be.Models;
+using enet_be.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using enet_be.Domain.Services;
 
-namespace enson_be.Controllers
+namespace enet_be.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
     {
-        private readonly ICommentRepository _repo;
+        private ICommentService _commentService;
         private readonly ILogger<CommentController> _logger;
-        private readonly IMapper _map;
+        private readonly IMapper _mapper;
 
-        public CommentController(ICommentRepository repo, ILogger<CommentController> logger, IMapper map)
+        public CommentController(ICommentService commentService, ILogger<CommentController> logger, IMapper mapper)
         {
-            _repo = repo;
+            _commentService = commentService;
             _logger = logger;
-            _map = map;
+            _mapper = mapper;
         }
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllComment()
         {
             try
             {
-                var comments = await _repo.GetAllCommentAsync();
-                return Ok(comments);
+                var comments = await _commentService.GetAllCommentAsync();
+                var resources = _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentForReturnDto>>(comments);
+                return Ok(resources);
             }
             catch (Exception ex)
             {
@@ -43,15 +46,14 @@ namespace enson_be.Controllers
             }
         }
 
-        [Authorize(Roles = "1,2")]
-        [HttpGet]
-        [Route("{id}")]
+        [Authorize(Roles = "User,Admin")]
+        [HttpGet("{id}", Name = "GetComment")]
         public async Task<IActionResult> GetCommentById(long id)
         {
             try
             {
                 //comments object from db
-                var comments = await _repo.GetCommentById(id);
+                var comments = await _commentService.GetCommentById(id);
 
                 if (comments == null)
                 {
@@ -60,8 +62,9 @@ namespace enson_be.Controllers
                 }
                 else
                 {
+                    var resources = _mapper.Map<Comment, CommentForReturnDto>(comments);
                     _logger.LogInformation($"Returned Comment with ID: {id}");
-                    return Ok(comments);
+                    return Ok(resources);
                 }
             }
             catch (Exception ex)
@@ -71,14 +74,14 @@ namespace enson_be.Controllers
             }
         }
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpGet]
         [Route("getByPostId/{postId}")]
         public async Task<IActionResult> GetCommentByPostId(long postId)
         {
             try
             {
-                var comments = await _repo.GetCommentByPostId(postId);
+                var comments = await _commentService.GetCommentByPostId(postId);
                 if (comments == null)
                 {
                     _logger.LogError($"Comments of Post with ID: {postId}, hasn't been found ib db");
@@ -86,8 +89,9 @@ namespace enson_be.Controllers
                 }
                 else
                 {
+                    var resources = _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentForReturnDto>>(comments);
                     _logger.LogInformation($"Returned Comment of Post with ID: {postId}");
-                    return Ok(comments);
+                    return Ok(resources);
                 }
             }
             catch (Exception ex)
@@ -97,14 +101,14 @@ namespace enson_be.Controllers
             }
         }
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpGet]
         [Route("getByUserId/{userId}")]
         public async Task<IActionResult> GetCommentByUserId(long userId)
         {
             try
             {
-                var comments = await _repo.GetCommentByUserId(userId);
+                var comments = await _commentService.GetCommentByUserId(userId);
 
                 if (comments == null)
                 {
@@ -125,7 +129,7 @@ namespace enson_be.Controllers
             }
         }
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateComment([FromBody] CommentForCreationDto commentForCreationDto)
         {
@@ -153,7 +157,7 @@ namespace enson_be.Controllers
                         UserId = commentForCreationDto.UserId,
                         PostId = commentForCreationDto.PostId
                     };
-                    await _repo.CreateCommentAsync(commentForCreate);
+                    await _commentService.CreateCommentAsync(commentForCreate);
                     _logger.LogInformation("A Comment has been created");
                     return StatusCode(201);
                 }
@@ -165,7 +169,7 @@ namespace enson_be.Controllers
             }
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{commentId}")]
         public async Task<IActionResult> UpdateComment(long commentId, [FromBody] CommentForUpdateDto commentForUpdateDto)
         {
@@ -184,7 +188,7 @@ namespace enson_be.Controllers
                 }
 
                 //get commentobject from db
-                var commentFromRepo = await _repo.GetCommentById(commentId);
+                var commentFromRepo = await _commentService.GetCommentById(commentId);
 
                 if (commentFromRepo == null)
                 {
@@ -195,8 +199,8 @@ namespace enson_be.Controllers
                 else
                 {
                     var commentForUpdate = new Comment();
-                    commentForUpdate = _map.Map(commentForUpdateDto, commentFromRepo);
-                    await _repo.UpdateCommentAsync(commentForUpdate);
+                    commentForUpdate = _mapper.Map(commentForUpdateDto, commentFromRepo);
+                    await _commentService.UpdateCommentAsync(commentForUpdate);
                     return StatusCode(201);
                 }
             }
@@ -207,29 +211,31 @@ namespace enson_be.Controllers
             }
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{commentId}")]
         public async Task<IActionResult> DeleteComment(long commentId)
         {
             try
             {
-                var commentForDelete = await _repo.GetCommentById(commentId);
-                
-                if(commentForDelete == null)
+                var commentForDelete = await _commentService.GetCommentById(commentId);
+
+                if (commentForDelete == null)
                 {
                     _logger.LogError($"Comment with ID:{commentId}, hasn't been found in db.");
                     return NotFound();
                 }
 
-                else{
-                    await _repo.DeleteCommentAsync(commentForDelete);
+                else
+                {
+                    await _commentService.DeleteCommentAsync(commentForDelete);
                     _logger.LogInformation("A Comment has been deleted");
                     return StatusCode(201);
                 }
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 _logger.LogError($"Something went wrong inside DeleteComment action: {ex.Message}");
-                return StatusCode(500,"Internal server error");
+                return StatusCode(500, "Internal server error");
             }
         }
     }

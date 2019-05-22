@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using enson_be.Models;
+using enet_be.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace enson_be.Data
+namespace enet_be.Data
 {
-    public class RegisterRepository : IRegisterRepository
+    public class RegisterService : IRegisterService
     {
         private readonly DatabaseContext _context;
 
@@ -14,7 +14,7 @@ namespace enson_be.Data
         any of our classes by injecting it into the class constructor  */
         /*as anything inside the ConfigureServices method inside the Startup.cs class 
         will be available to be used (injected) into other parts of our application. */
-        public RegisterRepository (DatabaseContext context) 
+        public RegisterService (DatabaseContext context) 
         {
             _context = context;
         }

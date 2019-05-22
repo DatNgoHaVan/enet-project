@@ -3,36 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using enson_be.Models;
+using enet_be.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace enson_be.Data
+namespace enet_be.Data
 {
     //Inherit IRepository with type T is a class
-    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected DatabaseContext _context;
+        protected readonly DatabaseContext _context;
+        private DbSet<T> _entities;
         public RepositoryBase(DatabaseContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Gets an entity set
+        /// </summary>
+        protected virtual DbSet<T> Entities
+        {
+            get
+            {
+                if (_entities == null)
+                    _entities = _context.Set<T>();
+
+                return _entities;
+            }
+        }
+
         //Create Method
         public void Create(T entity)
         {
-            _context.Set<T>().Add(entity);
+            Entities.Add(entity);
         }
 
         //Find all method
-        public async Task<IEnumerable<T>> FindAllAsync()
-        {
-            return await _context.Set<T>().ToListAsync();
-        }
+        // public async Task<IEnumerable<T>> FindAllAsync()
+        // {
+        //     return await _context.Set<T>().ToListAsync();
+        // }
 
         //Find with condition method
-        public async Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression)
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return await _context.Set<T>().Where(expression).ToListAsync();
+            return Entities.AsQueryable().Where(expression);
         }
 
         //Delete method
@@ -52,5 +67,7 @@ namespace enson_be.Data
         {
             _context.Set<T>().Update(entity);
         }
+
+        public IQueryable<T> FindAll() => Entities.AsQueryable();
     }
 }

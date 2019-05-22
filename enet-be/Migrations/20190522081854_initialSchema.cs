@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace enson_be.Migrations
+namespace enet_be.Migrations
 {
     public partial class initialSchema : Migration
     {
@@ -77,6 +77,8 @@ namespace enson_be.Migrations
                     Birthday = table.Column<DateTime>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
+                    IsExist = table.Column<bool>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
                     RoleId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -168,6 +170,7 @@ namespace enson_be.Migrations
                     Url = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: true),
+                    IsExist = table.Column<bool>(nullable: false),
                     UserId = table.Column<long>(nullable: false),
                     AvailableOptionsId = table.Column<long>(nullable: false)
                 },
@@ -220,6 +223,7 @@ namespace enson_be.Migrations
                     Date = table.Column<DateTime>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
+                    IsExist = table.Column<bool>(nullable: true),
                     UserId = table.Column<long>(nullable: false),
                     PostId = table.Column<long>(nullable: false)
                 },

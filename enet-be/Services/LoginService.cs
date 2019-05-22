@@ -1,14 +1,14 @@
 using System;
 using System.Threading.Tasks;
-using enson_be.Models;
+using enet_be.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace enson_be.Data
+namespace enet_be.Data
 {
-    public class LoginRepository:ILoginRepository
+    public class LoginService:ILoginService
     {
         private readonly DatabaseContext _context;
-        public LoginRepository(DatabaseContext context)
+        public LoginService(DatabaseContext context)
         {
             _context = context;
         }
@@ -16,7 +16,7 @@ namespace enson_be.Data
         public async Task<User> Login(string username, string password)
         {
             //get user from username in database
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == username);
+            var user = await _context.Users.Include(x=>x.Role).FirstOrDefaultAsync(x => x.UserName == username);
 
             //check user is null
             if (user == null)

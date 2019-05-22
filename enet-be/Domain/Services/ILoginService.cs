@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using enson_be.Models;
+using enet_be.Models;
 
-namespace enson_be.Data
+namespace enet_be.Data
 {
-    public interface ILoginRepository
+    public interface ILoginService
     {
         Task<User> Login(string username, string password);
     }

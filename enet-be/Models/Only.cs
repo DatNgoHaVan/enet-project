@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Models
+namespace enet_be.Models
 {
     public class Only
     {
@@ -16,7 +16,7 @@ namespace enson_be.Models
         [Key]
         [Column(Order = 2)]
         public long UserIdSub { get; set; }
-        public User User1 { get; set; }
-        public User User2 { get; set; }
+        public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
     }
 }

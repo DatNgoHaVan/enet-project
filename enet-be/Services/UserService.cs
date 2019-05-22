@@ -1,54 +1,65 @@
-﻿using enson_be.Models;
+﻿using AutoMapper;
+using enet_be.Dtos;
+using enet_be.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Data
+namespace enet_be.Data
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserService : IUserService
     {
-        public UserRepository(DatabaseContext context) : base(context)
+        private IRepositoryBase<User> _userRepository;
+
+        public UserService(IRepositoryBase<User> userRepository)
         {
+            _userRepository = userRepository;
         }
 
         public async Task DeleteUserAsync(User user)
         {
-            Delete(user);
-            await SaveAsync();
+            _userRepository.Delete(user);
+            await _userRepository.SaveAsync();
         }
 
         public async Task<IEnumerable<User>> GetAllUserAsync()
         {
-            var users = await FindAllAsync();
-
+            var usersToReturn = await _userRepository.FindAll().Include(x => x.Role).ToListAsync();
             // return user without password
-            return await Task.Run(() => users.Select(x => {
-                x.PasswordHash = null; x.PasswordSalt = null;
-                return x;
-            }));            
+            return usersToReturn;
         }
 
         public async Task<User> GetUserByEmailAsync(string userEmail)
         {
-            var user = await FindByConditionAsync(x => x.Email.Equals(userEmail));
-            return user.DefaultIfEmpty(new User()).FirstOrDefault();
+            var userToReturn = await _userRepository
+                            .FindByCondition(x => x.Email.Equals(userEmail))
+                            .Include(x => x.Role)
+                            .ToListAsync();
+            return userToReturn.FirstOrDefault();
         }
 
         public async Task<User> GetUserByIdAsync(long userId)
         {
-            var user = await FindByConditionAsync(x => x.UserId.Equals(userId));
+            var user = await _userRepository
+                            .FindByCondition(x => x.UserId.Equals(userId))
+                            .Include(x => x.Role)
+                            .ToListAsync();
             return user.DefaultIfEmpty(new User()).FirstOrDefault();
         }
 
         public async Task<User> GetUserByUserNameAsync(string userName)
         {
-            var user = await FindByConditionAsync(x => x.UserName.Equals(userName));
-            return user.DefaultIfEmpty(new User()).FirstOrDefault();
+            var userToReturn = await _userRepository
+                            .FindByCondition(x => x.UserName.Equals(userName))
+                            .Include(x => x.Role)
+                            .ToListAsync();
+            return userToReturn.DefaultIfEmpty(new User()).FirstOrDefault();
         }
 
         public async Task UpdateUserAsync(User user, string password)
-        {            
+        {
             //declare passwordHash and passwordSalt
             byte[] passwordHash, passwordSalt;
             //run create password hash
@@ -58,8 +69,8 @@ namespace enson_be.Data
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            Update(user);
-            await SaveAsync();         
+            _userRepository.Update(user);
+            await _userRepository.SaveAsync();
         }
         /**Hash password */
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -73,6 +84,6 @@ namespace enson_be.Data
                 //A secret key was auto generated
                 passwordSalt = hmac.Key;
             }
-        }        
+        }
     }
 }

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
-using enson_be.Data;
-using enson_be.Dtos;
-using enson_be.Models;
+using enet_be.Data;
+using enet_be.Dtos;
+using enet_be.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace enson_be.Controllers
+namespace enet_be.Controllers
 {
     //use controllerBase because reactjs for view
     [Route("api/[controller]")]
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly IRegisterRepository _repo;
-        public RegisterController(IRegisterRepository repo)
+        private readonly IRegisterService _repo;
+        public RegisterController(IRegisterService repo)
         {
             _repo = repo;
         }

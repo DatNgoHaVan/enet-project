@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "enson_be": {
+    "enet_be": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "api/values",

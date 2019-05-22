@@ -1,40 +1,41 @@
 using System;
 using System.Threading.Tasks;
-using enson_be.Data;
+using enet_be.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using enson_be.Dtos;
-using enson_be.Models;
+using enet_be.Dtos;
+using enet_be.Models;
 using AutoMapper;
-using enson_be.Helpers;
+using enet_be.Helpers;
+using System.Collections.Generic;
 
-namespace enson_be.Controllers
+namespace enet_be.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
     {
-        private readonly IPostRepository _repo;
+        private IPostService _postService;
         private readonly ILogger<PostController> _logger;
         private readonly IMapper _mapper;
 
-        public PostController(IPostRepository repo, ILogger<PostController> logger, IMapper mapper)
+        public PostController(IPostService postService, ILogger<PostController> logger, IMapper mapper)
         {
+            _postService = postService;
             _logger = logger;
             _mapper = mapper;
-            _repo = repo;
         }
 
         //get all post only for admin
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllPost()
         {
             try
             {
-                var posts = await _repo.GetAllPostAsync();
+                var posts =  await _postService.GetAllPostAsync();
                 return Ok(posts);
             }
             catch (Exception ex)
@@ -45,15 +46,16 @@ namespace enson_be.Controllers
         }
 
         //get post id only for admin
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetPostByIdForAdmin(long id)
+        public async Task<IActionResult> GetPostById(long id)
         {
             try
             {
-                var posts = await _repo.GetOnePostById(id);
-                if (posts == null)
+                var posts = await _postService.GetOnePostById(id);
+                //var resources = _mapper.Map<Post, PostForReturnDto>(posts);
+                if (posts == null || posts.PostId.Equals("0"))
                 {
                     _logger.LogError($"Post with id: {id}, hasn't been found in db.");
                     return NotFound();
@@ -72,14 +74,14 @@ namespace enson_be.Controllers
 
         //get post by user id for user and admin
         //! This will be change because it shows all post, hasn't solve some logic yet.
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetPostByUserId(long userId)
         {
             try
             {
-                var posts = await _repo.GetPostByUserId(userId);
+                var posts = await _postService.GetPostByUserId(userId);
                 if (posts == null)
                 {
                     _logger.LogError($"Post of user id: {userId}, hasn't been found in db.");
@@ -98,7 +100,7 @@ namespace enson_be.Controllers
         }
 
         //create post for both admin and user
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpPost]
         //map 1 json from body to DTO
         public async Task<IActionResult> CreatePost([FromBody] PostForCreationDto postForCreationDto)
@@ -122,7 +124,7 @@ namespace enson_be.Controllers
                         UserId = postForCreationDto.UserId,
                         AvailableOptionsId = postForCreationDto.AvailableOptionsId
                     };
-                    await _repo.CreatePostAsync(postToCreate);
+                    await _postService.CreatePostAsync(postToCreate);
                     return StatusCode(201);
                 }
             }
@@ -134,7 +136,7 @@ namespace enson_be.Controllers
         }
 
         //Update post for admin and user
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePost(long id, [FromBody] PostForUpdateDto postForUpdateDto)
         {
@@ -146,7 +148,7 @@ namespace enson_be.Controllers
                     return BadRequest("Post object is null");
                 }
 
-                var postFromRepo = await _repo.GetOnePostById(id);
+                var postFromRepo = await _postService.GetOnePostById(id);
 
                 if (postFromRepo == null)
                 {
@@ -157,10 +159,10 @@ namespace enson_be.Controllers
                 else
                 {
                     //create Post obj for update
-                    var postForUpdate = new Post();
+                    // var postForUpdate = new Post();
                     //set postForUpdate by map postForUpdateDto and postFromRepo
-                    postForUpdate = _mapper.Map(postForUpdateDto, postFromRepo);
-                    await _repo.UpdatePostAsync(postForUpdate);
+                    //postForUpdate = _mapper.Map(postForUpdateDto, postFromRepo);
+                    await _postService.UpdatePostAsync(postForUpdateDto);
                     return StatusCode(200);
                 }
             }
@@ -172,20 +174,20 @@ namespace enson_be.Controllers
         }
 
         //Delete post for admin an user
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "User,Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePost(long id)
         {
             try
             {
-                var postForDelete = await _repo.GetOnePostById(id);
+                var postForDelete = await _postService.GetOnePostById(id);
                 if (postForDelete == null)
                 {
                     _logger.LogError($"Post with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
 
-                await _repo.DeletePostAsync(postForDelete);
+                //await _postService.DeletePostAsync(postForDelete);
 
                 return StatusCode(200);
             }

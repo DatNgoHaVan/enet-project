@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using enson_be.Data;
-using enson_be.Dtos;
-using enson_be.Models;
+using enet_be.Data;
+using enet_be.Dtos;
+using enet_be.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
@@ -11,16 +11,16 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace enson_be.Controllers
+namespace enet_be.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ILoginRepository _repo;
+        private readonly ILoginService _repo;
         private readonly IConfiguration _config;
-        public LoginController(ILoginRepository repo, IConfiguration config)
+        public LoginController(ILoginService repo, IConfiguration config)
         {
             _config = config;
             _repo = repo;
@@ -42,7 +42,7 @@ namespace enson_be.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.UserId.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.UserName),
-                new Claim(ClaimTypes.Role, userFromRepo.RoleId.ToString())
+                new Claim(ClaimTypes.Role, userFromRepo.Role.Type.ToString())
             };
 
             //create key for token get section

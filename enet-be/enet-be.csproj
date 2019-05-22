@@ -3,21 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <RootNamespace>enson_be</RootNamespace>
+    <RootNamespace>enet_be</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20190328025403_createDB.cs" />
-    <Compile Remove="Migrations\20190328025403_createDB.Designer.cs" />
-    <Compile Remove="Migrations\20190328034625_createDB.cs" />
-    <Compile Remove="Migrations\20190328034625_createDB.Designer.cs" />
-    <Compile Remove="Migrations\20190328035934_createDB.cs" />
-    <Compile Remove="Migrations\20190328035934_createDB.Designer.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
@@ -32,6 +23,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
 
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
+
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
 
   </ItemGroup>
 

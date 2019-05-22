@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using enson_be.Models;
+using enet_be.Models;
 
-namespace enson_be.Data
+namespace enet_be.Data
 {
-    public interface IRegisterRepository
+    public interface IRegisterService
     {
         //Represents an asynchronous operation that return a User.
         Task<User> Register(User user, string password);

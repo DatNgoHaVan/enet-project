@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Dtos
+namespace enet_be.Dtos
 {
     public class UserForUpdateDto
     {
@@ -17,6 +17,7 @@ namespace enson_be.Dtos
         public string LastName { get; set; }
 
         public string Email { get; set; }
+        
         public long RoleId { get; set; }
     }
 }

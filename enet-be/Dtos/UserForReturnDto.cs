@@ -6,7 +6,7 @@ using enet_be.Models;
 
 namespace enet_be.Dtos
 {
-    public class UserForGetDto
+    public class UserForReturnDto
     {
         public long UserId { get; set; }
 

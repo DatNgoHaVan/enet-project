@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Models
+namespace enet_be.Models
 {
     public class OptionPostUser
     {
@@ -15,8 +15,8 @@ namespace enson_be.Models
         [Key, Column(Order = 2)]
         public long UserId { get; set; }
         [ForeignKey("PostId")]
-        public Post Post { get; set; }
+        public virtual Post Post { get; set; }
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }

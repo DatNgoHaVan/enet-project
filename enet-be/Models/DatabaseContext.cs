@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Models
+namespace enet_be.Models
 {
     public class DatabaseContext : DbContext
     {

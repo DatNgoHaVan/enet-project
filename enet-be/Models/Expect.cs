@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Models
+namespace enet_be.Models
 {
     public class Expect
     {
@@ -18,7 +18,7 @@ namespace enson_be.Models
         public long UserIdSub { get; set; }
            
         // UserIdMain and UserIdSub are from table User so we need User1 and User2
-        public User User1 { get; set; }
-        public User User2 { get; set; }
+        public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
     }
 }

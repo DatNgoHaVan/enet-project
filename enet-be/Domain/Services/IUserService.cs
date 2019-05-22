@@ -1,12 +1,12 @@
-﻿using enson_be.Models;
+﻿using enet_be.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Data
+namespace enet_be.Data
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         Task<IEnumerable<User>> GetAllUserAsync();
         Task<User> GetUserByIdAsync(long userId);

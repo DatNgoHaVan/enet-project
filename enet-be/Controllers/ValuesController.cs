@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace enson_be.Controllers
+namespace enet_be.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

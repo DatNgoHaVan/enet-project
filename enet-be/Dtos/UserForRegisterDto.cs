@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace enson_be.Dtos
+namespace enet_be.Dtos
 {
     public class UserForRegisterDto
     {

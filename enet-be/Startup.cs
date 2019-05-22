@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using enson_be.Data;
-using enson_be.Models;
+﻿using System.Text;
+using enet_be.Data;
+using enet_be.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using enet_be.Domain.Services;
+using enet_be.Services;
+using enet_be.Services.SwaggerService;
 
-namespace enson_be
+namespace enet_be
 {
     public class Startup
     {
@@ -36,22 +32,27 @@ namespace enson_be
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("SqlConnection")));
 
+            //add scoped for Repository Base service
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
             //add scoped for register repository
-            services.AddScoped<IRegisterRepository, RegisterRepository>();
+            services.AddScoped<IRegisterService, RegisterService>();
 
             //add scoped for user repository
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
 
             //add scoped for login
-            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<ILoginService, LoginService>();
 
             //add scoped for Post
-            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
 
-            services.AddScoped<ICommentRepository, CommentRepository>();
+            //add scoped for Comment
+            services.AddScoped<ICommentService, CommentService>();
+
             //add automapper
             services.AddAutoMapper();
-            
+
             //config authen for authencation middleware
             /*This will be changed in future */
             /*Just for example need time to research more about authen */
@@ -67,6 +68,9 @@ namespace enson_be
                         ValidateAudience = false
                     };
                 });
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerServiceDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +79,7 @@ namespace enson_be
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwaggerServiceDocumentation();
             }
             else
             {
@@ -87,11 +92,13 @@ namespace enson_be
             //Allow any for CORS
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-
             //Use Authentication
             app.UseAuthentication();
-            
-            app.UseMvc();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

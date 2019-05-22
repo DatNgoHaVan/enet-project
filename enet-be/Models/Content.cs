@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace enson_be.Models
+namespace enet_be.Models
 {
     public class Content
     {
@@ -14,7 +14,7 @@ namespace enson_be.Models
         public long ContentId { get; set; }
         public string ContentName { get; set; }
         public long UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public virtual List<Report> Reports { get; set; }
     }
 }
