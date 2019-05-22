@@ -15,6 +15,7 @@ namespace enet_be.Models
         public DateTime? Date { get; set; }
         public string Content { get; set; }
         public string Image { get; set; }
+        public bool? IsExist { get; set; }
         public long UserId { get; set; }
         public virtual User User { get; set; }
         public long PostId { get; set; }
