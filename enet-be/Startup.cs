@@ -99,6 +99,7 @@ namespace enet_be
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

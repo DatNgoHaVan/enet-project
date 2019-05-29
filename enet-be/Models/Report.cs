@@ -23,6 +23,7 @@ namespace enet_be.Models
         public int? Count { get; set; }
         public virtual List<Appeal> Appeals { get; set; }
         public virtual User User { get; set; }
+        public long PostId { get; set; }
         public virtual Post Post { get; set; }
         public virtual Content Content { get; set; }
         public long ReportTypeId { get; set; }
