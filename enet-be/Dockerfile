@@ -13,4 +13,4 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/dotnet:2.2-sdk
 WORKDIR /app
 COPY --from=build-env /app/out .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet enson-be.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet enet-be.dll
