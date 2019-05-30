@@ -137,7 +137,7 @@ namespace enet_be.Controllers
 
         //Update post for admin and user
         [Authorize(Roles = "User,Admin")]
-        [HttpPut("{id}")]
+        [HttpPut("{postId}")]
         public async Task<IActionResult> UpdatePost(long postId, [FromBody] PostForUpdateDto postForUpdateDto)
         {
             try

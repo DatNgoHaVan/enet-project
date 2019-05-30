@@ -109,7 +109,7 @@ namespace enet_be.Data
         public async Task UpdatePostAsync(PostForUpdateDto postForUpdate, Post postFromRepository)
         {
             var post = new Post();
-            post = postForUpdate.MapFromPostUpdateToPost();
+            post = _mapper.Map(postForUpdate, postFromRepository);
             _postRepository.Update(post);
             await _postRepository.SaveAsync();
         }
