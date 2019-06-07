@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />|' enson-be.csproj
+sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />|' enet-be.csproj
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' Startup.cs
 
 rm -rf Migrations/*

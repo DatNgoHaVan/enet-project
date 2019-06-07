@@ -1,5 +1,5 @@
 # ENET-PROJECT
-An social network.
+A social network.
 
 
 ## Build Status
