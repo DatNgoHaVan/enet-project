@@ -49,3 +49,30 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## classnames
 ### npm i --save classnames
+
+## Folder Structure
+
+Using Material-UI, SASS and TypeScript.
+
+```
+ENET-FE/
+  README.md
+  node_modules/
+  package.json
+  public/
+    index.html
+    favicon.ico
+  src/
+    components/
+    components-business/
+    models/
+    pages/
+    redux/
+        actions/
+        reducers/
+        index.jsx
+        history.jsx
+    services/
+    styles/
+    index.tsx
+    
