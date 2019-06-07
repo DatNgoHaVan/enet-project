@@ -29,7 +29,7 @@ namespace enet_be.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Content = table.Column<string>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    ModifiedBy = table.Column<DateTime>(nullable: true)
+                    ModifiedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -308,7 +308,7 @@ namespace enet_be.Migrations
                     Status = table.Column<int>(nullable: true),
                     Count = table.Column<int>(nullable: true),
                     UserId = table.Column<long>(nullable: true),
-                    PostId = table.Column<long>(nullable: true),
+                    PostId = table.Column<long>(nullable: false),
                     ReportTypeId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -325,7 +325,7 @@ namespace enet_be.Migrations
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "PostId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reports_ReportTypes_ReportTypeId",
                         column: x => x.ReportTypeId,
@@ -366,6 +366,129 @@ namespace enet_be.Migrations
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AvailableOptions",
+                columns: new[] { "AvailableOptionsId", "Content" },
+                values: new object[,]
+                {
+                    { 1L, "Test1" },
+                    { 2L, "Test2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Logs",
+                columns: new[] { "LogId", "Content", "ModifiedBy", "ModifiedDate" },
+                values: new object[,]
+                {
+                    { 1L, "Test1", "Lisa", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2L, "Test2", "Anthorny", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ReportTypes",
+                columns: new[] { "ReportTypeId", "ReportTypeName" },
+                values: new object[,]
+                {
+                    { 1L, "Type1" },
+                    { 2L, "Type2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RoleId", "Type" },
+                values: new object[,]
+                {
+                    { 1L, "Admin" },
+                    { 2L, "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "Address", "Birthday", "Email", "FirstName", "Image", "IsExist", "LastName", "PasswordHash", "PasswordSalt", "PhoneNumber", "RoleId", "UserName" },
+                values: new object[,]
+                {
+                    { 1L, "Da Nang", new DateTime(2019, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "lisa@enclave.vn", "Lisa", "https://i.imgur.com/q5RUBHl.jpg", true, "Nguyen", null, null, "0764126148", 1L, "Lisa" },
+                    { 2L, "DakNong", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "anthorny@enclave.vn", "Anthorny", "https://i.imgur.com/q5RUBHl.jpg", true, "Pham", null, null, "0764126149", 1L, "Anthorny" },
+                    { 3L, "Da Nang", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "dard@enclave.vn", "Dard", "https://i.imgur.com/q5RUBHl.jpg", true, "Ngo", null, null, "0764126150", 1L, "Dard" },
+                    { 4L, "Da Nang", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jeremy@enclave.vn", "Jeremy", "https://i.imgur.com/q5RUBHl.jpg", true, "Tran", null, null, "0764126151", 2L, "Jeremy" },
+                    { 5L, "Da Nang", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sunny@enclave.vn", "Sunny", "https://i.imgur.com/q5RUBHl.jpg", true, "Nguyen", null, null, "0764126152", 2L, "Sunny" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Contents",
+                columns: new[] { "ContentId", "ContentName", "UserId" },
+                values: new object[,]
+                {
+                    { 1L, "Test1", 1L },
+                    { 2L, "Test2", 1L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Expects",
+                columns: new[] { "UserIdMain", "UserIdSub" },
+                values: new object[] { 1L, 2L });
+
+            migrationBuilder.InsertData(
+                table: "Only",
+                columns: new[] { "UserIdMain", "UserIdSub" },
+                values: new object[] { 1L, 2L });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "PostId", "AvailableOptionsId", "Content", "IsExist", "Status", "Type", "Url", "UserId" },
+                values: new object[,]
+                {
+                    { 11L, 1L, "Hello! It's me ", true, 1, "Type1", "https://i.imgur.com/q5RUBHl.jpg", 1L },
+                    { 10L, 1L, "Anh vẫn hay đọc lại quyển sách đôi ta... từng xem. Vì còn bao điều thú vị ta vẫn chưa thể nào nhận ra...em à ", true, 1, "Type1", "https://i.imgur.com/T5AmSfab.jpg", 1L },
+                    { 9L, 1L, "Có một ngày, chót đem lòng ta ôm lấy cuồng si.. ", true, 1, "Type1", "https://i.imgur.com/BzONxug.jpg", 1L },
+                    { 8L, 1L, "Đó là một trang sách cũ mùi, Năm tháng ngủ vùi. Hoen ố trong tim ai đủ rồi ! Ưu tư phũ trời ", true, 1, "Type1", "https://i.imgur.com/BzONxug.jpg", 1L },
+                    { 7L, 1L, "Bắt chuyến xe đò, tuyến vùng cao, ghé thành phố không đèn đỏ. Ngồi đón bình minh, nắng vàng son..lên thềm gỗ ", true, 1, "Type1", "https://i.imgur.com/QHIc2NO.jpg", 1L },
+                    { 6L, 1L, "Bắt xe tuyến vùng cao Đà Lạt Tách cà phê hương thơm ngào ngạt ", true, 1, "Type1", "https://i.imgur.com/5NYlSWb.jpg", 1L },
+                    { 5L, 1L, "Nắng vẫn rơi bên thềm, vương sỏi đá. Gió kéo mây đi rồi, bay về đâu ? ", true, 1, "Type1", "https://i.imgur.com/5NYlSWb.jpg", 1L },
+                    { 4L, 1L, "có chiếc xe cửa sổ trong veo đưa hồn ai bay đi qua vèo", true, 1, "Type1", "https://i.imgur.com/GvB85NNb.jpg", 1L },
+                    { 3L, 1L, "Last night I dreamt of you my friend Of how you cried and said we intertwine", true, 1, "Type1", "https://i.imgur.com/cEn7P4Q.jpg", 1L },
+                    { 2L, 1L, "Last night I dreamt of you my friend Of how you cried and said we intertwine", true, 1, "Type1", "https://i.imgur.com/5NYlSWb.jpg", 1L },
+                    { 1L, 1L, "Good morning, guys!", true, 1, "Type1", "https://i.imgur.com/5NYlSWb.jpg", 1L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Relationships",
+                columns: new[] { "RelationshipId", "Block", "Follow", "Friend", "UserId", "UserSub" },
+                values: new object[,]
+                {
+                    { 1L, false, true, true, 1L, 2L },
+                    { 2L, false, true, true, 2L, 1L },
+                    { 3L, false, true, true, 2L, 1L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Comments",
+                columns: new[] { "CommentId", "Content", "Date", "Image", "IsExist", "PostId", "UserId" },
+                values: new object[,]
+                {
+                    { 1L, "Thanks!", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true, 1L, 1L },
+                    { 2L, "I love you!", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true, 2L, 1L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reactions",
+                columns: new[] { "ReactionId", "Content", "Date", "Image", "PostId", "UserId" },
+                values: new object[] { 1L, "Test1", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://i.imgur.com/q5RUBHl.jpg", 1L, 1L });
+
+            migrationBuilder.InsertData(
+                table: "Reports",
+                columns: new[] { "ReportId", "ApproveDate", "BeReportedId", "ContentId", "Count", "Judge", "PostId", "ReportDate", "ReportTypeId", "ReporterId", "Status", "Type", "UserId" },
+                values: new object[] { 1L, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1L, 1, 1L, 1L, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1L, 1, 1, null });
+
+            migrationBuilder.InsertData(
+                table: "Appeals",
+                columns: new[] { "AppealId", "Date", "ReportId", "Status", "UserId" },
+                values: new object[,]
+                {
+                    { 1L, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1, 1L },
+                    { 2L, new DateTime(2019, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1L, 1, 1L }
                 });
 
             migrationBuilder.CreateIndex(

@@ -14,6 +14,6 @@ namespace enet_be.Models
         public long LogId { get; set; }
         public string Content { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public DateTime? ModifiedBy { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }
